@@ -38,6 +38,8 @@
     int noOfCorruptedCleared;
     int noOfCascadingMatches;
     
+    int pointsToAdd;
+    
     BOOL isMoveValid;
 }
 
@@ -65,6 +67,8 @@
 - (void)repositionAllElements;
 - (void)checkIfAllElementsRepositioned;
 - (void)reshuffle;
+
+- (void)eraseElements;
 
 - (CGPoint) positionFromIndex:(CGPoint)thisIndex;
 

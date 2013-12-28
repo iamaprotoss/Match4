@@ -14,6 +14,7 @@
     BOOL isSuper;
     BOOL isToExplode;
     BOOL isLShapeCorner;
+    //BOOL isSuperEliminated;
     CGPoint isIndex;
     int dropSize;
     

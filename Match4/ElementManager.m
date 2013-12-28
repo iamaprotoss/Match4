@@ -120,6 +120,61 @@
 }
 
 #pragma animations///////////////////////
+- (void)animGlowElement:(Match4Element *)thisElement
+{
+    [thisElement runAction:
+     [CCRepeatForever actionWithAction:[CCBlink actionWithDuration:1 blinks:1]]];
+    thisElement.tag = 1;
+}
 
+- (void)animExplodeElement:(Match4Element *)thisElement withDelay:(float)thisDelay
+{
+    CCAnimation *anim = [CCAnimation animationWithSpriteFrames:explodingElementFrames delay:0.2f];
+    [thisElement runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:thisDelay],
+      [CCAnimate actionWithAnimation:anim],
+      [CCCallBlock actionWithBlock:^{
+         [thisElement release];
+     }],
+      nil]];
+}
+     
+
+- (void)animSuperElement:(Match4Element *)thisElement
+{
+    
+}
+
+- (void)animSuperEliminateElement:(Match4Element *)thisElement
+{
+    
+}
+
+- (void)animFlashElement:(Match4Element *)thisElement
+{
+    
+}
+
+- (void)animCrossShapeOnElement:(Match4Element *)thisElement
+{
+    
+}
+
+- (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay
+{
+    id action = [CCSequence actions:[CCFadeIn actionWithDuration:1/30], [CCFadeOut actionWithDuration:1/30], nil];
+    [thisElement runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:thisDelay],
+      [CCRepeat actionWithAction:action times:3],
+      [CCCallBlock actionWithBlock:^{
+         if (thisElement.isVisible) {
+             [thisElement removeFromParent];
+             [thisElement release];
+         }
+     }],
+      nil]];
+}
 
 @end
