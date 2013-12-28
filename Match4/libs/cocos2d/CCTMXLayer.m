@@ -396,7 +396,7 @@ int compareInts (const void * a, const void * b);
 	[self insertQuadFromSprite:tile quadIndex:indexForZ];
 
 	// insert it into the local atlasindex array
-	ccCArrayInsertValueAtIndex(_atlasIndexArray, (void*)z, indexForZ);
+	ccCArrayInsertValueAtIndex(_atlasIndexArray, (__bridge id)((void*)z), indexForZ);
 
 	// update possible children
 	CCSprite *sprite;
@@ -458,7 +458,7 @@ int compareInts (const void * a, const void * b);
 
 
 	// append should be after addQuadFromSprite since it modifies the quantity values
-	ccCArrayInsertValueAtIndex(_atlasIndexArray, (void*)z, indexForZ);
+	ccCArrayInsertValueAtIndex(_atlasIndexArray, (__bridge id)((void*)z), indexForZ);
 
 	return tile;
 }
