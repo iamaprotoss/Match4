@@ -6,8 +6,20 @@
 //  Copyright (c) 2013年 zhenwei. All rights reserved.
 //
 
-#import "CCSprite.h"
+#import "CCLabelTTF.h"
 
-@interface Match4Label : CCSprite
+@interface Match4Label : CCLabelTTF
+{
+    BOOL canAnimate;
+    float size;
+}
+
++ (id) labelWithString:(NSString *)name fontSize:(int)size;
+//- (void)styleWithSize:(float)thisSize;
+- (void)shadowSizeRatio:(float)thisRatio;
+- (void)animGlitchWithDelay:(float)thisDelay andDoRepeat:(BOOL)doRepeat;
+- (void)animGlitchWithAction:(void (^)(void))action;
+- (void)animUpdateWithText:(NSString *)thisString;
+- (void)stopAnimatingLabel;
 
 @end

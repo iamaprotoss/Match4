@@ -27,56 +27,39 @@
 {
     if (self = [super init]) {
         CCSprite *bg = [CCSprite spriteWithFile:@"start_bg.png"];
-        bg.scaleX = 0.33;
-        bg.scaleY = 0.3;
         bg.anchorPoint = ccp(0, 0);
         bg.position = ccp(0, 0);
         [self addChild:bg];
         
-        selectbg = [CCSprite spriteWithFile:@"item_selectbg.png"];
-        selectbg.scaleX = 0.33;
-        selectbg.scaleY = 0.3;
-        selectbg.position = ccp(165, 240);
+        selectbg = [CCSprite spriteWithFile:@"item_mainbg.png"];
+        selectbg.position = ccp(160, 284);
         [self addChild:selectbg];
         
-        buygold = [CCSprite spriteWithFile:@"item_buygold.png"];
-        buygold.scaleX = 0.33;
-        buygold.scaleY = 0.3;
-        buygold.position = ccp(165, 350);
+        buygold = [CCSprite spriteWithFile:@"item_maingold.png"];
+        buygold.position = ccp(160, 350);
         [self addChild:buygold];
         
         item = [CCSprite spriteWithFile:@"item_item.png"];
-        item.scaleX = 0.33;
-        item.scaleY = 0.3;
         item.position = ccp(125, 285);
         [self addChild:item];
         
         price = [CCSprite spriteWithFile:@"item_price.png"];
-        price.scaleX = 0.33;
-        price.scaleY = 0.3;
         price.position = ccp(125, 245);
         [self addChild:price];
         
-        
-        
-        CCSprite *sprite1 = [CCSprite spriteWithFile:@"start_start.png"];
-        sprite1.scaleX = 0.33;
-        sprite1.scaleY = 0.3;
-        sprite1.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *sprite2 = [CCSprite spriteWithFile:@"start_start.png"];
-        sprite2.scaleX = 0.35;
-        sprite2.scaleY = 0.32;
-        sprite2.anchorPoint = ccp(0.5, 0.5);
-        start = [CCMenuItemSprite itemWithNormalSprite:sprite1 selectedSprite:sprite2 target:self selector:@selector(mainToTime)];
+        CCSprite *startNormal = [CCSprite spriteWithFile:@"start_start.png"];
+        startNormal.anchorPoint = ccp(0.5, 0.5);
+        CCSprite *startSelected = [CCSprite spriteWithFile:@"start_start.png"];
+        startSelected.anchorPoint = ccp(0.5, 0.5);
+        start = [CCMenuItemSprite itemWithNormalSprite:startNormal selectedSprite:startSelected target:self selector:@selector(itemToTime)];
         CCMenu *menu = [CCMenu menuWithItems:start, nil];
-        menu.position = ccp(350, 150);
+        menu.position = ccp(160, 100);
         [self addChild:menu];
-
     }
     return self;
 }
 
--(void) mainToTime
+-(void) itemToTime
 {
     [[GameController sharedController] showGameView];
 }

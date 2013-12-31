@@ -24,6 +24,6 @@
 @property (retain, nonatomic) CCSprite *price;
 
 +(CCScene *) scene;
--(void) mainToTime;
+-(void) itemToTime;
 
 @end

@@ -9,6 +9,8 @@
 #import "ElementManager.h"
 
 @implementation ElementManager
+@synthesize explodingElementFrames, LShapeFrames;
+
 
 - (id) init
 {
@@ -17,43 +19,37 @@
         engageFrame = CGRectMake(0, 0, 37, 37);
         explosionFrame = CGRectMake(-20, -20, 80, 80);
         
-        explodingElementFrames = [[NSArray alloc] initWithObjects:
-                                  [CCSprite spriteWithFile:@"explodingSymbol00.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol01.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol02.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol03.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol04.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol05.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol06.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol07.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol08.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol09.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol10.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol11.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol13.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol14.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol15.png"],
-                                  [CCSprite spriteWithFile:@"explodingSymbol16.png"], nil];
+        explodingElementFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX1_0%i.png", i] rect:CGRectMake(0, 0, 80, 80)];
+            [explodingElementFrames addSpriteFrame:frame];
+        }
+        for (int i = 10; i < 18; i++) {
+            CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX1_%i.png", i] rect:CGRectMake(0, 0, 80, 80)];
+            [explodingElementFrames addSpriteFrame:frame];
+        }
+        explodingElementFrames.delayPerUnit = 0.1;
         
-        crossShapeFrames = [[NSArray alloc] initWithObjects:
-                            [CCSprite spriteWithFile:@"beam00.png"],
-                            [CCSprite spriteWithFile:@"beam01.png"],
-                            [CCSprite spriteWithFile:@"beam02.png"],
-                            [CCSprite spriteWithFile:@"beam03.png"],
-                            [CCSprite spriteWithFile:@"beam04.png"],
-                            [CCSprite spriteWithFile:@"beam05.png"],
-                            [CCSprite spriteWithFile:@"beam06.png"],
-                            [CCSprite spriteWithFile:@"beam07.png"],
-                            [CCSprite spriteWithFile:@"beam08.png"],
-                            [CCSprite spriteWithFile:@"beam09.png"],
-                            [CCSprite spriteWithFile:@"beam10.png"],
-                            [CCSprite spriteWithFile:@"beam11.png"],
-                            [CCSprite spriteWithFile:@"beam12.png"],
-                            [CCSprite spriteWithFile:@"beam13.png"],
-                            [CCSprite spriteWithFile:@"beam14.png"],
-                            [CCSprite spriteWithFile:@"beam15.png"], nil];
+        LShapeFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_0%i.png", i]];
+        }
+        for (int i = 10; i < 21; i++) {
+            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_%i.png", i]];
+        }
+        LShapeFrames.delayPerUnit = 2;
+        
     }
     return self;
+}
+
+- (void) dealloc
+{
+    [super dealloc];
+    [explodingElementFrames release];
+    explodingElementFrames = nil;
+    [LShapeFrames release];
+    LShapeFrames = nil;
 }
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes
@@ -61,19 +57,22 @@
     Match4Element *newElement = [[[Match4Element alloc] init] autorelease];
     
     int i = arc4random()%maxTypes;
-    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"symbol%d.png", i]];
+    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", i]];
     
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = i;
+    newElement.isVisible = YES;
+    newElement.scale = 0.8;
     return newElement;
 }
 
 - (Match4Element *)ElementWithType:(int)thisType
 {
     Match4Element *newElement = [[[Match4Element alloc] init] autorelease];
-    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"symbol%d.png", thisType]];
+    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = thisType;
+    newElement.scale = 0.8;
     return newElement;
 }
 
@@ -85,19 +84,25 @@
     //thisElement.opacity = 1;
     [thisElement removeAllChildren];
     //[thisElement.ElementImage release];
-    thisElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"symbol%d.png", thisType]];;
+    thisElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];;
+    thisElement.scale = 0.8;
     [thisElement addChild:thisElement.ElementImage];
 }
 
-- (void)turnToSuperElement:(Match4Element *)thisElement
+- (void)turnToExplosiveElement:(Match4Element *)thisElement
 {
-    if (!thisElement.isSuper) {
-        thisElement.isSuper = YES;
+    if (!thisElement.isExplosive) {
+        thisElement.isExplosive = YES;
         [thisElement removeAllChildren];
         thisElement.ElementImageGlow = [[CCSprite spriteWithFile:[NSString stringWithFormat:@"symbol%d-glow.png", thisElement.isOfType]] autorelease];
         [thisElement addChild:thisElement.ElementImageGlow];
         [self animGlowElement:thisElement];
     }
+}
+
+- (void)turnToSuperElement:(Match4Element *)thisElement
+{
+    [self animShiftToSuperElement:thisElement];
 }
 
 - (void)selectElement:(Match4Element *)thisElement
@@ -129,17 +134,24 @@
 
 - (void)animExplodeElement:(Match4Element *)thisElement withDelay:(float)thisDelay
 {
-    CCAnimation *anim = [CCAnimation animationWithSpriteFrames:explodingElementFrames delay:0.2f];
-    [thisElement runAction:
+    thisElement.ElementAnimation = [[CCSprite alloc] init];
+    [thisElement addChild:thisElement.ElementAnimation];
+    [thisElement.ElementAnimation runAction:
      [CCSequence actions:
       [CCDelayTime actionWithDuration:thisDelay],
-      [CCAnimate actionWithAnimation:anim],
+      [CCAnimate actionWithAnimation:explodingElementFrames],
       [CCCallBlock actionWithBlock:^{
-         [thisElement release];
+         [thisElement.ElementAnimation release];
+         thisElement.ElementAnimation = nil;
+         [thisElement removeFromParent];
      }],
       nil]];
 }
      
+/*- (void)animShiftToSuperElement:(Match4Element *)thisElement
+{
+    thisElement.ElementAnimation = [
+}*/
 
 - (void)animSuperElement:(Match4Element *)thisElement
 {
@@ -156,14 +168,35 @@
     
 }
 
-- (void)animCrossShapeOnElement:(Match4Element *)thisElement
+- (void)animLShapeOnElement:(Match4Element *)thisElement
 {
+    //CGRect beamFrame = CGRectMake(0, 0, MAX((320 + 2 * abs(thisElement.center.x - 165)), (320 + 2 * abs(thisElement.center.y - 165))), 40);
+    CCAnimation *rotatedLShapeFrames = [[CCAnimation alloc] init];
+    for (int i = 0; i < 10; i ++) {
+        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:@"beam0%i.png" rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
+        frame.rotated = YES;
+        [LShapeFrames addSpriteFrame:frame];
+    }
+    for (int i = 10; i < 16; i++) {
+        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:@"beam0%i.png" rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
+        frame.rotated = YES;
+        [LShapeFrames addSpriteFrame:frame];
+    }
+    rotatedLShapeFrames.delayPerUnit = 2;
+    thisElement.ElementAnimation = [[CCSprite alloc] init];
+    [thisElement addChild:thisElement.ElementAnimation];
+    [thisElement.ElementAnimation runAction:
+     [CCSequence actions:
+      [CCSpawn actionOne:[CCAnimate actionWithAnimation:LShapeFrames] two:[CCAnimate actionWithAnimation:rotatedLShapeFrames]],
+      nil]];
+    
+    [self animHideElement:thisElement withDelay:0];
     
 }
 
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay
 {
-    id action = [CCSequence actions:[CCFadeIn actionWithDuration:1/30], [CCFadeOut actionWithDuration:1/30], nil];
+    id action = [CCSequence actions:[CCFadeIn actionWithDuration:0.01], [CCBlink actionWithDuration:0.1], nil];
     [thisElement runAction:
      [CCSequence actions:
       [CCDelayTime actionWithDuration:thisDelay],
@@ -171,7 +204,7 @@
       [CCCallBlock actionWithBlock:^{
          if (thisElement.isVisible) {
              [thisElement removeFromParent];
-             [thisElement release];
+             //[thisElement release];
          }
      }],
       nil]];

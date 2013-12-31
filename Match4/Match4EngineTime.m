@@ -117,7 +117,7 @@
         for (int j = 0; j < 8; j++) {
             Match4Element *searchedElement = [[gameGrid objectAtIndex:i] objectAtIndex:j];
             if (![elementsToRemove containsObject:searchedElement]);
-                //[self searchPatternLShapeForElement:searchedElement];
+                [self searchPatternLShapeForElement:searchedElement];
         }
     }
     
@@ -160,7 +160,7 @@
     //isDoubleMatch = NO;
 }
 
-/*
+
 - (void)searchPatternLShapeForElement:(Match4Element *)thisElement {
     int x = thisElement.isIndex.x;
     int y = thisElement.isIndex.y;
@@ -202,7 +202,7 @@
         [self eliminateAllElementsInLineWithElementAtIndex:thisElement.isIndex];
     }
 }
-*/
+
 
 - (void)searchPatternHorizontalForElement:(Match4Element *)thisElement {
     int x = thisElement.isIndex.x + 1;
@@ -211,13 +211,13 @@
     BOOL canBreak = NO;
     BOOL canEliminateNeighbours = NO;
     
-    if (thisElement.isSuper) canEliminateNeighbours = YES;
+    if (thisElement.isExplosive) canEliminateNeighbours = YES;
     
     while (x < 8) {
         Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y];
         if (thisElement.isOfType == nextElement.isOfType) {
             matched++;
-            if (nextElement.isSuper) canEliminateNeighbours = YES;
+            if (nextElement.isExplosive) canEliminateNeighbours = YES;
         }
         else canBreak = YES;
         x++;
@@ -232,7 +232,7 @@
                 Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
                 if (i == 0) {
                     [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToSuperElement:elementToAdd];
+                    [elementManager turnToExplosiveElement:elementToAdd];
                 }
                 else {
                     if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
@@ -245,7 +245,7 @@
                 Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
                 if (i == 0) {
                     [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToSuperElement:elementToAdd];
+                    [elementManager turnToExplosiveElement:elementToAdd];
                 }
                 else {
                     if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
@@ -281,13 +281,13 @@
     BOOL canBreak = NO;
     BOOL canEliminateNeighbours = NO;
     
-    if (thisElement.isSuper) canEliminateNeighbours = YES;
+    if (thisElement.isExplosive) canEliminateNeighbours = YES;
     
     while (y < 8) {
         Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y];
         if (thisElement.isOfType == nextElement.isOfType) {
             matched++;
-            if (nextElement.isSuper) canEliminateNeighbours = YES;
+            if (nextElement.isExplosive) canEliminateNeighbours = YES;
         }
         else canBreak = YES;
         y++;
@@ -302,7 +302,7 @@
                 Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
                 if (j == 0) {
                     [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToSuperElement:elementToAdd];
+                    [elementManager turnToExplosiveElement:elementToAdd];
                 }
                 else {
                     if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
@@ -315,7 +315,7 @@
                 Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
                 if (j == 0) {
                     [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToSuperElement:elementToAdd];
+                    [elementManager turnToExplosiveElement:elementToAdd];
                 }
                 else {
                     if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
@@ -408,7 +408,10 @@
 
 - (BOOL)element:(CGPoint)firstIndex isNeighbourToElement:(CGPoint)secondIndex
 {
-    
+    BOOL isNeighbour = NO;
+    if ((abs((firstIndex.x - secondIndex.x)) == 1) & (firstIndex.y == secondIndex.y)) isNeighbour = YES;
+    else if ((abs((firstIndex.y - secondIndex.y)) == 1) & (firstIndex.x == secondIndex.x)) isNeighbour = YES;
+    return isNeighbour;
 }
 
 - (void)swapElement:(Match4Element *)firstElement withElement:(Match4Element *)secondElement
@@ -472,13 +475,15 @@
 
 }
 
-#pragma TOUCH ACTIONS
+#pragma mark TOUCH ACTIONS
 -(BOOL) TouchBegan:(CGPoint)local
 {
     if (canTouch) {
         CGPoint index = [self indexFromPosition:local];
-        Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
-        [self selectElement:thisElement];
+        if (index.x >= 0 && index.x < 8 && index.y >= 0 && index.y < 8) {
+            Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
+            [self selectElement:thisElement];
+        }
     }
     return YES;
 }
@@ -539,14 +544,14 @@
     return [self TouchMoved:local];
 }
 
-#pragma ELIMINATION & ANIMATION
+#pragma mark ELIMINATION & ANIMATION
 
 - (void)eraseElements {
     canTouch = NO;
-    /*if (isShockwave) {
+    if (isShockwave) {
         [self shockWaveFromCenter:shockwaveCentre];
         shockwaveCentre = CGPointMake(-1, -1);
-    }*/
+    }
     
     //didSuperEliminate = NO;
     
@@ -556,7 +561,7 @@
             //if (thisElement.isShifter) noOfShifterMatches++;
             //if (thisElement.isOfType == 9) noOfCorruptedCleared++;
             if (thisElement.isToExplode) [elementManager animExplodeElement:thisElement withDelay:(float) ((arc4random() % 5) / 10.0)];
-            //else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
+            else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
             /*else if (thisElement.isSuperEliminated) {
                 [ElementManager animSuperEliminateElement:thisElement];
                 didSuperEliminate = YES;
@@ -602,9 +607,9 @@
         int m = [[gameGrid objectAtIndex:i] count];
         if (m < 8) {
             for (int j = 0; j < 8 - m; j++) {
-                Match4Element *newElement = [elementManager randomElementWithMaxType:7];
-                newElement.position = [self positionFromIndex:CGPointMake(i, 8+j)];
-                newElement.isIndex = CGPointMake(i, 8+j);
+                Match4Element *newElement = [elementManager randomElementWithMaxType:6];
+                newElement.position = [self positionFromIndex:CGPointMake(i, j+8)];
+                newElement.isIndex = CGPointMake(i, j+8);
                 [self addChild:newElement];
                 [[gameGrid objectAtIndex:i] addObject:newElement];
             }
@@ -645,17 +650,18 @@
                 didFindSpot = YES;
                 time = sqrtf(0.05 * thisElement.dropSize);
                 delay = k * 0.1 + l * 0.05 + a;
-                [UIView animateWithDuration:time
-                                      delay:delay
-                                    options:UIViewAnimationOptionCurveEaseInOut
-                                 animations:^{
-                                     thisElement.position = [self positionFromIndex:thisElement.isIndex];
-                                 }
-                                 completion:^(BOOL finished) {
-                                     [elementsToMove removeObject:thisElement];
-                                     [self checkIfAllElementsRepositioned];
-                                 }];
-                k++;
+                [thisElement runAction:
+                 [CCSequence actions:
+                  [CCDelayTime actionWithDuration:delay],
+                  [CCMoveTo actionWithDuration:time position:[self positionFromIndex:thisElement.isIndex]],
+                  [CCCallBlock actionWithBlock:^{
+                     [elementsToMove removeObject:thisElement];
+                     [self checkIfAllElementsRepositioned];
+                 }],
+                  nil
+                  ]];
+                
+            k++;
             }
         }
     }
@@ -665,17 +671,36 @@
     if ([elementsToMove count] == 0) [self searchPatterns];
 }
 
+- (void)shockWaveFromCenter:(CGPoint)thisCenter {
+    isShockwave = NO;
+    
+    Match4Element *elementToGlitch;
+    float delay;
+    float m = thisCenter.x;
+    float n = thisCenter.y;
+    
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            elementToGlitch = [[gameGrid objectAtIndex:i] objectAtIndex:j];
+            if (![elementsToRemove containsObject:elementToGlitch]) {
+                delay = sqrtf((i - m)*(i - m) + (j - n)*(j - n)) / 15;
+                //[elementManager animGlitchSymbol:elementToGlitch withDelay:delay];
+            }
+        }
+    }
 
-#pragma OTHERS
+}
+
+#pragma mark OTHERS
 
 - (CGPoint)positionFromIndex:(CGPoint)thisIndex
 {
-    return CGPointMake(20 + (thisIndex.x*40), 320 - (20 + (thisIndex.y*40)));
+    return CGPointMake(20 + (thisIndex.x*40), 20 + (thisIndex.y*40));
 }
 
 - (CGPoint)indexFromPosition:(CGPoint)thisPosition
 {
-    return CGPointMake(((int)thisPosition.x-20+16)/40, ((int)320-thisPosition.y-20+16)/40);
+    return CGPointMake(((int)thisPosition.x-20+16)/40, ((int)thisPosition.y-20+16)/40);
 }
 
 @end

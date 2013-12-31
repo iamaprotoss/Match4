@@ -10,4 +10,35 @@
 
 @implementation Match4Label
 
++ (id) labelWithString:(NSString *)string fontSize:(int)thisSize
+{
+    return [CCLabelTTF labelWithString:string fontName:@"Dimbo" fontSize:thisSize];
+}
+
+- (void)animGlitchWithDelay:(float)thisDelay andDoRepeat:(BOOL)doRepeat
+{
+    
+}
+
+- (void)animGlitchWithAction:(void (^)(void))action
+{
+    
+}
+
+- (void)animUpdateWithText:(NSString *)thisString
+{
+    
+}
+
+- (void)stopAnimatingLabel
+{
+    canAnimate = NO;
+}
+
+- (void)dealloc
+{
+    canAnimate = NO;
+    [super dealloc];
+}
+
 @end

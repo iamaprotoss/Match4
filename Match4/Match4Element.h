@@ -11,7 +11,7 @@
     int isOfType;
     BOOL isVisible;
     BOOL isSelected;
-    BOOL isSuper;
+    BOOL isExplosive;
     BOOL isToExplode;
     BOOL isLShapeCorner;
     //BOOL isSuperEliminated;
@@ -35,7 +35,7 @@
 @property (nonatomic) int isOfType;
 @property (nonatomic) BOOL isVisible;
 @property (nonatomic) BOOL isSelected;
-@property (nonatomic) BOOL isSuper;
+@property (nonatomic) BOOL isExplosive;
 @property (nonatomic) BOOL isToExplode;
 @property (nonatomic) BOOL isLShapeCorner;
 @property (nonatomic) CGPoint isIndex;

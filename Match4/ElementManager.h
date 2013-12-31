@@ -14,24 +14,28 @@
     CGRect normalFrame;
     CGRect engageFrame;
     CGRect explosionFrame;
-    NSArray *explodingElementFrames;
-    NSArray *crossShapeFrames;
+    CCAnimation *explodingElementFrames;
+    CCAnimation *LShapeFrames;
 }
 
 @property (nonatomic, retain) Match4Element *thenewElement;
+@property (nonatomic, retain) CCAnimation *explodingElementFrames;
+@property (nonatomic, retain) CCAnimation *LShapeFrames;
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes;
 - (Match4Element *)ElementWithType:(int)thisType;
 - (Match4Element *)ElementWithIsOfType:(int)isOfType;
 - (void)selectElement:(Match4Element *)thisElement;
 - (void)deselectElement:(Match4Element *)thisElement;
+- (void)turnToExplosiveElement:(Match4Element *)thisElement;
 - (void)turnToSuperElement:(Match4Element *)thisElement;
 - (void)animGlowElement:(Match4Element *)thisElement;
+- (void)animShiftToSuperElement:(Match4Element *)thisElement;
 - (void)animExplodeElement:(Match4Element *)thisElement withDelay:(float)thisDelay;
 - (void)animSuperElement:(Match4Element *)thisElement;
 - (void)animSuperEliminateElement:(Match4Element *)thisElement;
 - (void)animFlashElement:(Match4Element *)thisElement;
-- (void)animCrossShapeOnElement:(Match4Element *)thisElement;
+- (void)animLShapeOnElement:(Match4Element *)thisElement;
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay;
 
 - (void)shiftElement:(Match4Element *)thisElement toType:(int)thisType;
