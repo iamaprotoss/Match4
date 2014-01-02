@@ -23,4 +23,6 @@
 @property (nonatomic, retain) CCSprite *retry;
 @property (nonatomic, retain) CCSprite *score;
 
++(CCScene *)scene;
+
 @end

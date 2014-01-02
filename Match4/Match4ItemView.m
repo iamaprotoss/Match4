@@ -26,6 +26,8 @@
 -(id) init
 {
     if (self = [super init]) {
+        [GameController sharedController].itemView = self;
+        
         CCSprite *bg = [CCSprite spriteWithFile:@"start_bg.png"];
         bg.anchorPoint = ccp(0, 0);
         bg.position = ccp(0, 0);

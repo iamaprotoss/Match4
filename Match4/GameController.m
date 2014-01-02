@@ -12,7 +12,7 @@
 #import "Match4ItemView.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, timeView, mainView, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, timeView, mainView, itemView, isInGame;
 
 +(GameController *)sharedController
 {
@@ -52,5 +52,6 @@
 {
     [[CCDirector sharedDirector] replaceScene:[Match4ItemView scene]];
 }
+
 
 @end

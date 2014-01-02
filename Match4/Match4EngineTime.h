@@ -15,7 +15,7 @@
 {
     BOOL isVisible;
     BOOL canTouch;
-    GameController *gameController;
+    //GameController *gameController;
     ElementManager *elementManager;
     Match4Element *firstTouchedElement;
     NSMutableArray *gameGrid;

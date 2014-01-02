@@ -8,6 +8,7 @@
 
 #import "Match4MainView.h"
 #import "Match4TimeView.h"
+#import "GameController.h"
 
 @implementation Match4MainView
 @synthesize bg, friendsbg, gold, lives, option, points, start, title;
@@ -25,19 +26,14 @@
 
 - (void)dealloc
 {
-    [bg release];
-    [friendsbg release];
-    [gold release];
-    [lives release];
-    [option release];
-    [points release];
-    [start release];
-    [title release];
+    [super dealloc];
 }
 
 -(id) init
 {
     if (self = [super init]) {
+        [GameController sharedController].mainView = self;
+        
         bg = [CCSprite spriteWithFile:@"start_bg.png"];
         bg.anchorPoint = ccp(0, 0);
         bg.position = ccp(0, 0);

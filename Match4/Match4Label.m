@@ -12,7 +12,7 @@
 
 + (id) labelWithString:(NSString *)string fontSize:(int)thisSize
 {
-    return [CCLabelTTF labelWithString:string fontName:@"Dimbo" fontSize:thisSize];
+    return [CCLabelTTF labelWithString:string fontName:@"Marker Felt" fontSize:thisSize];
 }
 
 - (void)animGlitchWithDelay:(float)thisDelay andDoRepeat:(BOOL)doRepeat

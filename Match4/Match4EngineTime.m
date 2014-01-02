@@ -7,6 +7,7 @@
 //
 
 #import "Match4EngineTime.h"
+#import "Match4TimeView.h"
 
 @implementation Match4EngineTime
 
@@ -48,7 +49,7 @@
 
 - (void) populateGameField
 {
-    NSMutableArray *gameGridArray = gameController.localStore.currentGame.gameGrid;
+    NSMutableArray *gameGridArray = [GameController sharedController].localStore.currentGame.gameGrid;
     
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -581,7 +582,7 @@
     if (noOfLShapedMatches > 0) [viewController.soundController playSound:@"LMatch"];
     if (noOfSuperEliminated > 0) [viewController.soundController playSound:@"SuperSymbolElimination"];*/
     
-    pointsToAdd = 0;
+    pointsToAdd = 1;
     /*
     pointsToAdd = noOfNormalMatches * viewController.valuesManager.kPointsStandardMatch +
     noOfMatchesOf4 * viewController.valuesManager.kPoints4Match +
@@ -594,7 +595,7 @@
     noOfCascadingMatches * viewController.valuesManager.kPointsCascadingMatch +
     noOfDoubleMatches * viewController.valuesManager.kPointsDoubleMatch;*/
     
-    //[gameController.timeView addPoints:pointsToAdd];
+    [[GameController sharedController].timeView  addPoints:pointsToAdd];
     //[self clearPoints];
     
     //isCascading = YES;

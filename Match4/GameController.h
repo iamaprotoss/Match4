@@ -14,6 +14,7 @@
 #import "ElementManager.h"
 @class Match4MainView;
 @class Match4TimeView;
+@class Match4ItemView;
 
 @interface GameController : NSObject
 {
@@ -23,8 +24,9 @@
     MusicController *musicController;
     ElementManager *elementManager;
     
-    Match4MainView *mainView;
-    Match4TimeView *timeView;
+    Match4MainView *mainView; // Match4MainView
+    Match4TimeView *timeView; // Match4TimeView
+    Match4ItemView *itemView; // Match4ItemView
     
     BOOL isInGame;
 }
@@ -37,6 +39,7 @@
 
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;
+@property (nonatomic, retain) Match4ItemView *itemView;
 
 @property (nonatomic) BOOL isInGame;
 
