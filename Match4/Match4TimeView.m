@@ -13,6 +13,7 @@
 @implementation Match4TimeView
 @synthesize gameOverView, pauseLayer;
 @synthesize gameController;
+@synthesize gameEngine;
 @synthesize play_bg, play_points, play_multiplier, play_panel, score, timer;
 @synthesize isGameOver, isPlaying;
 

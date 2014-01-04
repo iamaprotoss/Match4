@@ -24,6 +24,11 @@
     NSMutableSet *elementsToMove;
     NSMutableSet *elementsToSkip;
     
+    NSMutableArray *partitionOfGrid;
+    NSInteger group[8][8];
+    
+    BOOL isNuclearBomb;
+    
     BOOL isShockwave;
     CGPoint shockwaveCentre;
     

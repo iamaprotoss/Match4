@@ -27,6 +27,7 @@
 {
     if (self = [super init]) {
         isVisible = NO;
+        isNuclearBomb = NO;
         gameGrid = [[NSMutableArray alloc] init];
         for (int i = 0; i < 8; i ++) {
             [gameGrid addObject:[NSMutableArray array]];
@@ -34,6 +35,7 @@
         elementsToRemove = [[NSMutableSet alloc] init];
         elementsToMove = [[NSMutableSet alloc] init];
         elementsToSkip = [[NSMutableSet alloc] init];
+        partitionOfGrid = [[NSMutableArray alloc] init];
         
         elementManager = [GameController sharedController].elementManager;
         firstTouchedElement = nil;
@@ -134,7 +136,73 @@
         
         [elementManager shiftElement:thisElement toType:newType];
     }
+}
+
+
+#pragma mark FIND PARTITION
+- (void) clearPartition
+{
+    for (NSMutableArray *array in partitionOfGrid) {
+        [array removeAllObjects];
+        [array release];
+    }
+    [partitionOfGrid removeAllObjects];
+}
+
+- (void) findPartition
+{
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            group[i][j] = -1;
+        }
+    }
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (group[i][j] == -1) {
+                int groupId = count;
+                [self dfSearch:CGPointMake(i, j) type:[[[gameGrid objectAtIndex:i] objectAtIndex:j] isOfType] Id:groupId];
+                count ++;
+            }
+        }
+    }
     
+    [self clearPartition];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (group[i][j] >= [partitionOfGrid count]) {
+                NSMutableArray *component = [[NSMutableArray alloc] init];
+                [partitionOfGrid addObject:component];
+                [component addObject:[[gameGrid objectAtIndex:i] objectAtIndex:j]];
+            } else {
+                [[partitionOfGrid objectAtIndex:group[i][j]] addObject:[[gameGrid objectAtIndex:i] objectAtIndex:j]];
+            }
+        }
+    }
+}
+
+-(void) dfSearch:(CGPoint)index type:(int)thisType Id:(int)thisGroupId
+{
+    int x = index.x;
+    int y = index.y;
+    group[x][y] = thisGroupId;
+    x = index.x - 1;
+    if (x>=0 && group[x][y]==-1 && [[[gameGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearch:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    x = index.x + 1;
+    if (x<8 && group[x][y]==-1 && [[[gameGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearch:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    x = index.x;
+    y = index.y - 1;
+    if (y>=0 && group[x][y]==-1 && [[[gameGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearch:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    y = index.y + 1;
+    if (y<8 && group[x][y]==-1 && [[[gameGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearch:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
 }
 
 - (int) findConnectedComponent:(Match4Element *)thisElement
@@ -205,33 +273,81 @@
 }
 
 
-#pragma SEARCH PATTERNS
+#pragma mark SEARCH PATTERNS
+- (void)eliminateNormal:(NSMutableArray *)thisComponent
+{
+    int indexToTurnSuperior = arc4random()%[thisComponent count];
+    for (int i = 0; i < [thisComponent count]; i++) {
+        Match4Element *element = [thisComponent objectAtIndex:i];
+        if (i == indexToTurnSuperior) {
+            [elementsToSkip addObject:element];
+            [elementManager turnToExplosiveElement:element];
+        } else {
+            [elementsToRemove addObject:element];
+        }
+    }
+}
+
+- (void)eliminateSuperSingle:(NSMutableArray *)thisComponent
+{
+    for (Match4Element *element in thisComponent) {
+        [elementsToRemove addObject:element];
+        if (element.isExplosive == YES) {
+            element.isOfSuperSingle = YES;
+            [self eliminateNeighboursOfElementAtIndex:element.isIndex];
+        }
+    }
+}
+
+- (void)eliminateSuperDouble:(NSMutableArray *)thisComponent
+{
+    for (Match4Element *element in thisComponent) {
+        [elementsToRemove addObject:element];
+        if (element.isExplosive == YES) {
+            element.isOfSuperDouble = YES;
+        }
+    }
+    [self eliminateAllElementsOfType:[[thisComponent lastObject] isOfType]];
+}
+
+- (void)eliminateSuperTriple:(NSMutableArray *)thisComponent
+{
+    for (Match4Element *element in thisComponent) {
+        [elementsToRemove addObject:element];
+        if (element.isExplosive == YES) {
+            element.isOfSuperTriple = YES;
+            [self eliminateAllElementsInLineWithElementAtIndex:element.isIndex];
+        }
+    }
+}
+
+- (void)eliminateAll
+{
+    isNuclearBomb = YES;
+}
+
 - (void)searchPatterns {
+    [self findPartition];
     
-    ///L-shaped pattern
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            Match4Element *searchedElement = [[gameGrid objectAtIndex:i] objectAtIndex:j];
-            if (![elementsToRemove containsObject:searchedElement]);
-            [self searchPatternLShapeForElement:searchedElement];
-        }
-    }
-    
-    ///horizontal patterns
-    for (int i = 0; i < 6; i++) {
-        for (int j = 0; j < 8; j++) {
-            Match4Element *searchedElement = [[gameGrid objectAtIndex:i] objectAtIndex:j];
-            if (![elementsToRemove containsObject:searchedElement])
-                [self searchPatternHorizontalForElement:searchedElement];
-        }
-    }
-    
-    ///vertical patterns
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 6; j++) {
-            Match4Element *searchedElement = [[gameGrid objectAtIndex:i] objectAtIndex:j];
-            if (![elementsToRemove containsObject:searchedElement])
-                [self searchPatternVerticalForElement:searchedElement];
+    for (NSMutableArray *component in partitionOfGrid) {
+        if ([component count] >= 4) {
+            int numOfSuperior = 0;
+            for (Match4Element *elementToCheck in component) {
+                if (elementToCheck.isExplosive) {
+                    numOfSuperior ++;
+                }
+            }
+            if (numOfSuperior == 0) {
+                [self eliminateNormal:component];
+            } else if (numOfSuperior == 1) {
+                [self eliminateSuperSingle:component];
+            } else if (numOfSuperior == 2) {
+                [self eliminateSuperDouble:component];
+            } else if (numOfSuperior == 3) {
+                [self eliminateSuperTriple:component];
+            } else {
+                [self eliminateAll];
+            }
         }
     }
     
@@ -256,189 +372,6 @@
     //isDoubleMatch = NO;
 }
 
-
-- (void)searchPatternLShapeForElement:(Match4Element *)thisElement {
-    int x = thisElement.isIndex.x;
-    int y = thisElement.isIndex.y;
-    BOOL hasHorizontal = NO;
-    BOOL hasVertical = NO;
-    
-    if (x > 1) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x - 1] objectAtIndex:y];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            nextElement = [[gameGrid objectAtIndex:x - 2] objectAtIndex:y];
-            if (thisElement.isOfType == nextElement.isOfType) hasHorizontal = YES;
-        }
-    }
-    if (x < 6) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x + 1] objectAtIndex:y];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            nextElement = [[gameGrid objectAtIndex:x + 2] objectAtIndex:y];
-            if (thisElement.isOfType == nextElement.isOfType) hasHorizontal = YES;
-        }
-    }
-    if (y > 1) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y - 1];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y - 2];
-            if (thisElement.isOfType == nextElement.isOfType) hasVertical = YES;
-        }
-    }
-    if (y < 6) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y + 1];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y + 2];
-            if (thisElement.isOfType == nextElement.isOfType) hasVertical = YES;
-        }
-    }
-    
-    if (hasHorizontal & hasVertical) {
-        thisElement.isLShapeCorner = YES;
-        noOfLShapedMatches++;
-        [self eliminateAllElementsInLineWithElementAtIndex:thisElement.isIndex];
-    }
-}
-
-
-- (void)searchPatternHorizontalForElement:(Match4Element *)thisElement {
-    int x = thisElement.isIndex.x + 1;
-    int y = thisElement.isIndex.y;
-    int matched = 1;
-    BOOL canBreak = NO;
-    BOOL canEliminateNeighbours = NO;
-    
-    if (thisElement.isExplosive) canEliminateNeighbours = YES;
-    
-    while (x < 8) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            matched++;
-            if (nextElement.isExplosive) canEliminateNeighbours = YES;
-        }
-        else canBreak = YES;
-        x++;
-        if (canBreak) break;
-    }
-    
-    x = thisElement.isIndex.x;
-    switch (matched) {
-        case 5:
-            noOfMatchesOf5++;
-            for (int i = 0; i < matched; i++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
-                if (i == 0) {
-                    [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToExplosiveElement:elementToAdd];
-                }
-                else {
-                    if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-                }
-            }
-            break;
-        case 4:
-            noOfMatchesOf4++;
-            for (int i = 0; i < matched; i++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
-                if (i == 0) {
-                    [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToExplosiveElement:elementToAdd];
-                }
-                else {
-                    if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-                }
-            }
-            break;
-        case 3:
-            noOfNormalMatches++;
-            for (int i = 0; i < matched; i++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
-                if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-            }
-            break;
-        default:
-            break;
-    }
-    if (canEliminateNeighbours & (matched > 2)) {
-        noOfMatchesOf4Explosion++;
-        for (int i = 0; i < matched; i++) {
-            Match4Element *elementToCheck = [[gameGrid objectAtIndex:thisElement.isIndex.x + i] objectAtIndex:thisElement.isIndex.y];
-            elementToCheck.isToExplode = YES;
-            [self eliminateNeighboursOfElementAtIndex:elementToCheck.isIndex];
-        }
-        isShockwave = YES;
-        shockwaveCentre = CGPointMake(x, y);
-    }
-}
-
-- (void)searchPatternVerticalForElement:(Match4Element *)thisElement {
-    int x = thisElement.isIndex.x;
-    int y = thisElement.isIndex.y + 1;
-    int matched = 1;
-    BOOL canBreak = NO;
-    BOOL canEliminateNeighbours = NO;
-    
-    if (thisElement.isExplosive) canEliminateNeighbours = YES;
-    
-    while (y < 8) {
-        Match4Element *nextElement = [[gameGrid objectAtIndex:x] objectAtIndex:y];
-        if (thisElement.isOfType == nextElement.isOfType) {
-            matched++;
-            if (nextElement.isExplosive) canEliminateNeighbours = YES;
-        }
-        else canBreak = YES;
-        y++;
-        if (canBreak) break;
-    }
-    
-    y = thisElement.isIndex.y;
-    switch (matched) {
-        case 5:
-            noOfMatchesOf5++;
-            for (int j = 0; j < matched; j++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
-                if (j == 0) {
-                    [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToExplosiveElement:elementToAdd];
-                }
-                else {
-                    if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-                }
-            }
-            break;
-        case 4:
-            noOfMatchesOf4++;
-            for (int j = 0; j < matched; j++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
-                if (j == 0) {
-                    [elementsToSkip addObject:elementToAdd];
-                    [elementManager turnToExplosiveElement:elementToAdd];
-                }
-                else {
-                    if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-                }
-            }
-            break;
-        case 3:
-            noOfNormalMatches++;
-            for (int j = 0; j < matched; j++) {
-                Match4Element *elementToAdd = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
-                if (![elementsToRemove containsObject:elementToAdd]) [elementsToRemove addObject:elementToAdd];
-            }
-            break;
-        default:
-            break;
-    }
-    if (canEliminateNeighbours & (matched > 2)) {
-        noOfMatchesOf4Explosion++;
-        for (int j = 0; j < matched; j++) {
-            Match4Element *elementToCheck = [[gameGrid objectAtIndex:thisElement.isIndex.x] objectAtIndex:thisElement.isIndex.y + j];
-            elementToCheck.isToExplode = YES;
-            [self eliminateNeighboursOfElementAtIndex:elementToCheck.isIndex];
-        }
-        isShockwave = YES;
-        shockwaveCentre = CGPointMake(x, y);
-    }
-}
 
 - (void)eliminateNeighboursOfElementAtIndex:(CGPoint)thisIndex
 {
@@ -472,7 +405,7 @@
             }
         }
     }
-    [self eraseElements];
+    //[self eraseElements];
 }
 
 - (void)eliminateAllElementsInLineWithElementAtIndex:(CGPoint)thisIndex {
