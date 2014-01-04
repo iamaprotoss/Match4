@@ -11,7 +11,8 @@
 #import "GameController.h"
 
 @implementation Match4MainView
-@synthesize bg, friendsbg, gold, lives, option, points, start, title;
+@synthesize bg, friendsbg, gold, lives, option, points, start, title, facebooklogin;
+@synthesize friendsLayer, itemLayer;
 
 +(CCScene*) scene
 {
@@ -43,24 +44,25 @@
         friendsbg.position = ccp(156, 190);
         [self addChild:friendsbg];
         */
-        gold = [CCSprite spriteWithFile:@"start_gold.png"];
-        gold.position = ccp(252, 350);
-        [self addChild:gold];
         
         for (int i = 0; i < 5; i++) {
             CCSprite *life = [CCSprite spriteWithFile:@"start_live.png"];
-            life.position = ccp(25+30*i, 350);
+            life.position = ccp(30+30*i, 500);
             [self addChild:life];
             [lives addObject:life];
         }
-        /*
-        points = [CCSprite spriteWithFile:@"start_points.png"];
-        points.position = ccp(150, 325);
-        [self addChild:points];
-        */
-        title = [CCSprite spriteWithFile:@"start_title.png"];
+        
+        /*facebooklogin = [CCSprite spriteWithFile:@"start_facebook_login.png"];
+        facebooklogin.position = ccp(160, 200);
+        [self addChild:facebooklogin];*/
+        
+        gold = [CCSprite spriteWithFile:@"start_gold.png"];
+        gold.position = ccp(250, 500);
+        [self addChild:gold];
+        
+        /*title = [CCSprite spriteWithFile:@"start_title.png"];
         title.position = ccp(160, 420);
-        [self addChild:title];
+        [self addChild:title];*/
         
         /*option = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_optionbutton.png"] selectedSprite:[CCSprite spriteWithFile:@"start_optionbutton.png"] target:self selector:@selector(mainToOption)];
         CCMenu *menu = [CCMenu menuWithItems:option, nil];
@@ -73,15 +75,27 @@
         startSelected.anchorPoint = ccp(0.5, 0.5);
         start = [CCMenuItemSprite itemWithNormalSprite:startNormal selectedSprite:startSelected target:self selector:@selector(mainToItem)];
         CCMenu *menu = [CCMenu menuWithItems:start, nil];
-        menu.position = ccp(160, 100);
+        menu.position = ccp(160, 120);
         [self addChild:menu];
+        
+        friendsLayer = [Match4FriendsLayer node];
+        friendsLayer.position = ccp(0, 120);
+        [self addChild:friendsLayer];
     }
     return self;
 }
 
 -(void) mainToItem
 {
-    [[GameController sharedController] showItemView];
+    if (friendsLayer!=nil) {
+        [friendsLayer removeFromParent];
+        friendsLayer = nil;
+        itemLayer = [Match4ItemLayer node];
+        itemLayer.position = ccp(0, 120);
+        [self addChild:itemLayer];
+    } else {
+        [[GameController sharedController] showGameView];
+    }
 }
 
 @end

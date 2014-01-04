@@ -14,7 +14,7 @@
 #import "ElementManager.h"
 @class Match4MainView;
 @class Match4TimeView;
-@class Match4ItemView;
+@class Match4ItemLayer;
 
 @interface GameController : NSObject
 {
@@ -26,7 +26,7 @@
     
     Match4MainView *mainView; // Match4MainView
     Match4TimeView *timeView; // Match4TimeView
-    Match4ItemView *itemView; // Match4ItemView
+    Match4ItemLayer *itemView; // Match4ItemLayer
     
     BOOL isInGame;
 }
@@ -39,7 +39,7 @@
 
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;
-@property (nonatomic, retain) Match4ItemView *itemView;
+@property (nonatomic, retain) Match4ItemLayer *itemView;
 
 @property (nonatomic) BOOL isInGame;
 

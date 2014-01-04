@@ -7,18 +7,20 @@
 //
 
 #import "CCLayer.h"
-#import "Match4EngineTime.h"
+#import "Match4EngineGame.h"
 #import "Match4Label.h"
-#import "GameOverView.h"
+#import "Match4GameOverLayer.h"
+#import "Match4PauseLayer.h"
 
 @interface Match4TimeView : CCLayer
 {
-    Match4EngineTime *gameEngine;
+    Match4EngineGame *gameEngine;
     Match4Label *scoreLabel;
     Match4Label *timeLabel;
     GameController *gameController;
     
-    GameOverView *gameOverView;
+    Match4GameOverLayer *gameOverView;
+    Match4PauseLayer *pauseLayer;
     
     CCSprite *play_bg;
     CCSprite *play_points;
@@ -34,12 +36,13 @@
     float timer;
 }
 
-@property (nonatomic, retain) CCLayer *gameOverView;
+@property (nonatomic, retain) Match4GameOverLayer *gameOverView;
+@property (nonatomic, retain) Match4PauseLayer *pauseLayer;
 
 @property (nonatomic, retain) GameController *gameController;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isGameOver;
-@property (nonatomic, retain) Match4EngineTime *gameEngine;
+@property (nonatomic, retain) Match4EngineGame *gameEngine;
 @property float timer;
 
 @property (nonatomic, retain) CCSprite *play_bg;
@@ -58,6 +61,7 @@
 -(void) gameOver;
 -(void) pause;
 -(void) resume;
+-(void) restart;
 
 -(void) clues;
 -(void) proposeReshuffle;

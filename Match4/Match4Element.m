@@ -14,4 +14,15 @@
 @synthesize isOfSuperSingle, isOfSuperDouble, isOfSuperTriple;
 @synthesize ElementImage, ElementImageGlow, ElementAnimation, ElementCoin, ElementMultiplier, ElementSelectionBox;
 
+
+-(id)duplicate
+{
+    Match4Element *element = [[[Match4Element alloc] init] autorelease];
+    element.isOfType = self.isOfType;
+    element.isVisible = self.isVisible;
+    return element;
+}
+
+
+ 
 @end

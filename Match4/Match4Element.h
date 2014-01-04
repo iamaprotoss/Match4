@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 zhenwei. All rights reserved.
 //
 
-@interface Match4Element : CCNodeRGBA
+@interface Match4Element : CCNodeRGBA<NSCopying>
 {
     int isOfType;
     BOOL isVisible;
@@ -50,5 +50,7 @@
 @property (nonatomic, retain) CCSprite *ElementCoin;
 @property (nonatomic, retain) CCSprite *ElementMultiplier;
 @property (nonatomic, retain) CCSprite *ElementSelectionBox;
+
+-(id) duplicate;
 
 @end

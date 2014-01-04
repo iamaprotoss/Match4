@@ -1,9 +1,9 @@
 //
-//  Match4EngineTime.h
+//  Match4EngineGame.h
 //  Match4
 //
-//  Created by apple on 13-12-23.
-//  Copyright (c) 2013年 zhenwei. All rights reserved.
+//  Created by apple on 14-1-3.
+//  Copyright (c) 2014年 zhenwei. All rights reserved.
 //
 
 #import "CCLayer.h"
@@ -11,7 +11,7 @@
 #import "GameController.h"
 #import "ElementManager.h"
 
-@interface Match4EngineTime : CCLayer
+@interface Match4EngineGame : CCLayer
 {
     BOOL isVisible;
     BOOL canTouch;
@@ -61,9 +61,11 @@
 - (void)searchPatterns;
 - (void)searchPatternForElement:(Match4Element *)thisElement;
 
+- (void)resetGame;
 - (void)populateGameField;
 - (void)refillGameField;
 - (void)checkIfElementNotMakingPattern:(Match4Element *)thisElement;
+- (int)findConnectedComponent:(Match4Element *)thisElement;
 - (void)repositionAllElements;
 - (void)checkIfAllElementsRepositioned;
 - (void)reshuffle;
@@ -74,3 +76,4 @@
 - (CGPoint) indexFromPosition:(CGPoint)thisPosition;
 
 @end
+
