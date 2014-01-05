@@ -14,7 +14,7 @@
 @synthesize gameOverView, pauseLayer;
 @synthesize gameController;
 @synthesize gameEngine;
-@synthesize play_bg, play_points, play_multiplier, play_panel, score, timer;
+@synthesize play_bg, play_points, play_multiplier, play_board, score, timer;
 @synthesize isGameOver, isPlaying;
 
 +(CCScene*) scene
@@ -38,20 +38,21 @@
         play_bg.position = ccp(0, 0);
         [self addChild:play_bg];
         
+        play_board = [CCSprite spriteWithFile:@"play_board.png"];
+        play_board.position = ccp(160, 260);
+        play_board.scale = 640.0/1920;
+        [self addChild:play_board];
+        
         play_points = [CCSprite spriteWithFile:@"play_points.png"];
-        play_points.position = ccp(200, 480);
+        play_points.position = ccp(200, 450);
         [self addChild:play_points];
         score = [Match4Label labelWithString:@"0" fontSize:20];
         [play_points addChild:score];
         score.position = ccp(50, 12);
         
         play_multiplier = [CCSprite spriteWithFile:@"play_multimark.png"];
-        play_multiplier.position = ccp(270, 480);
+        play_multiplier.position = ccp(270, 450);
         [self addChild:play_multiplier];
-        
-        /*play_panel = [CCSprite spriteWithFile:@"play_down.png"];
-        play_panel.position = ccp(160, 70);
-        [self addChild:play_panel];*/
         
         play_timeBg = [CCSprite spriteWithFile:@"play_time_bg.png"];
         play_timeBg.position = ccp(160, 77);
@@ -96,7 +97,9 @@
 -(void) countDown
 {
     if (isPlaying) {
-        self.timer --;
+        if (self.timer > 0) {
+            self.timer --;
+        }
         //[play_timeBar removeFromParent];
         //play_timeBar = [CCSprite spriteWithFile:@"play_time_bar.png"]; //rect:CGRectMake(0, 0, 100, 5*self.timer)];
         //play_timeBar.rotation = 90;
@@ -104,7 +107,8 @@
         //play_timeBar.anchorPoint = ccp(0, 0);
         play_timeBar.position = ccp(66, 70);
         //[self addChild:play_timeBar];
-        if (self.timer <= 0) {
+        if (self.timer <= 0 && gameEngine.canTouch == YES) {
+            gameEngine.canTouch = NO;
             [self unschedule:@selector(countDown)];
             isGameOver = YES;
             [self gameOver];
@@ -154,7 +158,8 @@
     gameOverView = nil;
     isPlaying = YES;
     isGameOver = NO;
-    [score setString:@"0"];
+    [GameController sharedController].statsManager.score = 0;
+    [self updateScore];
     self.timer = 60;
     play_timeBar.scaleX = 1.32;
     [gameEngine resetGame];

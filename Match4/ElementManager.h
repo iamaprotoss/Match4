@@ -16,11 +16,13 @@
     CGRect explosionFrame;
     CCAnimation *explodingElementFrames;
     CCAnimation *LShapeFrames;
+    CCAnimation *glowingElementFrames;
 }
 
 @property (nonatomic, retain) Match4Element *thenewElement;
 @property (nonatomic, retain) CCAnimation *explodingElementFrames;
 @property (nonatomic, retain) CCAnimation *LShapeFrames;
+@property (nonatomic, retain) CCAnimation *glowingElementFrames;
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes;
 - (Match4Element *)ElementWithType:(int)thisType;

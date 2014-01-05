@@ -47,7 +47,7 @@
         
         for (int i = 0; i < 5; i++) {
             CCSprite *life = [CCSprite spriteWithFile:@"start_live.png"];
-            life.position = ccp(30+30*i, 500);
+            life.position = ccp(30+30*i, 450);
             [self addChild:life];
             [lives addObject:life];
         }
@@ -57,7 +57,7 @@
         [self addChild:facebooklogin];*/
         
         gold = [CCSprite spriteWithFile:@"start_gold.png"];
-        gold.position = ccp(250, 500);
+        gold.position = ccp(250, 450);
         [self addChild:gold];
         
         /*title = [CCSprite spriteWithFile:@"start_title.png"];

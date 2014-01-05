@@ -25,7 +25,7 @@
     CCSprite *play_bg;
     CCSprite *play_points;
     CCSprite *play_multiplier;
-    CCSprite *play_panel;
+    CCSprite *play_board;
     CCSprite *play_timeBg;
     CCSprite *play_timeBar;
     //CCSprite *play_pause;
@@ -48,7 +48,7 @@
 @property (nonatomic, retain) CCSprite *play_bg;
 @property (nonatomic, retain) CCSprite *play_points;
 @property (nonatomic, retain) CCSprite *play_multiplier;
-@property (nonatomic, retain) CCSprite *play_panel;
+@property (nonatomic, retain) CCSprite *play_board;
 //@property (nonatomic, retain) CCSprite *play_pause;
 @property (nonatomic, retain) Match4Label *score;
 

@@ -9,7 +9,7 @@
 #import "ElementManager.h"
 
 @implementation ElementManager
-@synthesize explodingElementFrames, LShapeFrames;
+@synthesize explodingElementFrames, LShapeFrames, glowingElementFrames;
 
 
 - (id) init
@@ -21,12 +21,10 @@
         
         explodingElementFrames = [[CCAnimation alloc] init];
         for (int i = 0; i < 10; i ++) {
-            CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX1_0%i.png", i] rect:CGRectMake(0, 0, 80, 80)];
-            [explodingElementFrames addSpriteFrame:frame];
+            [explodingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX1_0%i.png", i]];
         }
         for (int i = 10; i < 18; i++) {
-            CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX1_%i.png", i] rect:CGRectMake(0, 0, 80, 80)];
-            [explodingElementFrames addSpriteFrame:frame];
+            [explodingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX1_%i.png", i]];
         }
         explodingElementFrames.delayPerUnit = 0.1;
         
@@ -39,6 +37,14 @@
         }
         LShapeFrames.delayPerUnit = 2;
         
+        glowingElementFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE_0%i.png", i]];
+        }
+        for (int i = 10; i < 18; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE_%i.png", i]];
+        }
+        glowingElementFrames.delayPerUnit = 0.1;
     }
     return self;
 }
@@ -94,7 +100,7 @@
     if (!thisElement.isExplosive) {
         thisElement.isExplosive = YES;
         [thisElement removeAllChildren];
-        thisElement.ElementImageGlow = [[CCSprite spriteWithFile:[NSString stringWithFormat:@"symbol%d-glow.png", thisElement.isOfType]] autorelease];
+        thisElement.ElementImageGlow = [[CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisElement.isOfType]] autorelease];
         [thisElement addChild:thisElement.ElementImageGlow];
         [self animGlowElement:thisElement];
     }
@@ -125,10 +131,20 @@
 }
 
 #pragma animations///////////////////////
-- (void)animGlowElement:(Match4Element *)thisElement
+/*- (void)animGlowElement:(Match4Element *)thisElement
 {
     [thisElement runAction:
      [CCRepeatForever actionWithAction:[CCBlink actionWithDuration:1 blinks:1]]];
+    thisElement.tag = 1;
+}*/
+
+- (void)animGlowElement:(Match4Element *)thisElement
+{
+    thisElement.ElementAnimation = [[CCSprite alloc] init];
+    [thisElement addChild:thisElement.ElementAnimation];
+    [thisElement.ElementAnimation runAction:
+     [CCRepeatForever actionWithAction:
+      [CCAnimate actionWithAnimation:glowingElementFrames]]];
     thisElement.tag = 1;
 }
 

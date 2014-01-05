@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B1B5AA18798F3D00AC1BFD /* play_board.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1B5A918798F3D00AC1BFD /* play_board.png */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
 		188AC0651876658300F95AD8 /* friends_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03C1876658300F95AD8 /* friends_bg.png */; };
@@ -899,6 +900,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04B1B5A918798F3D00AC1BFD /* play_board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_board.png; sourceTree = "<group>"; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
 		188AC03B1876658300F95AD8 /* friends_-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends_-banner.png"; sourceTree = "<group>"; };
@@ -2026,6 +2028,7 @@
 		188AC0471876658300F95AD8 /* play */ = {
 			isa = PBXGroup;
 			children = (
+				04B1B5A918798F3D00AC1BFD /* play_board.png */,
 				188AC0481876658300F95AD8 /* play_multimark.png */,
 				188AC0491876658300F95AD8 /* play_pause_button.png */,
 				188AC04A1876658300F95AD8 /* play_points.png */,
@@ -4386,6 +4389,7 @@
 				188D35391869384300D92C98 /* logoSquare-ipad@2x.png in Resources */,
 				188D35AA1869384300D92C98 /* rectifySymbolMorph23.png in Resources */,
 				1892B1AD1868243A00F48431 /* Default-Landscape~ipad.png in Resources */,
+				04B1B5AA18798F3D00AC1BFD /* play_board.png in Resources */,
 				188D36471869384400D92C98 /* beam07@2x.png in Resources */,
 				188D351D1869384300D92C98 /* infoBackground-ipad@2x.png in Resources */,
 				188D34B01869384300D92C98 /* Icon-76@2x.png in Resources */,

@@ -85,7 +85,7 @@
             ///////////////////////
             // Then
             if (!element) {
-                element = [elementManager randomElementWithMaxType:6];
+                element = [elementManager randomElementWithMaxType:5];
             }
             element.isIndex = CGPointMake(i, j);
             element.position = [self positionFromIndex:element.isIndex];
@@ -120,18 +120,18 @@
             int typeDown = [[[gameGrid objectAtIndex:x] objectAtIndex:y-1] isOfType];
             int typeLeft = [[[gameGrid objectAtIndex:x-1] objectAtIndex:y] isOfType];
             if (typeDown == typeLeft) {
-                int k = (arc4random() % 5) + 1;
-                newType = (thisElement.isOfType + k) % 6;
-            } else {
                 int k = (arc4random() % 4) + 1;
-                newType = (typeDown + k) % 6;
+                newType = (thisElement.isOfType + k) % 5;
+            } else {
+                int k = (arc4random() % 3) + 1;
+                newType = (typeDown + k) % 5;
                 if (newType == typeLeft) {
-                    newType = (newType + 1) % 6;
+                    newType = (newType + 1) % 5;
                 }
             }
         } else {
-            int k = (arc4random() % 5) + 1;
-            newType = (thisElement.isOfType + k) % 6;
+            int k = (arc4random() % 4) + 1;
+            newType = (thisElement.isOfType + k) % 5;
         }
         
         [elementManager shiftElement:thisElement toType:newType];
@@ -294,6 +294,7 @@
         [elementsToRemove addObject:element];
         if (element.isExplosive == YES) {
             element.isOfSuperSingle = YES;
+            element.isToExplode = YES;
             [self eliminateNeighboursOfElementAtIndex:element.isIndex];
         }
     }
@@ -386,7 +387,7 @@
                 if (elementToAdd.isOfType > 6) [elementsToSkip addObject:elementToAdd];
                 if (!([elementsToRemove containsObject:elementToAdd]) & (![elementsToSkip containsObject:elementToAdd])) {
                     [elementsToRemove addObject:elementToAdd];
-                    elementToAdd.isToExplode = YES;
+                    //elementToAdd.isToExplode = YES;
                 }
             }
         }
@@ -523,13 +524,13 @@
         CGPoint index = [self indexFromPosition:local];
         Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
         if (thisElement == firstTouchedElement) {
-            float dx = thisElement.position.x - local.x;
-            float dy = thisElement.position.y - local.y;
-            if ( abs(dx)>20 || abs(dy)>20 ) {
+            float dx = local.x - thisElement.position.x;
+            float dy = local.y - thisElement.position.y;
+            if ( abs(dx)>10 || abs(dy)>10 ) {
                 CGPoint direction;
                 if (abs(dx) > abs(dy)) {
-                    if (dx > 0) direction = CGPointMake(-1, 0);
-                    else direction = CGPointMake(1, 0);
+                    if (dx > 0) direction = CGPointMake(1, 0);
+                    else direction = CGPointMake(-1, 0);
                 }
                 else {
                     if (dy > 0) direction = CGPointMake(0, 1);
@@ -537,7 +538,7 @@
                 }
                 CGPoint possibleIndex = CGPointMake(thisElement.isIndex.x + direction.x, thisElement.isIndex.y + direction.y);
                 if ( possibleIndex.x > -1 && possibleIndex.x < 8 && possibleIndex.y > -1 && possibleIndex.y < 8) {
-                    Match4Element *otherElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
+                    Match4Element *otherElement = [[gameGrid objectAtIndex:possibleIndex.x] objectAtIndex:possibleIndex.y];
                     if ([self element:thisElement.isIndex isNeighbourToElement:otherElement.isIndex]) {
                         [self swapElement:thisElement withElement:otherElement];
                         [elementManager deselectElement:thisElement];
@@ -589,7 +590,7 @@
             [[gameGrid objectAtIndex:thisElement.isIndex.x] removeObject:thisElement];
             //if (thisElement.isShifter) noOfShifterMatches++;
             //if (thisElement.isOfType == 9) noOfCorruptedCleared++;
-            if (thisElement.isToExplode) [elementManager animExplodeElement:thisElement withDelay:(float) ((arc4random() % 5) / 10.0)];
+            if (thisElement.isToExplode) [elementManager animExplodeElement:thisElement withDelay:0];
             else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
             /*else if (thisElement.isSuperEliminated) {
              [ElementManager animSuperEliminateElement:thisElement];
@@ -636,7 +637,7 @@
         int m = [[gameGrid objectAtIndex:i] count];
         if (m < 8) {
             for (int j = 0; j < 8 - m; j++) {
-                Match4Element *newElement = [elementManager randomElementWithMaxType:6];
+                Match4Element *newElement = [elementManager randomElementWithMaxType:5];
                 newElement.position = [self positionFromIndex:CGPointMake(i, j+8)];
                 newElement.isIndex = CGPointMake(i, j+8);
                 [self addChild:newElement];
