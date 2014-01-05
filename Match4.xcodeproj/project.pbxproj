@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04B1B5AA18798F3D00AC1BFD /* play_board.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B1B5A918798F3D00AC1BFD /* play_board.png */; };
+		04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1B5AC1879998600AC1BFD /* ValuesManager.m */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
 		188AC0651876658300F95AD8 /* friends_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03C1876658300F95AD8 /* friends_bg.png */; };
@@ -901,6 +902,8 @@
 
 /* Begin PBXFileReference section */
 		04B1B5A918798F3D00AC1BFD /* play_board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_board.png; sourceTree = "<group>"; };
+		04B1B5AB1879998600AC1BFD /* ValuesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuesManager.h; sourceTree = "<group>"; };
+		04B1B5AC1879998600AC1BFD /* ValuesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuesManager.m; sourceTree = "<group>"; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
 		188AC03B1876658300F95AD8 /* friends_-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends_-banner.png"; sourceTree = "<group>"; };
@@ -3710,6 +3713,8 @@
 				188D370218693F9B00D92C98 /* GameItem.m */,
 				188D37041869621000D92C98 /* GameController.h */,
 				188D37051869621000D92C98 /* GameController.m */,
+				04B1B5AB1879998600AC1BFD /* ValuesManager.h */,
+				04B1B5AC1879998600AC1BFD /* ValuesManager.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -4612,6 +4617,7 @@
 				1892B3211868243C00F48431 /* neon_matrix_impl.c in Sources */,
 				1892B2511868243B00F48431 /* CCScene.m in Sources */,
 				1892B1D01868243A00F48431 /* CCActionGrid3D.m in Sources */,
+				04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */,
 				1892B3191868243C00F48431 /* mat4stack.c in Sources */,
 				1892B34C1868276900F48431 /* Match4MainView.m in Sources */,
 				1892B2751868243B00F48431 /* CCSpriteFrameCache.m in Sources */,
