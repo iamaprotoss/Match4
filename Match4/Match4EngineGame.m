@@ -28,6 +28,7 @@
     if (self = [super init]) {
         isVisible = NO;
         isNuclearBomb = NO;
+        isExplosion = NO;
         gameGrid = [[NSMutableArray alloc] init];
         for (int i = 0; i < 8; i ++) {
             [gameGrid addObject:[NSMutableArray array]];
@@ -341,6 +342,7 @@
             if (numOfSuperior == 0) {
                 [self eliminateNormal:component];
             } else if (numOfSuperior == 1) {
+                isExplosion = YES;
                 [self eliminateSuperSingle:component];
             } else if (numOfSuperior == 2) {
                 [self eliminateSuperDouble:component];
@@ -591,12 +593,14 @@
             //if (thisElement.isShifter) noOfShifterMatches++;
             //if (thisElement.isOfType == 9) noOfCorruptedCleared++;
             if (thisElement.isToExplode) [elementManager animExplodeElement:thisElement withDelay:0];
-            else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
+            //else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
             /*else if (thisElement.isSuperEliminated) {
              [ElementManager animSuperEliminateElement:thisElement];
              didSuperEliminate = YES;
              }*/
-            else [elementManager animHideElement:thisElement withDelay:0];
+            else {
+                [elementManager animHideElement:thisElement withDelay:0];
+            }
         }
     }
     [elementsToRemove removeAllObjects];
@@ -629,7 +633,20 @@
     
     //isCascading = YES;
     
-    [self refillGameField];
+    float delayTime;
+    if (isExplosion) {
+        delayTime = 0.8;
+    } else {
+        delayTime = 0;
+    }
+    [self runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:delayTime],
+      [CCCallBlock actionWithBlock:^{
+         isExplosion = NO;
+         [self refillGameField];
+     }],
+      nil]];
 }
 
 - (void)refillGameField {

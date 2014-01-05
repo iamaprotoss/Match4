@@ -29,6 +29,8 @@
     
     BOOL isNuclearBomb;
     
+    BOOL isExplosion;
+    
     BOOL isShockwave;
     CGPoint shockwaveCentre;
     
