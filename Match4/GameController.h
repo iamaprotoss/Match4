@@ -12,6 +12,8 @@
 #import "SoundController.h"
 #import "MusicController.h"
 #import "ElementManager.h"
+#import "LabelManager.h"
+#import "ValuesManager.h"
 @class Match4MainView;
 @class Match4TimeView;
 @class Match4ItemLayer;
@@ -23,6 +25,8 @@
     SoundController *soundController;
     MusicController *musicController;
     ElementManager *elementManager;
+    LabelManager *labelManager;
+    ValuesManager *valuesManager;
     
     Match4MainView *mainView; // Match4MainView
     Match4TimeView *timeView; // Match4TimeView
@@ -36,6 +40,8 @@
 @property (nonatomic, retain) SoundController *soundController;
 @property (nonatomic, retain) MusicController *musicController;
 @property (nonatomic, retain) ElementManager *elementManager;
+@property (nonatomic, retain) LabelManager *labelManager;
+@property (nonatomic, retain) ValuesManager *valuesManager;
 
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;

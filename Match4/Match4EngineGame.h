@@ -10,6 +10,7 @@
 #import "Match4Element.h"
 #import "GameController.h"
 #import "ElementManager.h"
+#import "LabelManager.h"
 
 @interface Match4EngineGame : CCLayer
 {
@@ -17,6 +18,7 @@
     BOOL canTouch;
     //GameController *gameController;
     ElementManager *elementManager;
+    LabelManager *labelManager;
     Match4Element *firstTouchedElement;
     NSMutableArray *gameGrid;
     NSMutableArray *hintGrid;
@@ -30,20 +32,22 @@
     BOOL isNuclearBomb;
     
     BOOL isExplosion;
+    BOOL isCascading;
     
     BOOL isShockwave;
     CGPoint shockwaveCentre;
     
-    int noOfNormalMatches;
-    int noOfDoubleMatches;
-    int noOfShifterMatches;
-    int noOfMatchesOf4;
-    int noOfMatchesOf4Explosion;
-    int noOfMatchesOf5;
-    int noOfSuperEliminated;
-    int noOfLShapedMatches;
-    int noOfCorruptedCleared;
-    int noOfCascadingMatches;
+    int noOfStandardEliminate;
+    int noOfSuperiorSingle;
+    int noOfSuperiorSingleOther;
+    int noOfSuperiorDouble;
+    int noOfSuperiorDoubleOther;
+    int noOfSuperiorTriple;
+    int noOfSuperiorTripleOther;
+    int noOfSuperiorAll;
+    int noOfSuperiorAllOther;
+    int noOfNormal;
+    int levelOfCascading;
     
     int pointsToAdd;
     

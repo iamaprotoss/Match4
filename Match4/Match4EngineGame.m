@@ -39,6 +39,7 @@
         partitionOfGrid = [[NSMutableArray alloc] init];
         
         elementManager = [GameController sharedController].elementManager;
+        labelManager = [GameController sharedController].labelManager;
         firstTouchedElement = nil;
         [self populateGameField];
         [self setTouchEnabled:YES];
@@ -277,6 +278,7 @@
 #pragma mark SEARCH PATTERNS
 - (void)eliminateNormal:(NSMutableArray *)thisComponent
 {
+    noOfStandardEliminate += [thisComponent count];
     int indexToTurnSuperior = arc4random()%[thisComponent count];
     for (int i = 0; i < [thisComponent count]; i++) {
         Match4Element *element = [thisComponent objectAtIndex:i];
@@ -291,6 +293,7 @@
 
 - (void)eliminateSuperSingle:(NSMutableArray *)thisComponent
 {
+    noOfSuperiorSingle ++;
     for (Match4Element *element in thisComponent) {
         [elementsToRemove addObject:element];
         if (element.isExplosive == YES) {
@@ -314,6 +317,7 @@
 
 - (void)eliminateSuperTriple:(NSMutableArray *)thisComponent
 {
+    noOfSuperiorTriple ++;
     for (Match4Element *element in thisComponent) {
         [elementsToRemove addObject:element];
         if (element.isExplosive == YES) {
@@ -323,7 +327,7 @@
     }
 }
 
-- (void)eliminateAll
+- (void)eliminateAll:(NSMutableArray *)thisComponent;
 {
     isNuclearBomb = YES;
 }
@@ -340,16 +344,21 @@
                 }
             }
             if (numOfSuperior == 0) {
+                noOfStandardEliminate += [component count];
                 [self eliminateNormal:component];
             } else if (numOfSuperior == 1) {
+                noOfSuperiorSingle += [component count];
                 isExplosion = YES;
                 [self eliminateSuperSingle:component];
             } else if (numOfSuperior == 2) {
+                noOfSuperiorDouble += [component count];
                 [self eliminateSuperDouble:component];
             } else if (numOfSuperior == 3) {
+                noOfSuperiorTriple += [component count];
                 [self eliminateSuperTriple:component];
             } else {
-                [self eliminateAll];
+                noOfSuperiorAll += [component count];
+                [self eliminateAll:component];
             }
         }
     }
@@ -370,6 +379,8 @@
          [viewController.actionView checkForInfoPopUps];
          canTouch = YES;
          }*/
+        isCascading = NO;
+        levelOfCascading = 0;
         canTouch = YES;
     }
     //isDoubleMatch = NO;
@@ -404,7 +415,7 @@
             if (elementToCheck.isOfType == thisType) {
                 //elementToCheck.isSuperEliminated = YES;
                 [elementsToRemove addObject:elementToCheck];
-                noOfSuperEliminated++;
+                noOfSuperiorDoubleOther ++;
             }
         }
     }
@@ -590,9 +601,17 @@
     for (Match4Element *thisElement in elementsToRemove) {
         if (![elementsToSkip containsObject:thisElement]) {
             [[gameGrid objectAtIndex:thisElement.isIndex.x] removeObject:thisElement];
+            noOfNormal ++;
             //if (thisElement.isShifter) noOfShifterMatches++;
             //if (thisElement.isOfType == 9) noOfCorruptedCleared++;
-            if (thisElement.isToExplode) [elementManager animExplodeElement:thisElement withDelay:0];
+            if (thisElement.isToExplode) {
+                [elementManager animExplodeElement:thisElement withDelay:0];
+                Match4Label *label = [Match4Label labelWithString:@"200" fontSize:24];
+                label.position = [self positionFromIndex:thisElement.isIndex];
+                label.color = ccc3(255, 0, 0);
+                [self addChild:label];
+                [labelManager animGlitch:label WithDelay:0 andDoRepeat:NO];
+            }
             //else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
             /*else if (thisElement.isSuperEliminated) {
              [ElementManager animSuperEliminateElement:thisElement];
@@ -606,7 +625,7 @@
     [elementsToRemove removeAllObjects];
     [elementsToSkip removeAllObjects];
     
-    //if (isCascading) noOfCascadingMatches++;
+    if (isCascading) levelOfCascading++;
     
     /*if (noOfNormalMatches > 0) [viewController.soundController playSound:@"SymbolElimination"];
      if (noOfMatchesOf4 > 0) [viewController.soundController playSound:@"4Match"];
@@ -615,23 +634,12 @@
      if (noOfLShapedMatches > 0) [viewController.soundController playSound:@"LMatch"];
      if (noOfSuperEliminated > 0) [viewController.soundController playSound:@"SuperSymbolElimination"];*/
     
-    pointsToAdd = 1;
-    /*
-     pointsToAdd = noOfNormalMatches * viewController.valuesManager.kPointsStandardMatch +
-     noOfMatchesOf4 * viewController.valuesManager.kPoints4Match +
-     noOfMatchesOf4Explosion * viewController.valuesManager.kPoints4MatchExplosion +
-     noOfMatchesOf5 * viewController.valuesManager.kPoints5Match +
-     noOfLShapedMatches * viewController.valuesManager.kPointsLMatch +
-     noOfSuperEliminated * viewController.valuesManager.kPointsSuperEliminatedElement +
-     noOfShifterMatches * viewController.valuesManager.kPointsShifterMatch +
-     noOfCorruptedCleared * viewController.valuesManager.kPointsCorruptedEliminated +
-     noOfCascadingMatches * viewController.valuesManager.kPointsCascadingMatch +
-     noOfDoubleMatches * viewController.valuesManager.kPointsDoubleMatch;*/
+    pointsToAdd =
+    noOfStandardEliminate * [GameController sharedController].valuesManager.kPointsStandardEliminate +noOfSuperiorSingle * [GameController sharedController].valuesManager.kPointsSuperiorSingle + noOfSuperiorDouble * [GameController sharedController].valuesManager.kPointsSuperiorDouble + noOfSuperiorTriple * [GameController sharedController].valuesManager.kPointsSuperiorTriple + noOfSuperiorAll * [GameController sharedController].valuesManager.kPointsSuperiorAll + noOfNormal * [GameController sharedController].valuesManager.kPointsNormal + pow(levelOfCascading, 2) * 100;
+    [[GameController sharedController].timeView addPoints:pointsToAdd];
+    [self clearPoints];
     
-    [[GameController sharedController].timeView  addPoints:pointsToAdd];
-    //[self clearPoints];
-    
-    //isCascading = YES;
+    isCascading = YES;
     
     float delayTime;
     if (isExplosion) {
@@ -748,6 +756,20 @@
 - (CGPoint)indexFromPosition:(CGPoint)thisPosition
 {
     return CGPointMake(((int)thisPosition.x-20+16)/40, ((int)thisPosition.y-20+16)/40);
+}
+
+- (void)clearPoints;
+{
+    noOfStandardEliminate = 0;
+    noOfSuperiorSingle = 0;
+    noOfSuperiorSingleOther = 0;
+    noOfSuperiorDouble = 0;
+    noOfSuperiorDoubleOther = 0;
+    noOfSuperiorTriple = 0;
+    noOfSuperiorTripleOther = 0;
+    noOfSuperiorAll = 0;
+    noOfSuperiorAllOther = 0;
+    noOfNormal = 0;
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "Match4ItemLayer.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, timeView, mainView, itemView, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, timeView, mainView, itemView, isInGame;
 
 +(GameController *)sharedController
 {
@@ -34,6 +34,8 @@
         soundController = [[SoundController alloc] init];
         musicController = [[MusicController alloc] init];
         elementManager = [[ElementManager alloc] init];
+        labelManager = [[LabelManager alloc] init];
+        valuesManager = [[ValuesManager alloc] init];
     }
     return self;
 }

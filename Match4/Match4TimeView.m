@@ -38,9 +38,10 @@
         play_bg.position = ccp(0, 0);
         [self addChild:play_bg];
         
-        play_board = [CCSprite spriteWithFile:@"play_board.png"];
+        play_board = [CCSprite spriteWithFile:@"play_board_1.png"];
         play_board.position = ccp(160, 260);
-        play_board.scale = 640.0/1920;
+        play_board.opacity = 220;
+        play_board.scale = 640.0/965;
         [self addChild:play_board];
         
         play_points = [CCSprite spriteWithFile:@"play_points.png"];
@@ -49,6 +50,11 @@
         score = [Match4Label labelWithString:@"0" fontSize:20];
         [play_points addChild:score];
         score.position = ccp(50, 12);
+        score.color = ccc3(255, 255, 0);
+        score.opacity = 200;
+        //[score enableStrokeWithColor:ccc3(255, 0, 0) size:1 updateImage:YES];
+        //[score enableShadowWithOffset:CGSizeMake(3,4) opacity:255 blur:0.5 updateImage:YES];
+        
         
         play_multiplier = [CCSprite spriteWithFile:@"play_multimark.png"];
         play_multiplier.position = ccp(270, 450);

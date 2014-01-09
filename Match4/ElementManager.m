@@ -38,11 +38,11 @@
         LShapeFrames.delayPerUnit = 2;
         
         glowingElementFrames = [[CCAnimation alloc] init];
-        for (int i = 0; i < 10; i ++) {
-            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE_0%i.png", i]];
+        for (int i = 1; i < 10; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_0%i.png", i]];
         }
-        for (int i = 10; i < 18; i ++) {
-            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE_%i.png", i]];
+        for (int i = 10; i < 36; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_%i.png", i]];
         }
         glowingElementFrames.delayPerUnit = 0.1;
     }
@@ -68,7 +68,7 @@
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = i;
     newElement.isVisible = YES;
-    newElement.scale = 0.8;
+    newElement.scale = 0.9;
     return newElement;
 }
 
@@ -78,7 +78,7 @@
     newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = thisType;
-    newElement.scale = 0.8;
+    newElement.scale = 0.9;
     return newElement;
 }
 
@@ -91,7 +91,7 @@
     [thisElement removeAllChildren];
     //[thisElement.ElementImage release];
     thisElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];;
-    thisElement.scale = 0.8;
+    thisElement.scale = 0.9;
     [thisElement addChild:thisElement.ElementImage];
 }
 
