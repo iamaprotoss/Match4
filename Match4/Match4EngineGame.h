@@ -51,6 +51,9 @@
     
     int pointsToAdd;
     
+    // Special effects
+    NSMutableDictionary *special;
+    
     BOOL isMoveValid;
 }
 
@@ -58,7 +61,7 @@
 @property (nonatomic, retain) Match4Element *firstTouchedElement;
 @property (nonatomic) BOOL canTouch;
 
-- (id)init;
+- (id)initWithDictionary:(NSMutableDictionary *)thisDict;
 
 - (void)selectElement:(Match4Element *)thisElement;
 - (BOOL)element:(CGPoint)firstIndex isNeighbourToElement:(CGPoint)secondIndex;

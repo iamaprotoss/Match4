@@ -23,7 +23,7 @@
 @synthesize firstTouchedElement;
 @synthesize canTouch;
 
-- (id)init
+- (id)initWithDictionary:(NSMutableDictionary *)thisDict
 {
     if (self = [super init]) {
         isVisible = NO;
@@ -37,6 +37,8 @@
         elementsToMove = [[NSMutableSet alloc] init];
         elementsToSkip = [[NSMutableSet alloc] init];
         partitionOfGrid = [[NSMutableArray alloc] init];
+        
+        special = [thisDict copy];
         
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;

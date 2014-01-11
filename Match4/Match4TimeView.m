@@ -21,14 +21,14 @@
 {
     CCScene *scene = [CCScene node];
     
-    Match4TimeView *layer = [Match4TimeView node];
+    Match4TimeView *layer = [[Match4TimeView alloc] initWithDictionary:[GameController sharedController].gameItems];
     
     [scene addChild:layer];
     
     return scene;
 }
 
--(id) init
+-(id) initWithDictionary:(NSMutableDictionary *)thisDict
 {
     if (self = [super init]) {
         [GameController sharedController].timeView = self;
@@ -90,11 +90,17 @@
         
         isPlaying = YES;
         isGameOver = NO;
-        gameEngine = [[Match4EngineGame alloc] init];
+        gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
         gameEngine.position = ccp(0, 100);
         [self addChild:gameEngine];        
         
-        self.timer = 60;
+        special = [thisDict copy];
+        if ([[special objectForKey:@"Time Bonus"] boolValue]) {
+            gameTime = 65;
+        } else {
+            gameTime = 60;
+        }
+        self.timer = gameTime;
         [self schedule:@selector(countDown) interval:1];
     }
     return self;
@@ -109,7 +115,7 @@
         //[play_timeBar removeFromParent];
         //play_timeBar = [CCSprite spriteWithFile:@"play_time_bar.png"]; //rect:CGRectMake(0, 0, 100, 5*self.timer)];
         //play_timeBar.rotation = 90;
-        play_timeBar.scaleX = self.timer/60*1.32;
+        play_timeBar.scaleX = self.timer/gameTime*1.32;
         //play_timeBar.anchorPoint = ccp(0, 0);
         play_timeBar.position = ccp(66, 70);
         //[self addChild:play_timeBar];

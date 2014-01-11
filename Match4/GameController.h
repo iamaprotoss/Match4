@@ -32,6 +32,8 @@
     Match4TimeView *timeView; // Match4TimeView
     Match4ItemLayer *itemView; // Match4ItemLayer
     
+    NSMutableDictionary *gameItems;
+    
     BOOL isInGame;
 }
 
@@ -47,6 +49,8 @@
 @property (nonatomic, retain) Match4TimeView *timeView;
 @property (nonatomic, retain) Match4ItemLayer *itemView;
 
+@property (nonatomic, retain) NSMutableDictionary *gameItems;
+
 @property (nonatomic) BOOL isInGame;
 
 + (GameController *)sharedController;
@@ -55,6 +59,9 @@
 //- (void)showPrimaryView;
 - (void)showGameView;
 - (void)showItemView;
+
+- (BOOL) addItem:(int)thisTag;
+- (void) resetItem;
 /*- (void)showInfinityView;
 //- (void)showEngageView;
 //- (void)showPowerUpViewInView:(MSSView *)thisView;

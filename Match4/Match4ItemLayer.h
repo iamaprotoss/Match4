@@ -7,14 +7,24 @@
 //
 
 #import "CCLayer.h"
+@class GameController;
 
 @interface Match4ItemLayer : CCLayer
 {
     CCMenuItemSprite *start;
     CCSprite *selectbg;
     CCSprite *buygold;
-    CCSprite *item;
+    CCMenuItemSprite *item1;
+    CCMenuItemSprite *item2;
+    CCMenuItemSprite *item3;
+    CCMenuItemSprite *item4;
+    CCMenuItemSprite *item5;
+    
     CCSprite *price;
+    
+    int numOfItemSelected;
+    
+    
 }
 
 @property (retain, nonatomic) CCMenuItemSprite *start;

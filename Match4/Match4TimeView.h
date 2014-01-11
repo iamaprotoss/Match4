@@ -31,9 +31,12 @@
     //CCSprite *play_pause;
     Match4Label *score;
     
+    NSMutableDictionary *special;
+    
     BOOL isPlaying;
     BOOL isGameOver;
     float timer;
+    float gameTime;
 }
 
 @property (nonatomic, retain) Match4GameOverLayer *gameOverView;
