@@ -11,10 +11,10 @@
 #import "Match4TimeView.h"
 
 @implementation Match4GameOverLayer
-@synthesize gameover_menu, gold, bg, retry, score, facebookshare;
+@synthesize gameover_menu, gold, bg, retry, scoreTag, facebookshare;
 
 
--(id) init
+-(id) initWithScore:(int)thisScore;
 {
     if (self = [super init]) {
         bg = [CCSprite spriteWithFile:@"win_bg.png"];
@@ -45,9 +45,15 @@
         gold.position = ccp(120, 175);
         [self addChild:gold];
         
-        score = [CCSprite spriteWithFile:@"win_score--.png"];
-        score.position = ccp(140, 240);
+        scoreTag = [CCSprite spriteWithFile:@"win_score--.png"];
+        scoreTag.position = ccp(140, 240);
+        [self addChild:scoreTag];
+        
+        score = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", thisScore] fontSize:20];
         [self addChild:score];
+        score.position = ccp(140, 220);
+        score.color = ccc3(255, 255, 0);
+        score.opacity = 200;
     }
     return self;
 }

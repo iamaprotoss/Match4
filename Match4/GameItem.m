@@ -10,7 +10,7 @@
 
 @implementation GameItem
 
-@synthesize gameGrid, isPaused, isActive, timer, stats;
+@synthesize gameGrid, isPaused, isActive, timer, score, scoreMultiplier, stats;
 
 - (id)init
 {
@@ -18,10 +18,13 @@
         gameGrid = [[NSMutableArray alloc] init];
         for (int i = 0; i < 8; i++) {
             [gameGrid addObject:[NSMutableArray array]];
-            isPaused = NO;
-            isActive = NO;
-            timer = 0.0f;
         }
+        stats = [StatsManager new];
+        isPaused = NO;
+        isActive = NO;
+        timer = 0.0f;
+        score = 1;
+        scoreMultiplier = 1;
     }
     return self;
 }
@@ -40,7 +43,9 @@
         {
             NSDictionary *statsDictionary = [gameDictionary objectForKey:@"stats"];
             if (statsDictionary) {
-                
+                stats.currentLevel = [[statsDictionary objectForKey:@"currentLevel"] intValue];
+                stats.currentLife = [[statsDictionary objectForKey:@"currentScore"] intValue];
+                stats.currentMoney = [[statsDictionary objectForKey:@"currentLife"] intValue];
             }
             
             NSArray *gameGridArray = [gameDictionary objectForKey:@"gameGrid"];

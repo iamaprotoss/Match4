@@ -39,6 +39,17 @@
         partitionOfGrid = [[NSMutableArray alloc] init];
         
         special = [thisDict copy];
+        if ([[special objectForKey:@"Initial Superior Element"] boolValue]) {
+            int p1 = arc4random()%64;
+            int p2 = (p1+1+arc4random()%63)%64;
+            int p3 = (p2+1+arc4random()%62)%64;
+            if (p3 == p1) {
+                p3 = (p3 + 1)%64;
+            }
+            initialSuperiorIndex[0] = p1;
+            initialSuperiorIndex[1] = p2;
+            initialSuperiorIndex[2] = p3;
+        }
         
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;
@@ -90,6 +101,9 @@
             // Then
             if (!element) {
                 element = [elementManager randomElementWithMaxType:5];
+                if (i*8+j==initialSuperiorIndex[0] || i*8+j==initialSuperiorIndex[1] || i*8+j==initialSuperiorIndex[2]) {
+                    [elementManager turnToExplosiveElement:element];
+                }
             }
             element.isIndex = CGPointMake(i, j);
             element.position = [self positionFromIndex:element.isIndex];
@@ -139,6 +153,9 @@
         }
         
         [elementManager shiftElement:thisElement toType:newType];
+        if (x*8+y==initialSuperiorIndex[0] || x*8+y==initialSuperiorIndex[1] || x*8+y==initialSuperiorIndex[2]) {
+            [elementManager turnToExplosiveElement:thisElement];
+        }
     }
 }
 
@@ -665,6 +682,9 @@
         if (m < 8) {
             for (int j = 0; j < 8 - m; j++) {
                 Match4Element *newElement = [elementManager randomElementWithMaxType:5];
+                if ([[special objectForKey:@"Random Superior Element"] boolValue] && arc4random()%100<5) {
+                    [elementManager turnToExplosiveElement:newElement];
+                }
                 newElement.position = [self positionFromIndex:CGPointMake(i, j+8)];
                 newElement.isIndex = CGPointMake(i, j+8);
                 [self addChild:newElement];

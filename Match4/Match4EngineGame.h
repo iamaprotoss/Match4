@@ -26,6 +26,8 @@
     NSMutableSet *elementsToMove;
     NSMutableSet *elementsToSkip;
     
+    int initialSuperiorIndex[3];
+    
     NSMutableArray *partitionOfGrid;
     NSInteger group[8][8];
     

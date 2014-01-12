@@ -93,8 +93,20 @@
         itemLayer = [Match4ItemLayer node];
         itemLayer.position = ccp(0, 120);
         [self addChild:itemLayer];
+        itemLayer.delegate = self;
     } else {
         [[GameController sharedController] showGameView];
+    }
+}
+
+-(void) closeItemLayer
+{
+    if (itemLayer!=nil) {
+        [itemLayer removeFromParent];
+        itemLayer = nil;
+        friendsLayer = [Match4FriendsLayer node];
+        friendsLayer.position = ccp(0, 120);
+        [self addChild:friendsLayer];
     }
 }
 

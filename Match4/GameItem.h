@@ -15,6 +15,8 @@
     BOOL isPaused;
     BOOL isActive;
     float timer;
+    int score;
+    int scoreMultiplier;
 
     StatsManager *stats;
 }
@@ -23,6 +25,8 @@
 @property (nonatomic, assign) BOOL isPaused;
 @property (nonatomic, assign) BOOL isActive;
 @property float timer;
+@property int score;
+@property int scoreMultiplier;
 @property (nonatomic, retain) StatsManager *stats;
 
 - (id)initWithDictionary:(NSDictionary*)gameDictionary;

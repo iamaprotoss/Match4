@@ -13,15 +13,15 @@
     int currentMoney;
     int currentLevel;
     int currentLife;
-    int score;
-    int scoreMultiplier;
+    //int score;
+    //int scoreMultiplier;
 }
 
 @property (nonatomic) int currentMoney;
 @property (nonatomic) int currentLevel;
 @property (nonatomic) int currentLife;
-@property int score;
-@property int scoreMultiplier;
+//@property int score;
+//@property int scoreMultiplier;
 
 
 - (void)clearGameStats;

@@ -49,6 +49,11 @@
         [menu2 alignItemsHorizontallyWithPadding:20];
         [self addChild:menu2];
         
+        close = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"play_multimark.png"] selectedSprite:[CCSprite spriteWithFile:@"play_multimark.png"] target:self selector:@selector(close)];
+        CCMenu *closeM = [CCMenu menuWithItems:close, nil];
+        closeM.position = ccp(260, 280);
+        [self addChild:closeM];
+        
         /*price = [CCSprite spriteWithFile:@"item_price.png"];
         price.position = ccp(100, 100);
         [self addChild:price];*/
@@ -67,6 +72,12 @@
             NSLog(@"numOfItemSelected %i", numOfItemSelected);
         };
     }
+}
+
+-(void)close
+{
+    [[GameController sharedController] resetItem];
+    [self.delegate closeItemLayer];
 }
 
 @end

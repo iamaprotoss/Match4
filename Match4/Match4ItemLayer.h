@@ -9,6 +9,12 @@
 #import "CCLayer.h"
 @class GameController;
 
+@protocol Match4ItemLayerDelegate <NSObject>
+
+-(void)closeItemLayer;
+
+@end
+
 @interface Match4ItemLayer : CCLayer
 {
     CCMenuItemSprite *start;
@@ -20,17 +26,20 @@
     CCMenuItemSprite *item4;
     CCMenuItemSprite *item5;
     
+    CCMenuItemSprite *close;
+    
     CCSprite *price;
     
     int numOfItemSelected;
-    
-    
 }
+
+@property (retain, nonatomic) id<Match4ItemLayerDelegate> delegate;
 
 @property (retain, nonatomic) CCMenuItemSprite *start;
 @property (retain, nonatomic) CCSprite *selectbg;
 @property (retain, nonatomic) CCSprite *buygold;
 @property (retain, nonatomic) CCSprite *item;
 @property (retain, nonatomic) CCSprite *price;
+
 
 @end

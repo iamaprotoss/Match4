@@ -11,7 +11,7 @@
 #import "Match4ItemLayer.h"
 @class Match4TimeView;
 
-@interface Match4MainView : CCLayer
+@interface Match4MainView : CCLayer<Match4ItemLayerDelegate>
 {
     CCSprite *bg;
     CCSprite *friendsbg;
@@ -22,8 +22,8 @@
     CCSprite *points;
     CCMenuItemSprite *start;
     CCSprite *title;
-    CCLayer *friendLayer;
-    CCLayer *itemLayer;
+    Match4FriendsLayer *friendsLayer;
+    Match4ItemLayer *itemLayer;
 }
 
 @property (retain, nonatomic) CCSprite *bg;

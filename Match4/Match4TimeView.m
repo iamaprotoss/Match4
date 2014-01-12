@@ -88,18 +88,18 @@
             [GameController sharedController].statsManager.score = 0;
         }
         
-        isPlaying = YES;
-        isGameOver = NO;
-        gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
-        gameEngine.position = ccp(0, 100);
-        [self addChild:gameEngine];        
-        
         special = [thisDict copy];
         if ([[special objectForKey:@"Time Bonus"] boolValue]) {
             gameTime = 65;
         } else {
             gameTime = 60;
         }
+        isPlaying = YES;
+        isGameOver = NO;
+        gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
+        gameEngine.position = ccp(0, 100);
+        [self addChild:gameEngine];
+
         self.timer = gameTime;
         [self schedule:@selector(countDown) interval:1];
     }
@@ -142,7 +142,13 @@
 -(void) gameOver
 {
     isPlaying = NO;
-    gameOverView = [Match4GameOverLayer node];
+    int totalScore;
+    if ([[special objectForKey:@"Score bonus"] boolValue]) {
+        totalScore = [GameController sharedController].statsManager.score * 1.1;
+    } else {
+        totalScore = [GameController sharedController].statsManager.score;
+    }
+    gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore];
     gameOverView.position = ccp(0, 120);
     [self addChild:gameOverView];
 }
