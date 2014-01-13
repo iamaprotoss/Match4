@@ -17,8 +17,6 @@
     float timer;
     int score;
     int scoreMultiplier;
-
-    StatsManager *stats;
 }
 
 @property (nonatomic, retain) NSMutableArray *gameGrid;
@@ -27,7 +25,6 @@
 @property float timer;
 @property int score;
 @property int scoreMultiplier;
-@property (nonatomic, retain) StatsManager *stats;
 
 - (id)initWithDictionary:(NSDictionary*)gameDictionary;
 - (NSDictionary *)getDataInDictionary;

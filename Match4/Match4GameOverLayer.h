@@ -13,21 +13,22 @@
 {
     CCSprite *bg;
     CCSprite *scoreTag;
-    CCSprite *gold;
+    CCSprite *moneyTag;
     CCSprite *facebookshare;
     CCMenuItemSprite *retry;
     CCMenuItemSprite *gameover_menu;
     Match4Label *score;
+    Match4Label *money;
 }
 
 @property (nonatomic, retain) CCMenuItemSprite *retry;
 @property (nonatomic, retain) CCMenuItemSprite *gameover_menu;
-@property (nonatomic, retain) CCSprite *gold;
+@property (nonatomic, retain) CCSprite *moneyTag;
 @property (nonatomic, retain) CCSprite *bg;
 @property (nonatomic, retain) CCSprite *scoreTag;
 @property (nonatomic, retain) CCSprite *facebookshare;
 
--(id) initWithScore:(int)thisScore;
+-(id) initWithScore:(int)thisScore money:(int)thisMoney;
 
 @end
 

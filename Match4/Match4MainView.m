@@ -11,7 +11,7 @@
 #import "GameController.h"
 
 @implementation Match4MainView
-@synthesize bg, friendsbg, gold, lives, option, points, start, title, facebooklogin;
+@synthesize bg, friendsbg, moneybg, money, level, lives, option, points, start, title, facebooklogin;
 @synthesize friendsLayer, itemLayer;
 
 +(CCScene*) scene
@@ -47,7 +47,7 @@
         
         for (int i = 0; i < 5; i++) {
             CCSprite *life = [CCSprite spriteWithFile:@"start_live.png"];
-            life.position = ccp(30+30*i, 450);
+            life.position = ccp(10+30*i, 450);
             [self addChild:life];
             [lives addObject:life];
         }
@@ -56,9 +56,17 @@
         facebooklogin.position = ccp(160, 200);
         [self addChild:facebooklogin];*/
         
-        gold = [CCSprite spriteWithFile:@"start_gold.png"];
-        gold.position = ccp(250, 450);
-        [self addChild:gold];
+        moneybg = [CCSprite spriteWithFile:@"start_gold.png"];
+        moneybg.position = ccp(250, 450);
+        [self addChild:moneybg];
+        
+        money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentMoney] fontSize:20];
+        money.position = ccp(250, 450);
+        [self addChild:money];
+        
+        level = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentLevel] fontSize:20];
+        level.position = ccp(180, 450);
+        [self addChild:level];
         
         /*title = [CCSprite spriteWithFile:@"start_title.png"];
         title.position = ccp(160, 420);

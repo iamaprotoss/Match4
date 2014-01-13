@@ -13,6 +13,8 @@
 		1854980E18813F7B00BDD0E8 /* item_item3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980918813F7B00BDD0E8 /* item_item3.png */; };
 		1854980F18813F7B00BDD0E8 /* item_item4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980A18813F7B00BDD0E8 /* item_item4.png */; };
 		1854981018813F7B00BDD0E8 /* item_item5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980B18813F7B00BDD0E8 /* item_item5.png */; };
+		185498161883827A00BDD0E8 /* StatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 185498151883827A00BDD0E8 /* StatsItem.m */; };
+		1854981918838FC600BDD0E8 /* ElementItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854981818838FC600BDD0E8 /* ElementItem.m */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
 		188AC0651876658300F95AD8 /* friends_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03C1876658300F95AD8 /* friends_bg.png */; };
@@ -964,6 +966,10 @@
 		1854980918813F7B00BDD0E8 /* item_item3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item3.png; sourceTree = "<group>"; };
 		1854980A18813F7B00BDD0E8 /* item_item4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item4.png; sourceTree = "<group>"; };
 		1854980B18813F7B00BDD0E8 /* item_item5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item5.png; sourceTree = "<group>"; };
+		185498141883827A00BDD0E8 /* StatsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsItem.h; sourceTree = "<group>"; };
+		185498151883827A00BDD0E8 /* StatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsItem.m; sourceTree = "<group>"; };
+		1854981718838FC600BDD0E8 /* ElementItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementItem.h; sourceTree = "<group>"; };
+		1854981818838FC600BDD0E8 /* ElementItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementItem.m; sourceTree = "<group>"; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
 		188AC03B1876658300F95AD8 /* friends_-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends_-banner.png"; sourceTree = "<group>"; };
@@ -3901,8 +3907,12 @@
 				1892B36718686FDF00F48431 /* MusicController.m */,
 				188D36FE18693E9800D92C98 /* LocalStorageManager.h */,
 				188D36FF18693E9800D92C98 /* LocalStorageManager.m */,
+				185498141883827A00BDD0E8 /* StatsItem.h */,
+				185498151883827A00BDD0E8 /* StatsItem.m */,
 				188D370118693F9B00D92C98 /* GameItem.h */,
 				188D370218693F9B00D92C98 /* GameItem.m */,
+				1854981718838FC600BDD0E8 /* ElementItem.h */,
+				1854981818838FC600BDD0E8 /* ElementItem.m */,
 				188D37041869621000D92C98 /* GameController.h */,
 				188D37051869621000D92C98 /* GameController.m */,
 				04B1B5AB1879998600AC1BFD /* ValuesManager.h */,
@@ -4808,6 +4818,7 @@
 				1892B2B61868243B00F48431 /* CCDirectorMac.m in Sources */,
 				1892B2101868243B00F48431 /* ccGLStateCache.m in Sources */,
 				1892B34F18682B4100F48431 /* Match4TimeView.m in Sources */,
+				1854981918838FC600BDD0E8 /* ElementItem.m in Sources */,
 				1892B2E21868243B00F48431 /* TransformUtils.m in Sources */,
 				1892B22F1868243B00F48431 /* CCNode+Debug.m in Sources */,
 				1892B20A1868243A00F48431 /* ccFPSImages.m in Sources */,
@@ -4911,6 +4922,7 @@
 				1892B33A1868243C00F48431 /* HelloWorldLayer.m in Sources */,
 				1892B2BF1868243B00F48431 /* CCWindow.m in Sources */,
 				1892B29D1868243B00F48431 /* cocos2d.m in Sources */,
+				185498161883827A00BDD0E8 /* StatsItem.m in Sources */,
 				1892B24A1868243B00F48431 /* CCProgressTimer.m in Sources */,
 				1892B21F1868243B00F48431 /* CCLabelTTF.m in Sources */,
 				1892B2CC1868243B00F48431 /* CCFileUtils.m in Sources */,

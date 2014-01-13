@@ -7,10 +7,11 @@
 //
 
 #import "GameItem.h"
+#import "ElementItem.h"
 
 @implementation GameItem
 
-@synthesize gameGrid, isPaused, isActive, timer, score, scoreMultiplier, stats;
+@synthesize gameGrid, isPaused, isActive, timer, score, scoreMultiplier;
 
 - (id)init
 {
@@ -19,7 +20,7 @@
         for (int i = 0; i < 8; i++) {
             [gameGrid addObject:[NSMutableArray array]];
         }
-        stats = [StatsManager new];
+        //stats = [StatsManager new];
         isPaused = NO;
         isActive = NO;
         timer = 0.0f;
@@ -41,13 +42,6 @@
     {
         if (gameDictionary)
         {
-            NSDictionary *statsDictionary = [gameDictionary objectForKey:@"stats"];
-            if (statsDictionary) {
-                stats.currentLevel = [[statsDictionary objectForKey:@"currentLevel"] intValue];
-                stats.currentLife = [[statsDictionary objectForKey:@"currentScore"] intValue];
-                stats.currentMoney = [[statsDictionary objectForKey:@"currentLife"] intValue];
-            }
-            
             NSArray *gameGridArray = [gameDictionary objectForKey:@"gameGrid"];
             if (gameGridArray && gameGridArray.count == 8) {
                 for (int i = 0; i < 8; i++) {
@@ -63,13 +57,38 @@
             isPaused = [[gameDictionary objectForKey:@"isPaused"] boolValue];
             isActive = [[gameDictionary objectForKey:@"isActive"] boolValue];
             timer = [[gameDictionary objectForKey:@"timer"] floatValue];
-            }
+            score = [[gameDictionary objectForKey:@"score"] intValue];
+            scoreMultiplier = [[gameDictionary objectForKey:@"scoreMultiplier"] intValue];
+        }
     }
     return self;
 }
 
 - (NSDictionary*)getDataInDictionary {
-    NSMutableDictionary *temp;
+    NSMutableDictionary * tempReturnDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *gameGridArray = [NSMutableArray new];
+    
+    for (NSMutableArray *row in gameGrid) {
+        
+        NSMutableArray *elementItems = [NSMutableArray new];
+        
+        for(ElementItem *elementItem in row){
+            [elementItems addObject:[elementItem getDataInDictionary]];
+        }
+        
+        [gameGridArray addObject:elementItems];
+        
+    }
+    
+    [tempReturnDictionary setObject:gameGridArray forKey:@"gameGrid"];
+    [tempReturnDictionary setObject:[NSNumber numberWithBool:self.isPaused] forKey:@"isPaused"];
+    [tempReturnDictionary setObject:[NSNumber numberWithBool:self.isActive] forKey:@"isActive"];
+    [tempReturnDictionary setObject:[NSNumber numberWithFloat:self.timer] forKey:@"timer"];
+    [tempReturnDictionary setObject:[NSNumber numberWithInt:self.score] forKey:@"score"];
+    [tempReturnDictionary setObject:[NSNumber numberWithInt:self.scoreMultiplier] forKey:@"scoreMultiplier"];
+    
+    return tempReturnDictionary;
 }
 
 @end

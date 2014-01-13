@@ -9,13 +9,16 @@
 #import "CCLayer.h"
 #import "Match4FriendsLayer.h"
 #import "Match4ItemLayer.h"
+#import "Match4Label.h"
 @class Match4TimeView;
 
 @interface Match4MainView : CCLayer<Match4ItemLayerDelegate>
 {
     CCSprite *bg;
     CCSprite *friendsbg;
-    CCSprite *gold;
+    CCSprite *moneybg;
+    Match4Label *money;
+    Match4Label *level;
     CCSprite *facebooklogin;
     NSMutableArray *lives;
     CCMenuItemSprite *option;
@@ -28,7 +31,9 @@
 
 @property (retain, nonatomic) CCSprite *bg;
 @property (retain, nonatomic) CCSprite *friendsbg;
-@property (retain, nonatomic) CCSprite *gold;
+@property (retain, nonatomic) CCSprite *moneybg;
+@property (retain, nonatomic) Match4Label *money;
+@property (retain, nonatomic) Match4Label *level;
 @property (retain, nonatomic) CCSprite *facebooklogin;
 @property (retain, nonatomic) NSMutableArray *lives;
 @property (retain, nonatomic) CCMenuItemSprite *option;

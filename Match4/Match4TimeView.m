@@ -14,7 +14,7 @@
 @synthesize gameOverView, pauseLayer;
 @synthesize gameController;
 @synthesize gameEngine;
-@synthesize play_bg, play_points, play_multiplier, play_board, score, timer;
+@synthesize play_bg, play_points, play_multiplier, play_board, score, gameScore, timer;
 @synthesize isGameOver, isPlaying;
 
 +(CCScene*) scene
@@ -47,7 +47,8 @@
         play_points = [CCSprite spriteWithFile:@"play_points.png"];
         play_points.position = ccp(200, 450);
         [self addChild:play_points];
-        score = [Match4Label labelWithString:@"0" fontSize:20];
+        gameScore = 0;
+        score = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameScore] fontSize:20];
         [play_points addChild:score];
         score.position = ccp(50, 12);
         score.color = ccc3(255, 255, 0);
@@ -79,14 +80,14 @@
         menu.position = ccp(280, 77);
         [self addChild:menu];
         
+        /*
         if ([GameController sharedController].localStore.currentGame) {
             [GameController sharedController].localStore.currentGame = [GameItem new];
         } else {
             [GameController sharedController].statsManager.currentMoney = [GameController sharedController].localStore.currentGame.stats.currentMoney;
             [GameController sharedController].statsManager.currentLevel = [GameController sharedController].localStore.currentGame.stats.currentLevel;
             [GameController sharedController].statsManager.currentLife = [GameController sharedController].localStore.currentGame.stats.currentLife;
-            [GameController sharedController].statsManager.score = 0;
-        }
+        }*/
         
         special = [thisDict copy];
         if ([[special objectForKey:@"Time Bonus"] boolValue]) {
@@ -130,13 +131,13 @@
 
 -(void) addPoints:(int)points
 {
-    [GameController sharedController].statsManager.score += points;
+    gameScore += points;
     [self updateScore];
 }
 
 -(void) updateScore
 {
-    [score setString:[NSString stringWithFormat:@"%i",[GameController sharedController].statsManager.score]];
+    [score setString:[NSString stringWithFormat:@"%i",gameScore]];
 }
 
 -(void) gameOver
@@ -144,13 +145,36 @@
     isPlaying = NO;
     int totalScore;
     if ([[special objectForKey:@"Score bonus"] boolValue]) {
-        totalScore = [GameController sharedController].statsManager.score * 1.1;
+        totalScore = gameScore * 1.1 * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
     } else {
-        totalScore = [GameController sharedController].statsManager.score;
+        totalScore = gameScore * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
     }
-    gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore];
+    [GameController sharedController].statsManager.currentExperience += totalScore;
+    [self computeLevel];
+    int moneyObtained = (int)pow(gameScore/100, 1/2)*100;
+    [GameController sharedController].statsManager.currentMoney += moneyObtained;
+    gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:moneyObtained];
     gameOverView.position = ccp(0, 120);
     [self addChild:gameOverView];
+}
+
+-(void) computeLevel
+{
+    int experience = [GameController sharedController].statsManager.currentExperience;
+    int level = [GameController sharedController].statsManager.currentLevel;
+    int residual = experience - (level-1)*level*(2*level-1)/6*1000;
+    while (residual > 0) {
+        residual -= pow(level, 2)*1000;
+        level ++;
+    }
+    [GameController sharedController].statsManager.currentLevel = level;
+}
+
+-(void) computeMoney
+{
+    int money = [GameController sharedController].statsManager.currentMoney;
+    money += (int)pow(gameScore, 1/2);
+    [GameController sharedController].statsManager.currentMoney = money;
 }
 
 -(void) pause
@@ -176,7 +200,7 @@
     gameOverView = nil;
     isPlaying = YES;
     isGameOver = NO;
-    [GameController sharedController].statsManager.score = 0;
+    gameScore = 0;
     [self updateScore];
     self.timer = 60;
     play_timeBar.scaleX = 1.32;

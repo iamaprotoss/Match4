@@ -12,6 +12,7 @@
     NSUserDefaults *userDefaults;
     int currentMoney;
     int currentLevel;
+    int currentExperience;
     int currentLife;
     //int score;
     //int scoreMultiplier;
@@ -19,6 +20,7 @@
 
 @property (nonatomic) int currentMoney;
 @property (nonatomic) int currentLevel;
+@property (nonatomic) int currentExperience;
 @property (nonatomic) int currentLife;
 //@property int score;
 //@property int scoreMultiplier;

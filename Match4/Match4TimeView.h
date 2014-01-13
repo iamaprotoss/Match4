@@ -30,6 +30,7 @@
     CCSprite *play_timeBar;
     //CCSprite *play_pause;
     Match4Label *score;
+    int gameScore;
     
     NSMutableDictionary *special;
     
@@ -54,6 +55,7 @@
 @property (nonatomic, retain) CCSprite *play_board;
 //@property (nonatomic, retain) CCSprite *play_pause;
 @property (nonatomic, retain) Match4Label *score;
+@property (nonatomic) int gameScore;
 
 +(CCScene *) scene;
 
