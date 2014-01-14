@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1B5AC1879998600AC1BFD /* ValuesManager.m */; };
+		1803112C1885221700CE0DD7 /* store_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311241885221700CE0DD7 /* store_bg.png */; };
+		1803112D1885221700CE0DD7 /* store_buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311251885221700CE0DD7 /* store_buy.png */; };
+		1803112E1885221700CE0DD7 /* store_coin1.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311261885221700CE0DD7 /* store_coin1.png */; };
+		1803112F1885221700CE0DD7 /* store_coin2.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311271885221700CE0DD7 /* store_coin2.png */; };
+		180311301885221700CE0DD7 /* store_coin3.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311281885221700CE0DD7 /* store_coin3.png */; };
+		180311311885221700CE0DD7 /* store_coin4.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311291885221700CE0DD7 /* store_coin4.png */; };
+		180311321885221700CE0DD7 /* store_coin5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1803112A1885221700CE0DD7 /* store_coin5.png */; };
+		180311331885221700CE0DD7 /* store_coinbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1803112B1885221700CE0DD7 /* store_coinbg.png */; };
+		180311391885243F00CE0DD7 /* StoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180311381885243F00CE0DD7 /* StoreView.m */; };
+		1803113C188524C900CE0DD7 /* MoneyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1803113B188524C900CE0DD7 /* MoneyManager.m */; };
+		1803113F18853C4400CE0DD7 /* StoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1803113E18853C4400CE0DD7 /* StoreObserver.m */; };
 		1854980C18813F7B00BDD0E8 /* item_item1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980718813F7B00BDD0E8 /* item_item1.png */; };
 		1854980D18813F7B00BDD0E8 /* item_item2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980818813F7B00BDD0E8 /* item_item2.png */; };
 		1854980E18813F7B00BDD0E8 /* item_item3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980918813F7B00BDD0E8 /* item_item3.png */; };
@@ -961,6 +972,20 @@
 /* Begin PBXFileReference section */
 		04B1B5AB1879998600AC1BFD /* ValuesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuesManager.h; sourceTree = "<group>"; };
 		04B1B5AC1879998600AC1BFD /* ValuesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuesManager.m; sourceTree = "<group>"; };
+		180311241885221700CE0DD7 /* store_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_bg.png; sourceTree = "<group>"; };
+		180311251885221700CE0DD7 /* store_buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_buy.png; sourceTree = "<group>"; };
+		180311261885221700CE0DD7 /* store_coin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin1.png; sourceTree = "<group>"; };
+		180311271885221700CE0DD7 /* store_coin2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin2.png; sourceTree = "<group>"; };
+		180311281885221700CE0DD7 /* store_coin3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin3.png; sourceTree = "<group>"; };
+		180311291885221700CE0DD7 /* store_coin4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin4.png; sourceTree = "<group>"; };
+		1803112A1885221700CE0DD7 /* store_coin5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin5.png; sourceTree = "<group>"; };
+		1803112B1885221700CE0DD7 /* store_coinbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coinbg.png; sourceTree = "<group>"; };
+		180311371885243F00CE0DD7 /* StoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreView.h; sourceTree = "<group>"; };
+		180311381885243F00CE0DD7 /* StoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreView.m; sourceTree = "<group>"; };
+		1803113A188524C900CE0DD7 /* MoneyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyManager.h; sourceTree = "<group>"; };
+		1803113B188524C900CE0DD7 /* MoneyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyManager.m; sourceTree = "<group>"; };
+		1803113D18853C4400CE0DD7 /* StoreObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreObserver.h; sourceTree = "<group>"; };
+		1803113E18853C4400CE0DD7 /* StoreObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreObserver.m; sourceTree = "<group>"; };
 		1854980718813F7B00BDD0E8 /* item_item1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item1.png; sourceTree = "<group>"; };
 		1854980818813F7B00BDD0E8 /* item_item2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item2.png; sourceTree = "<group>"; };
 		1854980918813F7B00BDD0E8 /* item_item3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_item3.png; sourceTree = "<group>"; };
@@ -2101,9 +2126,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180311231885221700CE0DD7 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				180311241885221700CE0DD7 /* store_bg.png */,
+				180311251885221700CE0DD7 /* store_buy.png */,
+				180311261885221700CE0DD7 /* store_coin1.png */,
+				180311271885221700CE0DD7 /* store_coin2.png */,
+				180311281885221700CE0DD7 /* store_coin3.png */,
+				180311291885221700CE0DD7 /* store_coin4.png */,
+				1803112A1885221700CE0DD7 /* store_coin5.png */,
+				1803112B1885221700CE0DD7 /* store_coinbg.png */,
+			);
+			name = IAP;
+			path = "menu2_play-assets";
+			sourceTree = "<group>";
+		};
 		188AC0391876658300F95AD8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				180311231885221700CE0DD7 /* IAP */,
 				188AC03A1876658300F95AD8 /* friend */,
 				188AC03E1876658300F95AD8 /* item */,
 				188AC0421876658300F95AD8 /* paused */,
@@ -3892,6 +3934,8 @@
 				188AC08D18767EBB00F95AD8 /* Match4GameOverLayer.m */,
 				188AC08F18769F5000F95AD8 /* Match4PauseLayer.h */,
 				188AC09018769F5000F95AD8 /* Match4PauseLayer.m */,
+				180311371885243F00CE0DD7 /* StoreView.h */,
+				180311381885243F00CE0DD7 /* StoreView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3917,6 +3961,8 @@
 				188D37051869621000D92C98 /* GameController.m */,
 				04B1B5AB1879998600AC1BFD /* ValuesManager.h */,
 				04B1B5AC1879998600AC1BFD /* ValuesManager.m */,
+				1803113A188524C900CE0DD7 /* MoneyManager.h */,
+				1803113B188524C900CE0DD7 /* MoneyManager.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -3932,6 +3978,8 @@
 				188D32011869112F00D92C98 /* ElementManager.m */,
 				188DCA3A187EBCC9002E8BB2 /* LabelManager.h */,
 				188DCA3B187EBCC9002E8BB2 /* LabelManager.m */,
+				1803113D18853C4400CE0DD7 /* StoreObserver.h */,
+				1803113E18853C4400CE0DD7 /* StoreObserver.m */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -4040,6 +4088,7 @@
 				188D358D1869384300D92C98 /* beam10.png in Resources */,
 				188D34DD1869384300D92C98 /* rectifySymbolMorph04-ipad@2x.png in Resources */,
 				188D353C1869384300D92C98 /* mainmenu3-ipad@2x.png in Resources */,
+				180311321885221700CE0DD7 /* store_coin5.png in Resources */,
 				188C2C031871AFEF0093C020 /* SFX3_04.png in Resources */,
 				188D366D1869384400D92C98 /* rectifySymbolMorph29@2x.png in Resources */,
 				188D35C61869384300D92C98 /* superSymbolMorph19.png in Resources */,
@@ -4153,6 +4202,7 @@
 				188D34C81869384300D92C98 /* explodingSymbol16-ipad@2x.png in Resources */,
 				188D36C31869384400D92C98 /* iphone_pause_press@2x.png in Resources */,
 				188D36AE1869384400D92C98 /* iphone5_playagain_press.png in Resources */,
+				180311331885221700CE0DD7 /* store_coinbg.png in Resources */,
 				188D36C01869384400D92C98 /* iphone_newstore@2x.jpg in Resources */,
 				188D34E61869384300D92C98 /* rectifySymbolMorph13-ipad@2x.png in Resources */,
 				188DC839187E3183002E8BB2 /* SFX-GeneralMenuButton.caf in Resources */,
@@ -4313,6 +4363,7 @@
 				188C2BF01871AFEF0093C020 /* SFX2_05.png in Resources */,
 				188D35E71869384300D92C98 /* iphone_mainmenu_press.png in Resources */,
 				188D34F01869384300D92C98 /* rectifySymbolMorph23-ipad@2x.png in Resources */,
+				1803112C1885221700CE0DD7 /* store_bg.png in Resources */,
 				188D34B61869384300D92C98 /* Icon@2x.png in Resources */,
 				188D34C31869384300D92C98 /* explodingSymbol10-ipad@2x.png in Resources */,
 				188D35A21869384300D92C98 /* rectifySymbolMorph15.png in Resources */,
@@ -4431,9 +4482,11 @@
 				188D35991869384300D92C98 /* rectifySymbolMorph06.png in Resources */,
 				188D34A71869384300D92C98 /* Icon-29.png in Resources */,
 				188D35E11869384300D92C98 /* introBackgroundNew.png in Resources */,
+				1803112E1885221700CE0DD7 /* store_coin1.png in Resources */,
 				188D355D1869384300D92C98 /* symbol0-ipad@2x.png in Resources */,
 				188C2BDC1871AFEF0093C020 /* SFX1_02.png in Resources */,
 				188D366F1869384400D92C98 /* rectifySymbolMorph31@2x.png in Resources */,
+				1803112D1885221700CE0DD7 /* store_buy.png in Resources */,
 				188D34F61869384300D92C98 /* rectifySymbolMorph29-ipad@2x.png in Resources */,
 				188C2C101871AFEF0093C020 /* SFX3_17.png in Resources */,
 				188D36CD1869384400D92C98 /* mainmenu7@2x.png in Resources */,
@@ -4459,6 +4512,7 @@
 				1892B1AF1868243A00F48431 /* Icon-72.png in Resources */,
 				188C2C171871AFEF0093C020 /* SFX4_04.png in Resources */,
 				188D34FC1869384300D92C98 /* superSymbolMorph03-ipad@2x.png in Resources */,
+				180311311885221700CE0DD7 /* store_coin4.png in Resources */,
 				188C2BE61871AFEF0093C020 /* SFX1_12.png in Resources */,
 				188D34D01869384300D92C98 /* beam06-ipad@2x.png in Resources */,
 				188D366B1869384400D92C98 /* rectifySymbolMorph27@2x.png in Resources */,
@@ -4695,6 +4749,7 @@
 				188D35BD1869384300D92C98 /* superSymbolMorph10.png in Resources */,
 				188D36C81869384400D92C98 /* mainmenu2@2x.png in Resources */,
 				188D36CA1869384400D92C98 /* mainmenu4@2x.png in Resources */,
+				1803112F1885221700CE0DD7 /* store_coin2.png in Resources */,
 				188D35A71869384300D92C98 /* rectifySymbolMorph20.png in Resources */,
 				188D34E91869384300D92C98 /* rectifySymbolMorph16-ipad@2x.png in Resources */,
 				188D35E21869384300D92C98 /* iphone5_background1.png in Resources */,
@@ -4769,6 +4824,7 @@
 				188D36E71869384400D92C98 /* symbol0@2x.png in Resources */,
 				188D35D21869384300D92C98 /* howtoplaybutton.png in Resources */,
 				188D34D91869384300D92C98 /* beam15-ipad@2x.png in Resources */,
+				180311301885221700CE0DD7 /* store_coin3.png in Resources */,
 				188D36491869384400D92C98 /* beam09@2x.png in Resources */,
 				188D350B1869384300D92C98 /* superSymbolMorph18-ipad@2x.png in Resources */,
 				188D34AF1869384300D92C98 /* Icon-76.png in Resources */,
@@ -4846,6 +4902,7 @@
 				1892B3291868243C00F48431 /* utility.c in Sources */,
 				1892B2D51868243B00F48431 /* CCVertex.m in Sources */,
 				1892B2DB1868243B00F48431 /* NSThread+performBlock.m in Sources */,
+				1803113C188524C900CE0DD7 /* MoneyManager.m in Sources */,
 				1892B1E21868243A00F48431 /* CCActionTiledGrid.m in Sources */,
 				1892B2291868243B00F48431 /* CCMenuItem.m in Sources */,
 				1892B1C41868243A00F48431 /* CCActionCamera.m in Sources */,
@@ -4925,9 +4982,11 @@
 				185498161883827A00BDD0E8 /* StatsItem.m in Sources */,
 				1892B24A1868243B00F48431 /* CCProgressTimer.m in Sources */,
 				1892B21F1868243B00F48431 /* CCLabelTTF.m in Sources */,
+				180311391885243F00CE0DD7 /* StoreView.m in Sources */,
 				1892B2CC1868243B00F48431 /* CCFileUtils.m in Sources */,
 				1892B2B91868243B00F48431 /* CCEventDispatcher.m in Sources */,
 				1892B26F1868243B00F48431 /* CCSpriteBatchNode.m in Sources */,
+				1803113F18853C4400CE0DD7 /* StoreObserver.m in Sources */,
 				1892B1F81868243A00F48431 /* CCConfiguration.m in Sources */,
 				1892B2541868243B00F48431 /* CCScheduler.m in Sources */,
 				1892B2A41868243B00F48431 /* CCDirectorIOS.m in Sources */,

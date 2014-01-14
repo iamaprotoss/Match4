@@ -12,7 +12,7 @@
 #import "Match4ItemLayer.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, timeView, mainView, itemView, gameItems, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, timeView, mainView, itemView, gameItems, isInGame;
 
 +(GameController *)sharedController
 {

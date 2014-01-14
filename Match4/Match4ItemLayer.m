@@ -8,9 +8,10 @@
 
 #import "Match4ItemLayer.h"
 #import "GameController.h"
+#import "StoreView.h"
 
 @implementation Match4ItemLayer
-@synthesize start, buygold, item, price, selectbg;
+@synthesize buygold, price, selectbg;
 
 
 -(id) init
@@ -23,9 +24,10 @@
         selectbg.position = ccp(160, 180);
         [self addChild:selectbg];
         
-        buygold = [CCSprite spriteWithFile:@"start_gold.png"];
-        buygold.position = ccp(160, 275);
-        [self addChild:buygold];
+        buygold = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_gold.png"] selectedSprite:[CCSprite spriteWithFile:@"start_gold.png"] target:self selector:@selector(store)];
+        CCMenu *menu = [CCMenu menuWithItems:buygold, nil];
+        menu.position = ccp(160, 275);
+        [self addChild:menu];
         
         item1 = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"item_item1.png"] selectedSprite:[CCSprite spriteWithFile:@"item_item1.png"] target:self selector:@selector(itemSelect:)];
         item1.tag = 1;
@@ -72,6 +74,12 @@
             NSLog(@"numOfItemSelected %i", numOfItemSelected);
         };
     }
+}
+
+-(void)store
+{
+    CCLayer *storeView = [StoreView node];
+    [self addChild:storeView];
 }
 
 -(void)close

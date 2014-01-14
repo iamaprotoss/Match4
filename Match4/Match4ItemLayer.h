@@ -17,9 +17,8 @@
 
 @interface Match4ItemLayer : CCLayer
 {
-    CCMenuItemSprite *start;
     CCSprite *selectbg;
-    CCSprite *buygold;
+    CCMenuItemSprite *buygold;
     CCMenuItemSprite *item1;
     CCMenuItemSprite *item2;
     CCMenuItemSprite *item3;
@@ -35,10 +34,8 @@
 
 @property (retain, nonatomic) id<Match4ItemLayerDelegate> delegate;
 
-@property (retain, nonatomic) CCMenuItemSprite *start;
+@property (retain, nonatomic) CCMenuItemSprite *buygold;
 @property (retain, nonatomic) CCSprite *selectbg;
-@property (retain, nonatomic) CCSprite *buygold;
-@property (retain, nonatomic) CCSprite *item;
 @property (retain, nonatomic) CCSprite *price;
 
 
