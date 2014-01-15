@@ -3963,6 +3963,8 @@
 				04B1B5AC1879998600AC1BFD /* ValuesManager.m */,
 				1803113A188524C900CE0DD7 /* MoneyManager.h */,
 				1803113B188524C900CE0DD7 /* MoneyManager.m */,
+				1803113D18853C4400CE0DD7 /* StoreObserver.h */,
+				1803113E18853C4400CE0DD7 /* StoreObserver.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -3978,8 +3980,6 @@
 				188D32011869112F00D92C98 /* ElementManager.m */,
 				188DCA3A187EBCC9002E8BB2 /* LabelManager.h */,
 				188DCA3B187EBCC9002E8BB2 /* LabelManager.m */,
-				1803113D18853C4400CE0DD7 /* StoreObserver.h */,
-				1803113E18853C4400CE0DD7 /* StoreObserver.m */,
 			);
 			name = Others;
 			sourceTree = "<group>";

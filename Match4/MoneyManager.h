@@ -18,10 +18,13 @@
     int selectedIAP;
     
     SKProductsRequest *request;
+    NSArray *allIAP;
 }
 
 @property (nonatomic) int coins;
 @property (nonatomic, retain) SKProductsRequest *request;
+@property (nonatomic, retain) NSArray *allIAP;
+@property (nonatomic, retain) StoreView *storeView;
 @property (nonatomic, retain) SKProductsRequest *responseProducts;
 
 -(void)addCoins:(int)noOfCoins;

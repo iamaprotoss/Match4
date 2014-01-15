@@ -12,7 +12,7 @@
 #import "Match4ItemLayer.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, timeView, mainView, itemView, gameItems, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, storeObserver, timeView, mainView, itemView, gameItems, isInGame;
 
 +(GameController *)sharedController
 {
@@ -36,6 +36,8 @@
         elementManager = [[ElementManager alloc] init];
         labelManager = [[LabelManager alloc] init];
         valuesManager = [[ValuesManager alloc] init];
+        moneyManager = [[MoneyManager alloc] init];
+        storeObserver = [[StoreObserver alloc] init];
         gameItems = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          [NSNumber numberWithBool:NO], @"Time Bonus",
          [NSNumber numberWithBool:NO], @"Score Bonus",

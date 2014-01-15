@@ -15,6 +15,7 @@
 #import "LabelManager.h"
 #import "ValuesManager.h"
 #import "MoneyManager.h"
+#import "StoreObserver.h"
 @class Match4MainView;
 @class Match4TimeView;
 @class Match4ItemLayer;
@@ -29,6 +30,7 @@
     LabelManager *labelManager;
     ValuesManager *valuesManager;
     MoneyManager *moneyManager;
+    StoreObserver *storeObserver;
     
     Match4MainView *mainView; // Match4MainView
     Match4TimeView *timeView; // Match4TimeView
@@ -47,6 +49,7 @@
 @property (nonatomic, retain) LabelManager *labelManager;
 @property (nonatomic, retain) ValuesManager *valuesManager;
 @property (nonatomic, retain) MoneyManager *moneyManager;
+@property (nonatomic, retain) StoreObserver *storeObserver;
 
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;

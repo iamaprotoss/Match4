@@ -7,13 +7,44 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <StoreKit/StoreKit.h>
 
-@protocol S <NSObject>
 
-<#methods#>
+
+@protocol StoreObserverProtocol<NSObject>
+
+-(void)transactionDidFinish:(NSString*)transactionIdentifier;
+-(void)transactionDidError:(NSError*)error;
 
 @end
 
-@interface StoreObserver : NSObject
+
+@interface StoreObserver : NSObject<SKPaymentTransactionObserver, SKProductsRequestDelegate>
+{
+    id <StoreObserverProtocol> delegate;
+    SKProduct *proUpgradeProduct;
+    SKProductsRequest *productsRequest;
+    
+    NSMutableArray *productRes;
+}
+
+@property (nonatomic, assign) id <StoreObserverProtocol> delegate;
+@property (nonatomic, retain) NSMutableArray *productRes;
+
+- (void) purchase:(NSString*)purchase_id;
+- (void) paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
+- (void) restoreTransaction:(SKPaymentTransaction*)transaction;
+- (void) completeTransaction:(SKPaymentTransaction*)transaction;
+- (void) transactionDidFinish:(NSString*)transactionIdentifier;
+- (void) transactionDidError:(NSError*)error;
+- (void) sendResponse:(SKProductsResponse *)response;
+
+- (void) requestProductData;
+@end
+
+
+@interface SKProduct (LocalizedPrice)
+
+@property (nonatomic, readonly) NSString *localizedPrice;
 
 @end
