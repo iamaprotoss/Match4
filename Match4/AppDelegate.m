@@ -136,6 +136,8 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+    observer = [[StoreObserver alloc] init];
 	
 	return YES;
 }

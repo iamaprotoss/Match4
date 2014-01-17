@@ -66,7 +66,7 @@
 #pragma mark SKProduct
 -(void)requestProductDataFromStoreView:(StoreView *)thisView
 {
-    self.storeView = thisView;
+    //self.storeView = thisView;
     self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObjects:
                                                                          IAP_100_COINS,
                                                                          IAP_500_COINS,

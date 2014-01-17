@@ -14,6 +14,62 @@
 @implementation StoreObserver
 @synthesize delegate, productRes;
 
+-(id) init
+{
+    if (self = [super init]) {
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    }
+    return self;
+}
+
+- (void) purchase:(NSString *)purchase_id {
+    if (![SKPaymentQueue canMakePayments]) {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"inApp purchase Disabled"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+        return;
+    }
+    int ID = 0;
+    
+    if ([purchase_id isEqual:IAP_100_COINS]) {
+        ID = 0;
+    } else if ([purchase_id isEqual:IAP_500_COINS]) {
+        ID = 1;
+    } else if ([purchase_id isEqual:IAP_1000_COINS]) {
+        ID = 2;
+    } else if ([purchase_id isEqual:IAP_5000_COINS]) {
+        ID = 3;
+    } else if ([purchase_id isEqual:IAP_10000_COINS]) {
+        ID = 4;
+    }
+    
+    SKProduct *productSK = [self.productRes objectAtIndex:ID];
+    if (productSK == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Cannot connect to iTunes Connect"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Dismiss"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+        return;
+    }
+    
+    SKPayment *payment = [SKPayment paymentWithProduct:productSK];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+- (void) restorePurchases {
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
+
+#pragma mark SKPaymentTransactionObserver
 -(void)failedTransaction: (SKPaymentTransaction  *)transaction
 {
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -84,6 +140,7 @@
     }
 }
 
+#pragma mark SKProductsRequestDelegate
 -(void)requestProductData
 {
     productsRequest = [[SKProductsRequest alloc]
@@ -122,50 +179,5 @@
     [[GameController sharedController].moneyManager.storeView showIAP];
 }
 
-- (void) purchase:(NSString *)purchase_id {
-    if (![SKPaymentQueue canMakePayments]) {
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"inApp purchase Disabled"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        [alertView release];
-        return;
-    }
-    int ID = 0;
-    
-    if ([purchase_id isEqual:IAP_100_COINS]) {
-        ID = 0;
-    } else if ([purchase_id isEqual:IAP_500_COINS]) {
-        ID = 1;
-    } else if ([purchase_id isEqual:IAP_1000_COINS]) {
-        ID = 2;
-    } else if ([purchase_id isEqual:IAP_5000_COINS]) {
-        ID = 3;
-    } else if ([purchase_id isEqual:IAP_10000_COINS]) {
-        ID = 4;
-    }
-
-    SKProduct *productSK = [self.productRes objectAtIndex:ID];
-    if (productSK == nil) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Cannot connect to iTunes Connect"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Dismiss"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        [alertView release];
-        return;
-    }
-    
-    SKPayment *payment = [SKPayment paymentWithProduct:productSK];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
-}
-
-- (void) restorePurchases {
-    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-}
 
 @end

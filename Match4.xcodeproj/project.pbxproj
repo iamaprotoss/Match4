@@ -26,6 +26,7 @@
 		1854981018813F7B00BDD0E8 /* item_item5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980B18813F7B00BDD0E8 /* item_item5.png */; };
 		185498161883827A00BDD0E8 /* StatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 185498151883827A00BDD0E8 /* StatsItem.m */; };
 		1854981918838FC600BDD0E8 /* ElementItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854981818838FC600BDD0E8 /* ElementItem.m */; };
+		188A12DD1888D83900CAD82A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188A12DC1888D83900CAD82A /* StoreKit.framework */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
 		188AC0651876658300F95AD8 /* friends_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03C1876658300F95AD8 /* friends_bg.png */; };
@@ -995,6 +996,7 @@
 		185498151883827A00BDD0E8 /* StatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsItem.m; sourceTree = "<group>"; };
 		1854981718838FC600BDD0E8 /* ElementItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementItem.h; sourceTree = "<group>"; };
 		1854981818838FC600BDD0E8 /* ElementItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementItem.m; sourceTree = "<group>"; };
+		188A12DC1888D83900CAD82A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
 		188AC03B1876658300F95AD8 /* friends_-banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends_-banner.png"; sourceTree = "<group>"; };
@@ -2110,6 +2112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188A12DD1888D83900CAD82A /* StoreKit.framework in Frameworks */,
 				1892B1951868243A00F48431 /* OpenAL.framework in Frameworks */,
 				1892B19B1868243A00F48431 /* UIKit.framework in Frameworks */,
 				1892B1911868243A00F48431 /* QuartzCore.framework in Frameworks */,
@@ -3484,6 +3487,7 @@
 		1892B18F1868243A00F48431 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188A12DC1888D83900CAD82A /* StoreKit.framework */,
 				1892B1901868243A00F48431 /* QuartzCore.framework */,
 				1892B1921868243A00F48431 /* OpenGLES.framework */,
 				1892B1941868243A00F48431 /* OpenAL.framework */,

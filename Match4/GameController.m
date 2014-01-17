@@ -36,7 +36,7 @@
         elementManager = [[ElementManager alloc] init];
         labelManager = [[LabelManager alloc] init];
         valuesManager = [[ValuesManager alloc] init];
-        moneyManager = [[MoneyManager alloc] init];
+        //moneyManager = [[MoneyManager alloc] init];
         storeObserver = [[StoreObserver alloc] init];
         gameItems = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          [NSNumber numberWithBool:NO], @"Time Bonus",

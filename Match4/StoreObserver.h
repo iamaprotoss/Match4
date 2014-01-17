@@ -21,7 +21,6 @@
 
 @interface StoreObserver : NSObject<SKPaymentTransactionObserver, SKProductsRequestDelegate>
 {
-    id <StoreObserverProtocol> delegate;
     SKProduct *proUpgradeProduct;
     SKProductsRequest *productsRequest;
     
