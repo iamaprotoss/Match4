@@ -36,14 +36,7 @@
 - (void) completeTransaction:(SKPaymentTransaction*)transaction;
 - (void) transactionDidFinish:(NSString*)transactionIdentifier;
 - (void) transactionDidError:(NSError*)error;
-- (void) sendResponse:(SKProductsResponse *)response;
 
 - (void) requestProductData;
 @end
 
-
-@interface SKProduct (LocalizedPrice)
-
-@property (nonatomic, readonly) NSString *localizedPrice;
-
-@end

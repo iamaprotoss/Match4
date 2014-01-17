@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
-#import "StoreView.h"
+@class StoreView;
 
 @interface MoneyManager : NSObject
 {
@@ -29,5 +29,6 @@
 
 -(void)addCoins:(int)noOfCoins;
 -(void)spendCoins:(int)noOfCoins;
+-(void)buyIAP:(int)thisIAP;
 
 @end

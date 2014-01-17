@@ -9,6 +9,7 @@
 #import "MoneyManager.h"
 #import "GameController.h"
 #import "StoreObserver.h"
+#import "StoreView.h"
 
 @implementation MoneyManager
 @synthesize coins;

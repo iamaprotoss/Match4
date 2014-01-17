@@ -9,6 +9,7 @@
 #import "StoreObserver.h"
 #import <GameKit/GKScore.h>
 #import "GameController.h"
+#import "MoneyManager.h"
 //#import "SVProgressHUD.h"
 
 @implementation StoreObserver
@@ -18,6 +19,7 @@
 {
     if (self = [super init]) {
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [self requestProductData];
     }
     return self;
 }
@@ -60,7 +62,7 @@
     }
     
     SKPayment *payment = [SKPayment paymentWithProduct:productSK];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    //[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
@@ -157,18 +159,6 @@
 
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    [self sendResponse:response];
-    [request autorelease];
-}
-
-- (void)sendResponse:(SKProductsResponse *)response {
-    //Sun
-    //    for (SKProduct *product in response.products) {
-    //        SKPayment *payment = [SKPayment paymentWithProduct:product];
-    //        [[SKPaymentQueue defaultQueue] addPayment:payment];
-    //    }
-    //productResponses = response;
-    
     self.productRes = [NSMutableArray new];
     for (SKProduct *product in response.products) {
         [self.productRes addObject:product];
@@ -176,7 +166,9 @@
     }
     [GameController sharedController].moneyManager.allIAP = response.products;
     [GameController sharedController].moneyManager.request = nil;
-    [[GameController sharedController].moneyManager.storeView showIAP];
+    //[[GameController sharedController].moneyManager.storeView showIAP];
+    
+    [request autorelease];
 }
 
 

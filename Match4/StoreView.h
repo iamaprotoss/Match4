@@ -7,7 +7,6 @@
 //
 
 #import "CCLayer.h"
-#import "GameController.h"
 
 @interface StoreView : CCLayer
 {
