@@ -60,7 +60,7 @@
         moneybg.position = ccp(250, 450);
         [self addChild:moneybg];
         
-        money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentMoney] fontSize:20];
+        money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].moneyManager.coins] fontSize:20];
         money.position = ccp(250, 450);
         [self addChild:money];
         

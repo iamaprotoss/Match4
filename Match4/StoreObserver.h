@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-
+typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray *products);
 
 @protocol StoreObserverProtocol<NSObject>
 
@@ -23,6 +23,7 @@
 {
     SKProduct *proUpgradeProduct;
     SKProductsRequest *productsRequest;
+    RequestProductsCompletionHandler _completionHandler;
     
     NSMutableArray *productRes;
 }
@@ -37,6 +38,6 @@
 - (void) transactionDidFinish:(NSString*)transactionIdentifier;
 - (void) transactionDidError:(NSError*)error;
 
-- (void) requestProductData;
+- (void) requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
 @end
 

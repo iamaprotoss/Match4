@@ -152,7 +152,7 @@
     [GameController sharedController].statsManager.currentExperience += totalScore;
     [self computeLevel];
     int moneyObtained = (int)pow(gameScore/100, 1/2)*100;
-    [GameController sharedController].statsManager.currentMoney += moneyObtained;
+    [[GameController sharedController].moneyManager addCoins:moneyObtained];
     gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:moneyObtained];
     gameOverView.position = ccp(0, 120);
     [self addChild:gameOverView];

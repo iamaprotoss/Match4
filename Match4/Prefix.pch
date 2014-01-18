@@ -19,5 +19,5 @@
 #define IAP_100_COINS @"com.sincerupt.match4.IAP_100_COINS"
 #define IAP_500_COINS @"com.sincerupt.match4.IAP_500_COINS"
 #define IAP_1000_COINS @"com.sincerupt.match4.IAP_1000_COINS"
-#define IAP_5000_COINS @"com.sincerupt.match4.IAP_5000_COINS"
+#define IAP_5000_COINS @"com.sincerupt.match4.IAP_5001_COINS"
 #define IAP_10000_COINS @"com.sincerupt.match4.IAP_10000_COINS"

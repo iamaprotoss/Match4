@@ -64,20 +64,6 @@
     }
 }
 
-#pragma mark SKProduct
--(void)requestProductDataFromStoreView:(StoreView *)thisView
-{
-    //self.storeView = thisView;
-    self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObjects:
-                                                                         IAP_100_COINS,
-                                                                         IAP_500_COINS,
-                                                                         IAP_1000_COINS,
-                                                                         IAP_5000_COINS,
-                                                                         IAP_10000_COINS,
-                                                                          nil]];
-    request.delegate = [GameController sharedController].storeObserver;
-    [request start];
-}
 
 
 @end

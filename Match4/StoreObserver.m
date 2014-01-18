@@ -19,10 +19,27 @@
 {
     if (self = [super init]) {
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-        [self requestProductData];
+        //[self requestProductData];
     }
     return self;
 }
+
+-(void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler
+{
+    _completionHandler = [completionHandler copy];
+    productsRequest = [[SKProductsRequest alloc]
+                       initWithProductIdentifiers:[NSSet setWithObjects:
+                                                   IAP_100_COINS,
+                                                   IAP_500_COINS,
+                                                   IAP_1000_COINS,
+                                                   IAP_5000_COINS,
+                                                   IAP_10000_COINS,
+                                                   nil]];
+    productsRequest.delegate = self;
+    [productsRequest start];
+}
+
+
 
 - (void) purchase:(NSString *)purchase_id {
     if (![SKPaymentQueue canMakePayments]) {
@@ -142,34 +159,40 @@
     }
 }
 
-#pragma mark SKProductsRequestDelegate
--(void)requestProductData
-{
-    productsRequest = [[SKProductsRequest alloc]
-                       initWithProductIdentifiers:[NSSet setWithObjects:
-                                                   IAP_100_COINS,
-                                                   IAP_500_COINS,
-                                                   IAP_1000_COINS,
-                                                   IAP_5000_COINS,
-                                                   IAP_10000_COINS,
-                                                   nil]];
-    productsRequest.delegate = self;
-    [productsRequest start];
-}
 
+
+#pragma mark SKProductsRequestDelegate
 -(void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    self.productRes = [NSMutableArray new];
+    productRes = [[NSMutableArray alloc] init];
+    NSArray *skProducts = response.products;
+    for (SKProduct * skProduct in skProducts) {
+        NSLog(@"Found product: %@ %@ %0.2f",
+              skProduct.productIdentifier,
+              skProduct.localizedTitle,
+              skProduct.price.floatValue);
+        [productRes addObject:skProduct];
+    }
+    
+    /*self.productRes = [NSMutableArray new];
     for (SKProduct *product in response.products) {
         [self.productRes addObject:product];
         NSLog(@"%@",product.productIdentifier);
     }
     [GameController sharedController].moneyManager.allIAP = response.products;
     [GameController sharedController].moneyManager.request = nil;
-    //[[GameController sharedController].moneyManager.storeView showIAP];
-    
-    [request autorelease];
+    //[[GameController sharedController].moneyManager.storeView showIAP];*/
+    NSLog(@"success in loading list of products");
+    _completionHandler(YES, skProducts);
+    _completionHandler = nil;
 }
 
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog(@"failed to load list of products");
+    productsRequest = nil;
+    _completionHandler(NO, nil);
+    _completionHandler = nil;
+}
 
 @end
