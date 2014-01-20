@@ -30,13 +30,16 @@
         isNuclearBomb = NO;
         isExplosion = NO;
         gameGrid = [[NSMutableArray alloc] init];
+        //hintGrid = [[NSMutableArray alloc] init];
         for (int i = 0; i < 8; i ++) {
             [gameGrid addObject:[NSMutableArray array]];
+        //    [hintGrid addObject:[NSMutableArray array]];
         }
         elementsToRemove = [[NSMutableSet alloc] init];
         elementsToMove = [[NSMutableSet alloc] init];
         elementsToSkip = [[NSMutableSet alloc] init];
         partitionOfGrid = [[NSMutableArray alloc] init];
+        partitionOfHintGrid = [[NSMutableArray alloc] init];
         
         special = [thisDict copy];
         if ([[special objectForKey:@"Initial Superior Element"] boolValue]) {
@@ -60,7 +63,7 @@
     return self;
 }
 
-#pragma GRID MANAGEMENT
+#pragma mark GRID MANAGEMENT
 
 - (void) reshuffle
 {
@@ -202,6 +205,7 @@
     }
 }
 
+
 -(void) dfSearch:(CGPoint)index type:(int)thisType Id:(int)thisGroupId
 {
     int x = index.x;
@@ -294,7 +298,153 @@
 }
 
 
+- (void) clearPartitionForHintGrid
+{
+    for (NSMutableArray *array in partitionOfHintGrid) {
+        [array removeAllObjects];
+        [array release];
+    }
+    [partitionOfHintGrid removeAllObjects];
+}
+
+- (void) findPartitionForHintGrid
+{
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            hintGroup[i][j] = -1;
+        }
+    }
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (hintGroup[i][j] == -1) {
+                int groupId = count;
+                [self dfSearchForHintGrid:CGPointMake(i, j) type:[[[hintGrid objectAtIndex:i] objectAtIndex:j] isOfType] Id:groupId];
+                count ++;
+            }
+        }
+    }
+    
+    [self clearPartitionForHintGrid];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (hintGroup[i][j] >= [partitionOfHintGrid count]) {
+                NSMutableArray *component = [[NSMutableArray alloc] init];
+                [partitionOfHintGrid addObject:component];
+                [component addObject:[[hintGrid objectAtIndex:i] objectAtIndex:j]];
+            } else {
+                [[partitionOfHintGrid objectAtIndex:hintGroup[i][j]] addObject:[[hintGrid objectAtIndex:i] objectAtIndex:j]];
+            }
+        }
+    }
+}
+
+-(void) dfSearchForHintGrid:(CGPoint)index type:(int)thisType Id:(int)thisGroupId
+{
+    int x = index.x;
+    int y = index.y;
+    hintGroup[x][y] = thisGroupId;
+    x = index.x - 1;
+    if (x>=0 && hintGroup[x][y]==-1 && [[[hintGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearchForHintGrid:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    x = index.x + 1;
+    if (x<8 && hintGroup[x][y]==-1 && [[[hintGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearchForHintGrid:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    x = index.x;
+    y = index.y - 1;
+    if (y>=0 && hintGroup[x][y]==-1 && [[[hintGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearchForHintGrid:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+    y = index.y + 1;
+    if (y<8 && hintGroup[x][y]==-1 && [[[hintGrid objectAtIndex:x] objectAtIndex:y] isOfType] == thisType) {
+        [self dfSearchForHintGrid:CGPointMake(x, y) type:thisType Id:thisGroupId];
+    }
+}
+
+- (int) findConnectedComponentForHintGrid:(Match4Element *)thisElement
+{
+    // breadth first search
+    NSMutableSet *connectedComponent = [[NSMutableSet alloc] init];
+    NSMutableArray *list = [[NSMutableArray alloc] init];
+    [list addObject:thisElement];
+    [connectedComponent addObject:thisElement];
+    while ([list count] > 0) {
+        Match4Element *currentElement = [[list firstObject] retain];
+        [list removeObject:currentElement];
+        int x = currentElement.isIndex.x;
+        int y = currentElement.isIndex.y;
+        Match4Element *elementToCheck = [[Match4Element alloc] init];
+        elementToCheck = nil;
+        if ([hintGrid count] > x+1 && [[hintGrid objectAtIndex:x+1] count] > y) {
+            elementToCheck = [[hintGrid objectAtIndex:x+1] objectAtIndex:y];
+        }
+        if (elementToCheck) {
+            if (elementToCheck.isOfType == thisElement.isOfType && ![connectedComponent containsObject:elementToCheck]) {
+                [list addObject:elementToCheck ];
+                [connectedComponent addObject:elementToCheck];
+            }
+            elementToCheck = nil;
+        }
+        if ([hintGrid count] > x-1 && [[hintGrid objectAtIndex:x-1] count] > y) {
+            elementToCheck = [[hintGrid objectAtIndex:x-1] objectAtIndex:y];
+        }
+        if (elementToCheck) {
+            if (elementToCheck.isOfType == thisElement.isOfType && ![connectedComponent containsObject:elementToCheck]) {
+                [list addObject:elementToCheck];
+                [connectedComponent addObject:elementToCheck];
+            }
+            elementToCheck = nil;
+        }
+        if ([hintGrid count] > x && [[hintGrid objectAtIndex:x] count] > y+1) {
+            elementToCheck = [[hintGrid objectAtIndex:x] objectAtIndex:y+1];
+        }
+        if (elementToCheck) {
+            if (elementToCheck.isOfType == thisElement.isOfType && ![connectedComponent containsObject:elementToCheck]) {
+                [list addObject:elementToCheck];
+                [connectedComponent addObject:elementToCheck];
+            }
+            elementToCheck = nil;
+        }
+        if ([hintGrid count] > x && [[hintGrid objectAtIndex:x] count] > y-1) {
+            elementToCheck = [[hintGrid objectAtIndex:x] objectAtIndex:y-1];
+        }
+        if (elementToCheck) {
+            if (elementToCheck.isOfType == thisElement.isOfType && ![connectedComponent containsObject:elementToCheck]) {
+                [list addObject:elementToCheck];
+                [connectedComponent addObject:elementToCheck];
+            }
+            elementToCheck = nil;
+        }
+        [currentElement release];
+        currentElement = nil;
+        [elementToCheck release];
+    }
+    int count = [connectedComponent count];
+    [connectedComponent removeAllObjects];
+    [connectedComponent release];
+    connectedComponent = nil;
+    [list release];
+    connectedComponent = nil;
+    return count;
+}
+
+
+
 #pragma mark SEARCH PATTERNS
+/*
+- (CGPoint)getHint
+{
+    BOOL possiblePatternFound = NO;
+    CGPoint hint = CGPointMake(-1, -1);
+    hintGrid = [gameGrid copy];
+    
+    [self findPartitionForHintGrid];
+    
+    [hintGrid release];
+}*/
+
 - (void)eliminateNormal:(NSMutableArray *)thisComponent
 {
     noOfStandardEliminate += [thisComponent count];

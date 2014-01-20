@@ -77,8 +77,17 @@
         play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
         CCMenu *menu = [CCMenu menuWithItems:play_pause, nil];
-        menu.position = ccp(280, 77);
+        menu.position = ccp(280, 40);
         [self addChild:menu];
+        
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        play_hintNormal.anchorPoint = ccp(0.5, 0.5);
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        play_hintSelected.anchorPoint = ccp(0.5, 0.5);
+        CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
+        CCMenu *hint = [CCMenu menuWithItems:play_hint, nil];
+        hint.position = ccp(280, 77);
+        [self addChild:hint];
         
         /*
         if ([GameController sharedController].localStore.currentGame) {
@@ -206,6 +215,11 @@
     play_timeBar.scaleX = 1.32;
     [gameEngine resetGame];
     [self schedule:@selector(countDown) interval:1];
+}
+
+-(void)hint
+{
+    [gameEngine findHint];
 }
 
 @end

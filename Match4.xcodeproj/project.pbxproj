@@ -26,6 +26,7 @@
 		1854981018813F7B00BDD0E8 /* item_item5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980B18813F7B00BDD0E8 /* item_item5.png */; };
 		185498161883827A00BDD0E8 /* StatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 185498151883827A00BDD0E8 /* StatsItem.m */; };
 		1854981918838FC600BDD0E8 /* ElementItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854981818838FC600BDD0E8 /* ElementItem.m */; };
+		188867E9188D255B00CA0E4F /* play_help_btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188867E8188D255B00CA0E4F /* play_help_btn_bg.png */; };
 		188A12DD1888D83900CAD82A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188A12DC1888D83900CAD82A /* StoreKit.framework */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
@@ -996,6 +997,7 @@
 		185498151883827A00BDD0E8 /* StatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsItem.m; sourceTree = "<group>"; };
 		1854981718838FC600BDD0E8 /* ElementItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementItem.h; sourceTree = "<group>"; };
 		1854981818838FC600BDD0E8 /* ElementItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementItem.m; sourceTree = "<group>"; };
+		188867E8188D255B00CA0E4F /* play_help_btn_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_help_btn_bg.png; path = ../../../../../../Desktop/menu2/Resources/temp/play/play_help_btn_bg.png; sourceTree = "<group>"; };
 		188A12DC1888D83900CAD82A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
@@ -2200,6 +2202,7 @@
 		188AC0471876658300F95AD8 /* play */ = {
 			isa = PBXGroup;
 			children = (
+				188867E8188D255B00CA0E4F /* play_help_btn_bg.png */,
 				188DC8E0187E5E53002E8BB2 /* play_board_1.png */,
 				188DC898187E4FE2002E8BB2 /* play_board0.png */,
 				188AC0481876658300F95AD8 /* play_multimark.png */,
@@ -4400,6 +4403,7 @@
 				188C2BDF1871AFEF0093C020 /* SFX1_05.png in Resources */,
 				188D34D81869384300D92C98 /* beam14-ipad@2x.png in Resources */,
 				188D35311869384300D92C98 /* ipadbackground1@2x.png in Resources */,
+				188867E9188D255B00CA0E4F /* play_help_btn_bg.png in Resources */,
 				188D36C91869384400D92C98 /* mainmenu3@2x.png in Resources */,
 				188D36D71869384400D92C98 /* reshuffle_press@2x.png in Resources */,
 				188DC8C8187E5B9A002E8BB2 /* 2ndAE3070_12.png in Resources */,

@@ -29,7 +29,9 @@
     int initialSuperiorIndex[3];
     
     NSMutableArray *partitionOfGrid;
+    NSMutableArray *partitionOfHintGrid;
     NSInteger group[8][8];
+    NSInteger hintGroup[8][8];
     
     BOOL isNuclearBomb;
     
@@ -52,7 +54,6 @@
     int levelOfCascading;
     
     int pointsToAdd;
-    
     // Special effects
     NSMutableDictionary *special;
     
@@ -81,10 +82,12 @@
 - (void)populateGameField;
 - (void)refillGameField;
 - (void)checkIfElementNotMakingPattern:(Match4Element *)thisElement;
+- (void)findPartition;
 - (int)findConnectedComponent:(Match4Element *)thisElement;
 - (void)repositionAllElements;
 - (void)checkIfAllElementsRepositioned;
 - (void)reshuffle;
+- (CGPoint)getHint;
 
 - (void)eraseElements;
 

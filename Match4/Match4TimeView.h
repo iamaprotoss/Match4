@@ -67,6 +67,7 @@
 -(void) pause;
 -(void) resume;
 -(void) restart;
+-(void) hint;
 
 -(void) clues;
 -(void) proposeReshuffle;
