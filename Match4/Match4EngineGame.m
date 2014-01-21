@@ -433,17 +433,208 @@
 
 
 #pragma mark SEARCH PATTERNS
-/*
 - (CGPoint)getHint
 {
-    BOOL possiblePatternFound = NO;
+    //BOOL possiblePatternFound = NO;
     CGPoint hint = CGPointMake(-1, -1);
-    hintGrid = [gameGrid copy];
+    hintGrid = [[gameGrid copy] autorelease];
     
     [self findPartitionForHintGrid];
     
-    [hintGrid release];
-}*/
+    for (NSMutableArray *array in partitionOfHintGrid) {
+        if ([array count] == 3) {
+            int type = ((Match4Element*)[array lastObject]).isOfType;
+            for (Match4Element *element in array) {
+                int x = element.isIndex.x;
+                int y = element.isIndex.y;
+                if (y+2<8) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x] objectAtIndex:y+2];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x, y+2);
+                    }
+                }
+                if (x+1<8 && y+1<8) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x+1, y+1);
+                    }
+                }
+                if (x+2<8) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x+2] objectAtIndex:y];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x+2, y);
+                    }
+                }
+                if (x+1<8 && y-1>=0) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x+1, y-1);
+                    }
+                }
+                if (y-2>=0) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x] objectAtIndex:y-2];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x, y-2);
+                    }
+                }
+                if (x-1>=0 && y-1>=0) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x-1, y-1);
+                    }
+                }
+                if (x-2>=0) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x-2] objectAtIndex:y];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x-2, y);
+                    }
+                }
+                if (x-1>=0 && y+1<8) {
+                    Match4Element *elementToCheck = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    if (elementToCheck.isOfType == type && ![array containsObject:elementToCheck]) {
+                        return CGPointMake(x-1, y+1);
+                    }
+                }
+            }
+        } else if ([array count] == 2) {
+            int type = ((Match4Element*)[array lastObject]).isOfType;
+            for (Match4Element *element in array) {
+                int x = element.isIndex.x;
+                int y = element.isIndex.y;
+                if (x-1>=0 && y+2<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y+2];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y+1);
+                    }
+                }
+                if (x-2>=0 && y+1<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x-2] objectAtIndex:y];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y+1);
+                    }
+                }
+                if (x+1<8 && y+2<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y+2];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x+1, y+1);
+                    }
+                }
+                if (x+2<0 && y+1<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+2] objectAtIndex:y];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x+1, y+1);
+                    }
+                }
+                if (x+1<8 && y-2>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y-2];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x+1, y-1);
+                    }
+                }
+                if (x+2<8 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+2] objectAtIndex:y];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x+1, y-1);
+                    }
+                }
+                if (x-1>=0 && y-2>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y-2];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y-1);
+                    }
+                }
+                if (x-2>=0 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x-2] objectAtIndex:y];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y-1);
+                    }
+                }
+                if (x-1>=0 && x+1<8 && y+1<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y+1);
+                    }
+                }
+                if (x+1<8 && y+1<8 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x+1, y+1);
+                    }
+                }
+                if (x-1>=0 && x+1<8 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y-1);
+                    }
+                }
+                if (x-1>=0 && y+1<8 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type) {
+                        return CGPointMake(x-1, y+1);
+                    }
+                }
+            }
+        } else if ([array count] == 1) {
+            int type = ((Match4Element*)[array lastObject]).isOfType;
+            for (Match4Element *element in array) {
+                int x = element.isIndex.x;
+                int y = element.isIndex.y;
+                if (x-1>=0 && y+2<8 && x+1<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y+2];
+                    Match4Element *elementToCheck3 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type && elementToCheck3.isOfType == type) {
+                        return CGPointMake(x, y);
+                    }
+                }
+                if (y+1<8 && x+2<8 && y-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y+1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x+2] objectAtIndex:y];
+                    Match4Element *elementToCheck3 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type && elementToCheck3.isOfType == type) {
+                        return CGPointMake(x, y);
+                    }
+                }
+                if (x+1<8 && y-2>=0 && x-1>=0) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x+1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x] objectAtIndex:y-2];
+                    Match4Element *elementToCheck3 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type && elementToCheck3.isOfType == type) {
+                        return CGPointMake(x, y);
+                    }
+                }
+                if (y-1>=0 && x-2>=0 && y+1<8) {
+                    Match4Element *elementToCheck1 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y-1];
+                    Match4Element *elementToCheck2 = [[hintGrid objectAtIndex:x-2] objectAtIndex:y];
+                    Match4Element *elementToCheck3 = [[hintGrid objectAtIndex:x-1] objectAtIndex:y+1];
+                    if (elementToCheck1.isOfType == type && elementToCheck2.isOfType == type && elementToCheck3.isOfType == type) {
+                        return CGPointMake(x, y);
+                    }
+                }
+            }
+        }
+    }
+
+    return hint;
+}
+
+-(void)showHint:(CGPoint)hintIndex
+{
+    [elementManager animHintElement:[[gameGrid objectAtIndex:hintIndex.x] objectAtIndex:hintIndex.y]];
+}
+
 
 - (void)eliminateNormal:(NSMutableArray *)thisComponent
 {

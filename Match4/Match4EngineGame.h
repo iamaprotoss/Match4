@@ -88,6 +88,7 @@
 - (void)checkIfAllElementsRepositioned;
 - (void)reshuffle;
 - (CGPoint)getHint;
+- (void)showHint:(CGPoint)hintIndex;
 
 - (void)eraseElements;
 

@@ -40,6 +40,8 @@
 - (void)animLShapeOnElement:(Match4Element *)thisElement;
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay;
 
+- (void)animHintElement:(Match4Element *)thisElement;
+
 - (void)shiftElement:(Match4Element *)thisElement toType:(int)thisType;
 
 @end

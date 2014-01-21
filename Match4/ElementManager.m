@@ -7,6 +7,7 @@
 //
 
 #import "ElementManager.h"
+#import "Match4Label.h"
 
 @implementation ElementManager
 @synthesize explodingElementFrames, LShapeFrames, glowingElementFrames;
@@ -224,6 +225,12 @@
          }
      }],
       nil]];
+}
+
+- (void)animHintElement:(Match4Element *)thisElement
+{
+    Match4Label *label = [Match4Label labelWithString:@"OK" fontSize:16];
+    [thisElement addChild:label];
 }
 
 @end

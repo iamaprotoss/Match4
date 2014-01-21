@@ -129,12 +129,12 @@
         //play_timeBar.anchorPoint = ccp(0, 0);
         play_timeBar.position = ccp(66, 70);
         //[self addChild:play_timeBar];
-        if (self.timer <= 0 && gameEngine.canTouch == YES) {
+        /*if (self.timer <= 0 && gameEngine.canTouch == YES) {
             gameEngine.canTouch = NO;
             [self unschedule:@selector(countDown)];
             isGameOver = YES;
             [self gameOver];
-        }
+        }*/
     }
 }
 
@@ -219,7 +219,17 @@
 
 -(void)hint
 {
-    [gameEngine findHint];
+    CGPoint hintPos = [gameEngine getHint];
+    if (hintPos.x == -1) {
+        [self proposeReshuffle];
+    } else {
+        [gameEngine showHint:hintPos];
+    }
+}
+
+-(void)proposeReshuffle
+{
+    
 }
 
 @end
