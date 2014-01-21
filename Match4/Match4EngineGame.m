@@ -26,6 +26,7 @@
 - (id)initWithDictionary:(NSMutableDictionary *)thisDict
 {
     if (self = [super init]) {
+        isTutorial = NO;
         isVisible = NO;
         isNuclearBomb = NO;
         isExplosion = NO;
@@ -41,6 +42,9 @@
         partitionOfGrid = [[NSMutableArray alloc] init];
         partitionOfHintGrid = [[NSMutableArray alloc] init];
         
+        initialSuperiorIndex[0] = -1;
+        initialSuperiorIndex[1] = -1;
+        initialSuperiorIndex[2] = -1;
         special = [thisDict copy];
         if ([[special objectForKey:@"Initial Superior Element"] boolValue]) {
             int p1 = arc4random()%64;
@@ -67,7 +71,23 @@
 
 - (void) reshuffle
 {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            [elementManager animHideElement:[[gameGrid objectAtIndex:i] objectAtIndex:j] withDelay:0];
+        }
+    }
     
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Match4Element *elementToReplace = [elementManager randomElementWithMaxType:5];
+            elementToReplace.isIndex = CGPointMake(i, j);
+            elementToReplace.position = [self positionFromIndex:elementToReplace.isIndex];
+            [[gameGrid objectAtIndex:i] replaceObjectAtIndex:j withObject:elementToReplace];
+            [self checkIfElementNotMakingPattern:elementToReplace];
+            elementToReplace.opacity = 0.001;
+            [self addChild:elementToReplace];
+        }
+    }
 }
 
 - (void) resetLocalStore
@@ -92,7 +112,7 @@
 
 - (void) populateGameField
 {
-    NSMutableArray *gameGridArray = [GameController sharedController].localStore.currentGame.gameGrid;
+    //NSMutableArray *gameGridArray = [GameController sharedController].localStore.currentGame.gameGrid;
     
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -1133,6 +1153,78 @@
     noOfSuperiorAll = 0;
     noOfSuperiorAllOther = 0;
     noOfNormal = 0;
+}
+
+#pragma mark TUTORIAL
+- (id)initWithTutorial
+{
+    if (self = [super init]) {
+        isTutorial = YES;
+        isVisible = NO;
+        isNuclearBomb = NO;
+        isExplosion = NO;
+        gameGrid = [[NSMutableArray alloc] init];
+        //hintGrid = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 8; i ++) {
+            [gameGrid addObject:[NSMutableArray array]];
+            //    [hintGrid addObject:[NSMutableArray array]];
+        }
+        elementsToRemove = [[NSMutableSet alloc] init];
+        elementsToMove = [[NSMutableSet alloc] init];
+        elementsToSkip = [[NSMutableSet alloc] init];
+        partitionOfGrid = [[NSMutableArray alloc] init];
+        partitionOfHintGrid = [[NSMutableArray alloc] init];
+        
+        
+        elementManager = [GameController sharedController].elementManager;
+        labelManager = [GameController sharedController].labelManager;
+        firstTouchedElement = nil;
+        
+        int table[8][8] =
+        {{0,1,2,3,3,2,0,4},
+            {0,2,2,1,1,2,1,1},
+            {3,3,1,0,0,0,2,1},
+            {1,2,1,4,4,1,4,0},
+            {1,3,0,2,0,1,2,0},
+            {4,4,2,0,2,2,3,1},
+            {3,0,0,1,1,2,1,1},
+            {2,1,0,2,2,3,3,0}};
+        
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Match4Element *element = [elementManager ElementWithType:table[i][j]];
+                element.isIndex = CGPointMake(i, j);
+                element.position = [self positionFromIndex:element.isIndex];
+                [[gameGrid objectAtIndex:i] addObject:element];
+                element.opacity = 0.001;
+                [self addChild:element];
+            }
+        }
+        canTouch = YES;
+        
+        [self setTouchEnabled:YES];
+    }
+    return self;
+}
+
+- (void)refillGameFieldForTutorial
+{
+    for (int i = 0; i < 8; i++) {
+        int m = [[gameGrid objectAtIndex:i] count];
+        if (m < 8) {
+            for (int j = 0; j < 8 - m; j++) {
+                Match4Element *newElement = [elementManager randomElementWithMaxType:5];
+                
+                newElement.position = [self positionFromIndex:CGPointMake(i, j+8)];
+                newElement.isIndex = CGPointMake(i, j+8);
+                [self addChild:newElement];
+                [[gameGrid objectAtIndex:i] addObject:newElement];
+            }
+        }
+    }
+    [self repositionAllElements];
+    
+    [self resetLocalStore];
 }
 
 @end

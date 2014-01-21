@@ -14,6 +14,7 @@
 
 @interface Match4EngineGame : CCLayer
 {
+    BOOL isTutorial;
     BOOL isVisible;
     BOOL canTouch;
     //GameController *gameController;
@@ -95,5 +96,7 @@
 - (CGPoint) positionFromIndex:(CGPoint)thisIndex;
 - (CGPoint) indexFromPosition:(CGPoint)thisPosition;
 
+- (id) initWithTutorial;
+- (void) refillGameFieldForTutorial;
 @end
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1B5AC1879998600AC1BFD /* ValuesManager.m */; };
+		04D9C34E188EB1F100EB08F4 /* Match4TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D9C34D188EB1F100EB08F4 /* Match4TutorialView.m */; };
 		1803112C1885221700CE0DD7 /* store_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311241885221700CE0DD7 /* store_bg.png */; };
 		1803112D1885221700CE0DD7 /* store_buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311251885221700CE0DD7 /* store_buy.png */; };
 		1803112E1885221700CE0DD7 /* store_coin1.png in Resources */ = {isa = PBXBuildFile; fileRef = 180311261885221700CE0DD7 /* store_coin1.png */; };
@@ -26,7 +27,6 @@
 		1854981018813F7B00BDD0E8 /* item_item5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1854980B18813F7B00BDD0E8 /* item_item5.png */; };
 		185498161883827A00BDD0E8 /* StatsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 185498151883827A00BDD0E8 /* StatsItem.m */; };
 		1854981918838FC600BDD0E8 /* ElementItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854981818838FC600BDD0E8 /* ElementItem.m */; };
-		188867E9188D255B00CA0E4F /* play_help_btn_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 188867E8188D255B00CA0E4F /* play_help_btn_bg.png */; };
 		188A12DD1888D83900CAD82A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188A12DC1888D83900CAD82A /* StoreKit.framework */; };
 		188AA6D218763C7900F95AD8 /* Match4EngineGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AA6D118763C7900F95AD8 /* Match4EngineGame.m */; };
 		188AC0641876658300F95AD8 /* friends_-banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 188AC03B1876658300F95AD8 /* friends_-banner.png */; };
@@ -974,6 +974,8 @@
 /* Begin PBXFileReference section */
 		04B1B5AB1879998600AC1BFD /* ValuesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuesManager.h; sourceTree = "<group>"; };
 		04B1B5AC1879998600AC1BFD /* ValuesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuesManager.m; sourceTree = "<group>"; };
+		04D9C34C188EB1F100EB08F4 /* Match4TutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4TutorialView.h; sourceTree = "<group>"; };
+		04D9C34D188EB1F100EB08F4 /* Match4TutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4TutorialView.m; sourceTree = "<group>"; };
 		180311241885221700CE0DD7 /* store_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_bg.png; sourceTree = "<group>"; };
 		180311251885221700CE0DD7 /* store_buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_buy.png; sourceTree = "<group>"; };
 		180311261885221700CE0DD7 /* store_coin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_coin1.png; sourceTree = "<group>"; };
@@ -997,7 +999,6 @@
 		185498151883827A00BDD0E8 /* StatsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsItem.m; sourceTree = "<group>"; };
 		1854981718838FC600BDD0E8 /* ElementItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementItem.h; sourceTree = "<group>"; };
 		1854981818838FC600BDD0E8 /* ElementItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementItem.m; sourceTree = "<group>"; };
-		188867E8188D255B00CA0E4F /* play_help_btn_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_help_btn_bg.png; path = ../../../../../../Desktop/menu2/Resources/temp/play/play_help_btn_bg.png; sourceTree = "<group>"; };
 		188A12DC1888D83900CAD82A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		188AA6D018763C7900F95AD8 /* Match4EngineGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4EngineGame.h; sourceTree = "<group>"; };
 		188AA6D118763C7900F95AD8 /* Match4EngineGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match4EngineGame.m; sourceTree = "<group>"; };
@@ -2202,7 +2203,6 @@
 		188AC0471876658300F95AD8 /* play */ = {
 			isa = PBXGroup;
 			children = (
-				188867E8188D255B00CA0E4F /* play_help_btn_bg.png */,
 				188DC8E0187E5E53002E8BB2 /* play_board_1.png */,
 				188DC898187E4FE2002E8BB2 /* play_board0.png */,
 				188AC0481876658300F95AD8 /* play_multimark.png */,
@@ -3943,6 +3943,8 @@
 				188AC09018769F5000F95AD8 /* Match4PauseLayer.m */,
 				180311371885243F00CE0DD7 /* StoreView.h */,
 				180311381885243F00CE0DD7 /* StoreView.m */,
+				04D9C34C188EB1F100EB08F4 /* Match4TutorialView.h */,
+				04D9C34D188EB1F100EB08F4 /* Match4TutorialView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -4403,7 +4405,6 @@
 				188C2BDF1871AFEF0093C020 /* SFX1_05.png in Resources */,
 				188D34D81869384300D92C98 /* beam14-ipad@2x.png in Resources */,
 				188D35311869384300D92C98 /* ipadbackground1@2x.png in Resources */,
-				188867E9188D255B00CA0E4F /* play_help_btn_bg.png in Resources */,
 				188D36C91869384400D92C98 /* mainmenu3@2x.png in Resources */,
 				188D36D71869384400D92C98 /* reshuffle_press@2x.png in Resources */,
 				188DC8C8187E5B9A002E8BB2 /* 2ndAE3070_12.png in Resources */,
@@ -4927,6 +4928,7 @@
 				1892B31D1868243C00F48431 /* mat3.c in Sources */,
 				1892B3371868243C00F48431 /* AppDelegate.m in Sources */,
 				1892B2A71868243B00F48431 /* CCES2Renderer.m in Sources */,
+				04D9C34E188EB1F100EB08F4 /* Match4TutorialView.m in Sources */,
 				1892B2191868243B00F48431 /* CCLabelAtlas.m in Sources */,
 				1892B2351868243B00F48431 /* CCParallaxNode.m in Sources */,
 				1892B33D1868243C00F48431 /* IntroLayer.m in Sources */,

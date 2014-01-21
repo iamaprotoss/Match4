@@ -79,6 +79,7 @@
     newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = thisType;
+    newElement.isVisible = YES;
     newElement.scale = 0.9;
     return newElement;
 }
