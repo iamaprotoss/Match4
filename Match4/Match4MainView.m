@@ -11,7 +11,7 @@
 #import "GameController.h"
 
 @implementation Match4MainView
-@synthesize bg, friendsbg, moneybg, money, level, lives, option, points, start, title, facebooklogin;
+//@synthesize bg, friendsbg, moneybg, money, level, lives, option, points, start, title, facebooklogin;
 @synthesize friendsLayer, itemLayer;
 
 +(CCScene*) scene
@@ -35,31 +35,70 @@
     if (self = [super init]) {
         [GameController sharedController].mainView = self;
         
-        bg = [CCSprite spriteWithFile:@"start_bg.png"];
-        bg.anchorPoint = ccp(0, 0);
-        bg.position = ccp(0, 0);
-        [self addChild:bg];
+        start_bg = [CCSprite spriteWithFile:@"start_bg.png"];
+        start_bg.anchorPoint = ccp(0, 0);
+        start_bg.position = ccp(0, 0);
+        [self addChild:start_bg];
         /*
         friendsbg = [CCSprite spriteWithFile:@"start_friendsbg.png"];
         friendsbg.position = ccp(156, 190);
         [self addChild:friendsbg];
         */
-        
+        /*
         for (int i = 0; i < 5; i++) {
             CCSprite *life = [CCSprite spriteWithFile:@"start_live.png"];
             life.position = ccp(10+30*i, 450);
             [self addChild:life];
             [lives addObject:life];
-        }
+        }*/
         
         /*facebooklogin = [CCSprite spriteWithFile:@"start_facebook_login.png"];
         facebooklogin.position = ccp(160, 200);
         [self addChild:facebooklogin];*/
         
-        moneybg = [CCSprite spriteWithFile:@"start_gold.png"];
-        moneybg.position = ccp(250, 450);
-        [self addChild:moneybg];
+        start_facebook_bg = [CCSprite spriteWithFile:@"start_facebook_bg.png"];
+        start_facebook_bg.position = ccp(160, 300);
+        [self addChild:start_facebook_bg];
         
+        start_facebook = [CCSprite spriteWithFile:@"start_facebook.png"];
+        start_facebook.position = ccp(160, 300);
+        [self addChild:start_facebook];
+        
+        start_gold_bg = [CCSprite spriteWithFile:@"start_gold_bg.png"];
+        start_gold_bg.position = ccp(250, 550);
+        [self addChild:start_gold_bg];
+        
+        CCSprite *storeNormal = [CCSprite spriteWithFile:@"start_store_btn.png"];
+        //storeNormal.anchorPoint = ccp(0.5, 0.5);
+        CCSprite *storeSelected = [CCSprite spriteWithFile:@"start_store_btn_I.png"];
+        //startSelected.anchorPoint = ccp(0.5, 0.5);
+        start_store_btn = [CCMenuItemSprite itemWithNormalSprite:storeNormal selectedSprite:storeSelected target:self selector:@selector(mainToItem)];
+        CCMenu *storeMenu = [CCMenu menuWithItems:start_store_btn, nil];
+        storeMenu.position = ccp(290, 550);
+        [self addChild:storeMenu];
+        
+        start_gold_coin = [CCSprite spriteWithFile:@"start_gold_coin.png"];
+        start_gold_coin.position = ccp(215, 550);
+        [self addChild:start_gold_coin];
+        
+        start_gold_hi = [CCSprite spriteWithFile:@"start_gold_hi.png"];
+        start_gold_hi.position = ccp(223, 558);
+        [self addChild:start_gold_hi];
+        
+        start_lv = [CCSprite spriteWithFile:@"start_lv.png"];
+        start_lv.position = ccp(20, 550);
+        [self addChild:start_lv];
+        
+        start_lv_bg = [CCSprite spriteWithFile:@"start_lv_bg.png"];
+        start_lv_bg.position = ccp(100, 550);
+        [self addChild:start_lv_bg];
+        
+        start_lv_progress = [CCSprite spriteWithFile:@"start_lv_progress.png"];
+        start_lv_progress.position = ccp(100, 550);
+        [self addChild:start_lv_progress];
+        
+        
+        /*
         money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].moneyManager.coins] fontSize:20];
         money.position = ccp(250, 450);
         [self addChild:money];
@@ -67,7 +106,7 @@
         level = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentLevel] fontSize:20];
         level.position = ccp(180, 450);
         [self addChild:level];
-        
+        */
         /*title = [CCSprite spriteWithFile:@"start_title.png"];
         title.position = ccp(160, 420);
         [self addChild:title];*/
@@ -77,14 +116,22 @@
         menu.position = ccp(100, 100);
         [self addChild:menu];*/
         
-        CCSprite *startNormal = [CCSprite spriteWithFile:@"start_start.png"];
-        startNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *startSelected = [CCSprite spriteWithFile:@"start_start.png"];
-        startSelected.anchorPoint = ccp(0.5, 0.5);
-        start = [CCMenuItemSprite itemWithNormalSprite:startNormal selectedSprite:startSelected target:self selector:@selector(mainToItem)];
-        CCMenu *menu = [CCMenu menuWithItems:start, nil];
-        menu.position = ccp(160, 120);
-        [self addChild:menu];
+        CCSprite *startNormal = [CCSprite spriteWithFile:@"start_start_bg.png"];
+        //startNormal.anchorPoint = ccp(0.5, 0.5);
+        CCSprite *startSelected = [CCSprite spriteWithFile:@"start_start_bg_I.png"];
+        //startSelected.anchorPoint = ccp(0.5, 0.5);
+        start_start_btn = [CCMenuItemSprite itemWithNormalSprite:startNormal selectedSprite:startSelected target:self selector:@selector(mainToItem)];
+        CCMenu *startMenu = [CCMenu menuWithItems:start_start_btn, nil];
+        startMenu.position = ccp(160, 120);
+        [self addChild:startMenu];
+        
+        start_start = [CCSprite spriteWithFile:@"start_start.png"];
+        start_start.position = ccp(160, 120);
+        [self addChild:start_start];
+        
+        start_title = [CCSprite spriteWithFile:@"start_title1.png"];
+        start_title.position = ccp(160, 465);
+        [self addChild:start_title];
         
         friendsLayer = [Match4FriendsLayer node];
         friendsLayer.position = ccp(0, 120);

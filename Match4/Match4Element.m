@@ -12,7 +12,7 @@
 
 @synthesize isOfType, isVisible, isSelected, isExplosive, isToExplode, isLShapeCorner, isIndex, dropSize, isInGroup;
 @synthesize isOfSuperSingle, isOfSuperDouble, isOfSuperTriple;
-@synthesize ElementImage, ElementImageGlow, ElementAnimation, ElementCoin, ElementMultiplier, ElementSelectionBox;
+@synthesize ElementImage, ElementImageGlow, ElementHint, ElementAnimation, ElementCoin, ElementMultiplier, ElementSelectionBox;
 
 
 -(id)duplicate

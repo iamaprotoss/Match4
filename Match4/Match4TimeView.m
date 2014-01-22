@@ -80,9 +80,9 @@
         menu.position = ccp(280, 40);
         [self addChild:menu];
         
-        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_points.png"];
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
         play_hintNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_points.png"];
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
         play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
         CCMenu *hint = [CCMenu menuWithItems:play_hint, nil];
@@ -113,6 +113,7 @@
 
         self.timer = gameTime;
         [self schedule:@selector(countDown) interval:1];
+        
     }
     return self;
 }
@@ -232,5 +233,6 @@
 {
     [gameEngine reshuffle];
 }
+
 
 @end

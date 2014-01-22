@@ -26,6 +26,7 @@
     
     CCSprite *ElementImage;
     CCSprite *ElementImageGlow;
+    CCSprite *ElementHint;
     CCSprite *ElementAnimation;
     CCSprite *ElementCoin;
     CCSprite *ElementMultiplier;
@@ -46,6 +47,7 @@
 @property (nonatomic) BOOL isOfSuperTriple;
 @property (nonatomic, retain) CCSprite *ElementImage;
 @property (nonatomic, retain) CCSprite *ElementImageGlow;
+@property (nonatomic, retain) CCSprite *ElementHint;
 @property (nonatomic, retain) CCSprite *ElementAnimation;
 @property (nonatomic, retain) CCSprite *ElementCoin;
 @property (nonatomic, retain) CCSprite *ElementMultiplier;

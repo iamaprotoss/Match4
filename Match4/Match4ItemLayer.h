@@ -17,26 +17,36 @@
 
 @interface Match4ItemLayer : CCLayer
 {
-    CCSprite *selectbg;
-    CCMenuItemSprite *buygold;
-    CCMenuItemSprite *item1;
-    CCMenuItemSprite *item2;
-    CCMenuItemSprite *item3;
-    CCMenuItemSprite *item4;
-    CCMenuItemSprite *item5;
+    CCSprite *item_banner;
+    CCSprite *item_bg;
+    CCSprite *item_item;
+    
+    CCSprite *item_description;
+    
+    //CCSprite *selectbg;
+    //CCMenuItemSprite *buygold;
+    CCMenuItemSprite *item_item1;
+    CCMenuItemSprite *item_item2;
+    CCMenuItemSprite *item_item3;
+    CCMenuItemSprite *item_item4;
+    CCMenuItemSprite *item_item5;
+    
+    CCMenuItemSprite *item_itembg[3];
+    CCMenuItemSprite *item_price[5];
     
     CCMenuItemSprite *close;
     
-    CCSprite *price;
+    //CCSprite *price;
     
     int numOfItemSelected;
 }
 
 @property (retain, nonatomic) id<Match4ItemLayerDelegate> delegate;
 
+/*
 @property (retain, nonatomic) CCMenuItemSprite *buygold;
 @property (retain, nonatomic) CCSprite *selectbg;
 @property (retain, nonatomic) CCSprite *price;
-
+*/
 
 @end

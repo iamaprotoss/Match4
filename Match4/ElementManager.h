@@ -17,12 +17,14 @@
     CCAnimation *explodingElementFrames;
     CCAnimation *LShapeFrames;
     CCAnimation *glowingElementFrames;
+    CCAnimation *hintAnimationFrames;
 }
 
 @property (nonatomic, retain) Match4Element *thenewElement;
 @property (nonatomic, retain) CCAnimation *explodingElementFrames;
 @property (nonatomic, retain) CCAnimation *LShapeFrames;
 @property (nonatomic, retain) CCAnimation *glowingElementFrames;
+@property (nonatomic, retain) CCAnimation *hintAnimationFrames;
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes;
 - (Match4Element *)ElementWithType:(int)thisType;

@@ -15,6 +15,7 @@
 @interface Match4EngineGame : CCLayer
 {
     BOOL isTutorial;
+    int tutorialStep;
     BOOL isVisible;
     BOOL canTouch;
     //GameController *gameController;
@@ -59,6 +60,9 @@
     NSMutableDictionary *special;
     
     BOOL isMoveValid;
+    CCAnimation *hintAnimationFrames;
+    
+    CCSprite *hintAnim;
 }
 
 @property (nonatomic, retain) NSMutableArray *gameGrid;
@@ -77,7 +81,7 @@
 - (void)eliminateAllElementsInLineWithElementAtIndex:(CGPoint)thisIndex;
 
 - (void)searchPatterns;
-- (void)searchPatternForElement:(Match4Element *)thisElement;
+//- (void)searchPatternForElement:(Match4Element *)thisElement;
 
 - (void)resetGame;
 - (void)populateGameField;

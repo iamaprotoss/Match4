@@ -46,6 +46,15 @@
             [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_%i.png", i]];
         }
         glowingElementFrames.delayPerUnit = 0.1;
+        
+        hintAnimationFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
+        }
+        for (int i = 10; i < 48; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
+        }
+        hintAnimationFrames.delayPerUnit = 0.1;
     }
     return self;
 }
@@ -147,11 +156,14 @@
     [thisElement.ElementAnimation runAction:
      [CCRepeatForever actionWithAction:
       [CCAnimate actionWithAnimation:glowingElementFrames]]];
-    thisElement.tag = 1;
+    //thisElement.tag = 1;
 }
 
 - (void)animExplodeElement:(Match4Element *)thisElement withDelay:(float)thisDelay
 {
+    if (thisElement.ElementAnimation) {
+        [thisElement.ElementAnimation stopAllActions];
+    }
     thisElement.ElementAnimation = [[CCSprite alloc] init];
     [thisElement addChild:thisElement.ElementAnimation];
     [thisElement.ElementAnimation runAction:

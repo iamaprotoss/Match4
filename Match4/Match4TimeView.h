@@ -38,6 +38,8 @@
     BOOL isGameOver;
     float timer;
     float gameTime;
+    
+    CCAnimation *hintAnimationFrames;
 }
 
 @property (nonatomic, retain) Match4GameOverLayer *gameOverView;

@@ -58,6 +58,17 @@
             initialSuperiorIndex[2] = p3;
         }
         
+        hintAnim = [[CCSprite alloc] init];
+        [self addChild:hintAnim];
+        hintAnimationFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
+        }
+        for (int i = 10; i < 48; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
+        }
+        hintAnimationFrames.delayPerUnit = 0.05;
+        
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;
         firstTouchedElement = nil;
@@ -652,14 +663,25 @@
 
 -(void)showHint:(CGPoint)hintIndex
 {
-    [elementManager animHintElement:[[gameGrid objectAtIndex:hintIndex.x] objectAtIndex:hintIndex.y]];
+    [hintAnim stopAllActions];
+    [hintAnim removeFromParent];
+    [hintAnim runAction:
+     [CCRepeat actionWithAction:
+      [CCAnimate actionWithAnimation:hintAnimationFrames] times:3]];
+    hintAnim.position = [self positionFromIndex:hintIndex];
+    [self addChild:hintAnim];
 }
 
 
 - (void)eliminateNormal:(NSMutableArray *)thisComponent
 {
     noOfStandardEliminate += [thisComponent count];
-    int indexToTurnSuperior = arc4random()%[thisComponent count];
+    int indexToTurnSuperior;
+    if (isTutorial) {
+        indexToTurnSuperior = 0;
+    } else {
+        indexToTurnSuperior = arc4random()%[thisComponent count];
+    }
     for (int i = 0; i < [thisComponent count]; i++) {
         Match4Element *element = [thisComponent objectAtIndex:i];
         if (i == indexToTurnSuperior) {
@@ -901,6 +923,10 @@
 #pragma mark TOUCH ACTIONS
 -(BOOL) TouchBegan:(CGPoint)local
 {
+    [hintAnim stopAllActions];
+    [hintAnim removeFromParent];
+    //[hintAnim release];
+
     if (canTouch) {
         CGPoint index = [self indexFromPosition:local];
         if (index.x >= 0 && index.x < 8 && index.y >= 0 && index.y < 8) {
@@ -1032,7 +1058,11 @@
       [CCDelayTime actionWithDuration:delayTime],
       [CCCallBlock actionWithBlock:^{
          isExplosion = NO;
-         [self refillGameField];
+         if (isTutorial) {
+             [self refillGameFieldForTutorial];
+         } else {
+             [self refillGameField];
+         }
      }],
       nil]];
 }
@@ -1175,20 +1205,37 @@
         partitionOfGrid = [[NSMutableArray alloc] init];
         partitionOfHintGrid = [[NSMutableArray alloc] init];
         
-        
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;
         firstTouchedElement = nil;
         
-        int table[8][8] =
-        {{0,1,2,3,3,2,0,4},
-            {0,2,2,1,1,2,1,1},
-            {3,3,1,0,0,0,2,1},
-            {1,2,1,4,4,1,4,0},
-            {1,3,0,2,0,1,2,0},
-            {4,4,2,0,2,2,3,1},
-            {3,0,0,1,1,2,1,1},
-            {2,1,0,2,2,3,3,0}};
+        hintAnim = [[CCSprite alloc] init];
+        [self addChild:hintAnim];
+        hintAnimationFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
+        }
+        for (int i = 10; i < 48; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
+        }
+        hintAnimationFrames.delayPerUnit = 0.05;
+        
+        int config[8][8] =
+           {{2,0,0,2,0,3,3,1},
+            {2,1,2,3,3,2,1,4},
+            {3,2,2,4,1,2,4,1},
+            {3,0,1,0,0,0,2,1},
+            {1,0,2,4,4,1,4,0},
+            {1,0,3,2,0,1,2,0},
+            {4,3,4,1,2,0,3,1},
+            {3,2,0,1,1,0,1,1}};
+        
+        int table[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                table[i][j] = config[7-j][i];
+            }
+        }
         
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -1200,6 +1247,14 @@
                 [self addChild:element];
             }
         }
+        [elementManager turnToExplosiveElement:[[gameGrid objectAtIndex:0] objectAtIndex:0]];
+        [elementManager turnToExplosiveElement:[[gameGrid objectAtIndex:0] objectAtIndex:4]];
+        [elementManager turnToExplosiveElement:[[gameGrid objectAtIndex:0] objectAtIndex:5]];
+        [elementManager turnToExplosiveElement:[[gameGrid objectAtIndex:6] objectAtIndex:6]];
+        [elementManager turnToExplosiveElement:[[gameGrid objectAtIndex:7] objectAtIndex:7]];
+        
+        tutorialStep = 0;
+        
         canTouch = YES;
         
         [self setTouchEnabled:YES];
@@ -1209,6 +1264,215 @@
 
 - (void)refillGameFieldForTutorial
 {
+    if (tutorialStep == 0) {
+        Match4Element *newElement1 = [elementManager ElementWithType:2];
+        newElement1.position = [self positionFromIndex:CGPointMake(4, 8)];
+        newElement1.isIndex = CGPointMake(4, 8);
+        [self addChild:newElement1];
+        [[gameGrid objectAtIndex:4] addObject:newElement1];
+        
+        Match4Element *newElement2 = [elementManager ElementWithType:1];
+        newElement2.position = [self positionFromIndex:CGPointMake(4, 9)];
+        newElement2.isIndex = CGPointMake(4, 9);
+        [self addChild:newElement2];
+        [[gameGrid objectAtIndex:4] addObject:newElement2];
+        
+        Match4Element *newElement3 = [elementManager ElementWithType:1];
+        newElement3.position = [self positionFromIndex:CGPointMake(5, 8)];
+        newElement3.isIndex = CGPointMake(5, 8);
+        [self addChild:newElement3];
+        [[gameGrid objectAtIndex:5] addObject:newElement3];
+        
+        tutorialStep = 1;
+        
+    } else if (tutorialStep == 1) {
+        Match4Element *newElement1 = [elementManager ElementWithType:0];
+        newElement1.position = [self positionFromIndex:CGPointMake(1, 8)];
+        newElement1.isIndex = CGPointMake(1, 8);
+        [self addChild:newElement1];
+        [[gameGrid objectAtIndex:1] addObject:newElement1];
+        
+        Match4Element *newElement2 = [elementManager ElementWithType:1];
+        newElement2.position = [self positionFromIndex:CGPointMake(1, 9)];
+        newElement2.isIndex = CGPointMake(1, 9);
+        [self addChild:newElement2];
+        [[gameGrid objectAtIndex:1] addObject:newElement2];
+
+        Match4Element *newElement3 = [elementManager ElementWithType:2];
+        newElement3.position = [self positionFromIndex:CGPointMake(1, 10)];
+        newElement3.isIndex = CGPointMake(1, 10);
+        [self addChild:newElement3];
+        [[gameGrid objectAtIndex:1] addObject:newElement3];
+        
+        Match4Element *newElement4 = [elementManager ElementWithType:3];
+        newElement4.position = [self positionFromIndex:CGPointMake(1, 11)];
+        newElement4.isIndex = CGPointMake(1, 11);
+        [self addChild:newElement4];
+        [[gameGrid objectAtIndex:1] addObject:newElement4];
+        
+        Match4Element *newElement5 = [elementManager ElementWithType:4];
+        newElement5.position = [self positionFromIndex:CGPointMake(2, 8)];
+        newElement5.isIndex = CGPointMake(2, 8);
+        [self addChild:newElement5];
+        [[gameGrid objectAtIndex:2] addObject:newElement5];
+        
+        Match4Element *newElement6 = [elementManager ElementWithType:0];
+        newElement6.position = [self positionFromIndex:CGPointMake(2, 9)];
+        newElement6.isIndex = CGPointMake(2, 9);
+        [self addChild:newElement6];
+        [[gameGrid objectAtIndex:2] addObject:newElement6];
+        
+        Match4Element *newElement7 = [elementManager ElementWithType:4];
+        newElement7.position = [self positionFromIndex:CGPointMake(2, 10)];
+        newElement7.isIndex = CGPointMake(2, 10);
+        [self addChild:newElement7];
+        [[gameGrid objectAtIndex:2] addObject:newElement7];
+        
+        Match4Element *newElement8 = [elementManager ElementWithType:2];
+        newElement8.position = [self positionFromIndex:CGPointMake(3, 8)];
+        newElement8.isIndex = CGPointMake(3, 8);
+        [self addChild:newElement8];
+        [[gameGrid objectAtIndex:3] addObject:newElement8];
+        
+        Match4Element *newElement9 = [elementManager ElementWithType:3];
+        newElement9.position = [self positionFromIndex:CGPointMake(3, 9)];
+        newElement9.isIndex = CGPointMake(3, 9);
+        [self addChild:newElement9];
+        [[gameGrid objectAtIndex:3] addObject:newElement9];
+        
+        Match4Element *newElement10 = [elementManager ElementWithType:1];
+        newElement10.position = [self positionFromIndex:CGPointMake(3, 10)];
+        newElement10.isIndex = CGPointMake(3, 10);
+        [self addChild:newElement10];
+        [[gameGrid objectAtIndex:3] addObject:newElement10];
+        
+        tutorialStep = 2;
+    
+    } else if(tutorialStep == 2) {
+        Match4Element *newElement1 = [elementManager ElementWithType:0];
+        newElement1.position = [self positionFromIndex:CGPointMake(0, 8)];
+        newElement1.isIndex = CGPointMake(0, 8);
+        [self addChild:newElement1];
+        [[gameGrid objectAtIndex:0] addObject:newElement1];
+        
+        Match4Element *newElement2 = [elementManager ElementWithType:1];
+        newElement2.position = [self positionFromIndex:CGPointMake(0, 9)];
+        newElement2.isIndex = CGPointMake(0, 9);
+        [self addChild:newElement2];
+        [[gameGrid objectAtIndex:0] addObject:newElement2];
+        
+        Match4Element *newElement3 = [elementManager ElementWithType:2];
+        newElement3.position = [self positionFromIndex:CGPointMake(1, 8)];
+        newElement3.isIndex = CGPointMake(1, 8);
+        [self addChild:newElement3];
+        [[gameGrid objectAtIndex:1] addObject:newElement3];
+        
+        Match4Element *newElement4 = [elementManager ElementWithType:3];
+        newElement4.position = [self positionFromIndex:CGPointMake(1, 9)];
+        newElement4.isIndex = CGPointMake(1, 9);
+        [self addChild:newElement4];
+        [[gameGrid objectAtIndex:1] addObject:newElement4];
+        
+        Match4Element *newElement5 = [elementManager ElementWithType:4];
+        newElement5.position = [self positionFromIndex:CGPointMake(3, 8)];
+        newElement5.isIndex = CGPointMake(3, 8);
+        [self addChild:newElement5];
+        [[gameGrid objectAtIndex:3] addObject:newElement5];
+        
+        Match4Element *newElement6 = [elementManager ElementWithType:0];
+        newElement6.position = [self positionFromIndex:CGPointMake(3, 9)];
+        newElement6.isIndex = CGPointMake(3, 9);
+        [self addChild:newElement6];
+        [[gameGrid objectAtIndex:3] addObject:newElement6];
+        
+        Match4Element *newElement7 = [elementManager ElementWithType:4];
+        newElement7.position = [self positionFromIndex:CGPointMake(3, 10)];
+        newElement7.isIndex = CGPointMake(3, 10);
+        [self addChild:newElement7];
+        [[gameGrid objectAtIndex:3] addObject:newElement7];
+        
+        Match4Element *newElement8 = [elementManager ElementWithType:2];
+        newElement8.position = [self positionFromIndex:CGPointMake(4, 8)];
+        newElement8.isIndex = CGPointMake(4, 8);
+        [self addChild:newElement8];
+        [[gameGrid objectAtIndex:4] addObject:newElement8];
+        
+        Match4Element *newElement9 = [elementManager ElementWithType:3];
+        newElement9.position = [self positionFromIndex:CGPointMake(4, 9)];
+        newElement9.isIndex = CGPointMake(4, 9);
+        [self addChild:newElement9];
+        [[gameGrid objectAtIndex:4] addObject:newElement9];
+        
+        Match4Element *newElement10 = [elementManager ElementWithType:1];
+        newElement10.position = [self positionFromIndex:CGPointMake(4, 10)];
+        newElement10.isIndex = CGPointMake(4, 10);
+        [self addChild:newElement10];
+        [[gameGrid objectAtIndex:4] addObject:newElement10];
+        
+        Match4Element *newElement11 = [elementManager ElementWithType:0];
+        newElement11.position = [self positionFromIndex:CGPointMake(5, 8)];
+        newElement11.isIndex = CGPointMake(5, 8);
+        [self addChild:newElement11];
+        [[gameGrid objectAtIndex:5] addObject:newElement11];
+        
+        Match4Element *newElement12 = [elementManager ElementWithType:1];
+        newElement12.position = [self positionFromIndex:CGPointMake(5, 9)];
+        newElement12.isIndex = CGPointMake(5, 9);
+        [self addChild:newElement12];
+        [[gameGrid objectAtIndex:5] addObject:newElement12];
+        
+        Match4Element *newElement13 = [elementManager ElementWithType:2];
+        newElement13.position = [self positionFromIndex:CGPointMake(5, 10)];
+        newElement13.isIndex = CGPointMake(5, 10);
+        [self addChild:newElement13];
+        [[gameGrid objectAtIndex:5] addObject:newElement13];
+        
+        Match4Element *newElement14 = [elementManager ElementWithType:3];
+        newElement14.position = [self positionFromIndex:CGPointMake(6, 8)];
+        newElement14.isIndex = CGPointMake(6, 8);
+        [self addChild:newElement14];
+        [[gameGrid objectAtIndex:6] addObject:newElement14];
+        
+        Match4Element *newElement15 = [elementManager ElementWithType:4];
+        newElement15.position = [self positionFromIndex:CGPointMake(7, 8)];
+        newElement15.isIndex = CGPointMake(7, 8);
+        [self addChild:newElement15];
+        [[gameGrid objectAtIndex:7] addObject:newElement15];
+        
+        Match4Element *newElement16 = [elementManager ElementWithType:0];
+        newElement16.position = [self positionFromIndex:CGPointMake(7, 9)];
+        newElement16.isIndex = CGPointMake(7, 9);
+        [self addChild:newElement16];
+        [[gameGrid objectAtIndex:7] addObject:newElement16];
+        
+        Match4Element *newElement17 = [elementManager ElementWithType:4];
+        newElement17.position = [self positionFromIndex:CGPointMake(7, 10)];
+        newElement17.isIndex = CGPointMake(7, 10);
+        [self addChild:newElement17];
+        [[gameGrid objectAtIndex:7] addObject:newElement17];
+        
+        Match4Element *newElement18 = [elementManager ElementWithType:2];
+        newElement18.position = [self positionFromIndex:CGPointMake(7, 11)];
+        newElement18.isIndex = CGPointMake(7, 11);
+        [self addChild:newElement18];
+        [[gameGrid objectAtIndex:7] addObject:newElement18];
+        
+        Match4Element *newElement19 = [elementManager ElementWithType:3];
+        newElement19.position = [self positionFromIndex:CGPointMake(7, 12)];
+        newElement19.isIndex = CGPointMake(7, 12);
+        [self addChild:newElement19];
+        [[gameGrid objectAtIndex:7] addObject:newElement19];
+        
+        Match4Element *newElement20 = [elementManager ElementWithType:1];
+        newElement20.position = [self positionFromIndex:CGPointMake(7, 13)];
+        newElement20.isIndex = CGPointMake(7, 13);
+        [self addChild:newElement20];
+        [[gameGrid objectAtIndex:7] addObject:newElement20];
+        
+        tutorialStep = 3;
+        isTutorial = NO;
+    }
+    /*
     for (int i = 0; i < 8; i++) {
         int m = [[gameGrid objectAtIndex:i] count];
         if (m < 8) {
@@ -1221,7 +1485,7 @@
                 [[gameGrid objectAtIndex:i] addObject:newElement];
             }
         }
-    }
+    }*/
     [self repositionAllElements];
     
     [self resetLocalStore];
