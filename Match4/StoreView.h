@@ -7,16 +7,28 @@
 //
 
 #import "CCLayer.h"
+@class Match4Label;
+
+@protocol StoreViewDelegate <NSObject>
+
+-(void)closeStoreView;
+
+@end
 
 @interface StoreView : CCLayer
 {
-    CCSprite *storebg;
-    CCMenuItemSprite *buy1;
-    CCMenuItemSprite *buy5;
-    CCMenuItemSprite *buy10;
-    CCMenuItemSprite *buy50;
-    CCMenuItemSprite *buy100;
+    CCSprite *store_bg;
+    CCSprite *store_banner;
+    CCSprite *store_title;
+    CCSprite *store_coinbg[5];
+    CCMenu *store_buy[5];
+    CCSprite *store_coin[5];
+    Match4Label *store_coin_label[5];
+    Match4Label *store_price_label[5];
+    
+    CCMenuItemSprite *close;
 }
 
+@property (nonatomic, retain) id<StoreViewDelegate> delegate;
 
 @end

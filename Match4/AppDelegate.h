@@ -20,7 +20,7 @@
 	MyNavigationController *navController_;
 
 	CCDirectorIOS	*director_;							// weak ref
-    StoreObserver *observer;
+    //StoreObserver *observer;
 }
 
 @property (nonatomic, retain) UIWindow *window;

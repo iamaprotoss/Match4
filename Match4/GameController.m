@@ -38,6 +38,7 @@
         valuesManager = [[ValuesManager alloc] init];
         moneyManager = [[MoneyManager alloc] init];
         storeObserver = [[StoreObserver alloc] init];
+        storeObserver.delegate = moneyManager;
         gameItems = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          [NSNumber numberWithBool:NO], @"Time Bonus",
          [NSNumber numberWithBool:NO], @"Score Bonus",
@@ -60,51 +61,48 @@
     [self resetItem];
 }
 
-- (BOOL) addItem:(int)thisTag
+- (void) addItem:(int)thisTag
 {
     switch (thisTag) {
         case 1:
-            if (![[gameItems objectForKey:@"Time Bonus"] boolValue]) {
-                [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Time Bonus"];
-                return YES;
-            } else {
-                return NO;
-            }
+            [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Time Bonus"];
             break;
         case 2:
-            if (![[gameItems objectForKey:@"Score Bonus"] boolValue]) {
-                [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Score Bonus"];
-                return YES;
-            } else {
-                return NO;
-            }
+            [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Score Bonus"];
             break;
         case 3:
-            if (![[gameItems objectForKey:@"Initial Superior Element"] boolValue]) {
-                [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Initial Superior Element"];
-                return YES;
-            } else {
-                return NO;
-            }
+            [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Initial Superior Element"];
             break;
         case 4:
-            if (![[gameItems objectForKey:@"Initial Double Score"] boolValue]) {
-                [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Initial Double Score"];
-                return YES;
-            } else {
-                return NO;
-            }
+            [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Initial Double Score"];
             break;
         case 5:
-            if (![[gameItems objectForKey:@"Random Superior Element"] boolValue]) {
-                [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Random Superior Element"];
-                return YES;
-            } else {
-                return NO;
-            }
+            [gameItems setObject:[NSNumber numberWithBool:YES] forKey:@"Random Superior Element"];
             break;
         default:
-            return NO;
+            break;
+    }
+}
+
+-(void) deleteItem:(int)thisTag
+{
+    switch (thisTag) {
+        case 1:
+            [gameItems setObject:[NSNumber numberWithBool:NO] forKey:@"Time Bonus"];
+            break;
+        case 2:
+            [gameItems setObject:[NSNumber numberWithBool:NO] forKey:@"Score Bonus"];
+            break;
+        case 3:
+            [gameItems setObject:[NSNumber numberWithBool:NO] forKey:@"Initial Superior Element"];
+            break;
+        case 4:
+            [gameItems setObject:[NSNumber numberWithBool:NO] forKey:@"Initial Double Score"];
+            break;
+        case 5:
+            [gameItems setObject:[NSNumber numberWithBool:NO] forKey:@"Random Superior Element"];
+            break;
+        default:
             break;
     }
 }

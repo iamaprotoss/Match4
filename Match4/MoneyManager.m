@@ -22,7 +22,8 @@
 {
     if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
-        coins = [userDefaults integerForKey:@"coins"];
+        //coins = [userDefaults integerForKey:@"coins"];
+        coins = 2000;
         selectedIAP = -1;
     }
     return self;
@@ -42,7 +43,6 @@
 
 -(void)buyIAP:(int)thisIAP
 {
-    
     switch (thisIAP) {
         case 0:
             [[GameController sharedController].storeObserver purchase:IAP_100_COINS];
@@ -64,6 +64,25 @@
     }
 }
 
+#pragma mark StoreObserverProtocol
+-(void)transactionDidFinish:(NSString *)transactionIdentifier
+{
+    if ([transactionIdentifier isEqualToString:IAP_100_COINS]) {
+        [self addCoins:100];
+    } else if ([transactionIdentifier isEqualToString:IAP_500_COINS]) {
+        [self addCoins:500];
+    } else if ([transactionIdentifier isEqualToString:IAP_1000_COINS]) {
+        [self addCoins:1000];
+    } else if ([transactionIdentifier isEqualToString:IAP_5000_COINS]) {
+        [self addCoins:5000];
+    } else if ([transactionIdentifier isEqualToString:IAP_10000_COINS]) {
+        [self addCoins:10000];
+    }
+}
 
+-(void)transactionDidError:(NSError *)error
+{
+    
+}
 
 @end

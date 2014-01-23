@@ -8,6 +8,7 @@
 
 #import "CCLayer.h"
 @class GameController;
+@class Match4Label;
 
 @protocol Match4ItemLayerDelegate <NSObject>
 
@@ -19,26 +20,23 @@
 {
     CCSprite *item_banner;
     CCSprite *item_bg;
-    CCSprite *item_item;
+    CCSprite *item_title;
     
     CCSprite *item_description;
     
     //CCSprite *selectbg;
     //CCMenuItemSprite *buygold;
-    CCMenuItemSprite *item_item1;
-    CCMenuItemSprite *item_item2;
-    CCMenuItemSprite *item_item3;
-    CCMenuItemSprite *item_item4;
-    CCMenuItemSprite *item_item5;
-    
-    CCMenuItemSprite *item_itembg[3];
-    CCMenuItemSprite *item_price[5];
+    CCMenu *item_item[5];
+        
+    CCSprite *item_itembg[3];
+    Match4Label *item_price_label[5];
     
     CCMenuItemSprite *close;
     
     //CCSprite *price;
     
     int numOfItemSelected;
+    BOOL selectionSlot[3];
 }
 
 @property (retain, nonatomic) id<Match4ItemLayerDelegate> delegate;

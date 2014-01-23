@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+#import "StoreObserver.h"
 @class StoreView;
 
-@interface MoneyManager : NSObject
+@interface MoneyManager : NSObject<StoreObserverProtocol>
 {
     NSUserDefaults *userDefaults;
     StoreView *storeView;

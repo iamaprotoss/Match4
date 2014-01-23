@@ -66,7 +66,8 @@
 - (void)showGameView;
 - (void)showItemView;
 
-- (BOOL) addItem:(int)thisTag;
+- (void) addItem:(int)thisTag;
+- (void) deleteItem:(int)thisTag;
 - (void) resetItem;
 /*- (void)showInfinityView;
 //- (void)showEngageView;

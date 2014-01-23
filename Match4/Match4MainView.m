@@ -12,7 +12,7 @@
 
 @implementation Match4MainView
 //@synthesize bg, friendsbg, moneybg, money, level, lives, option, points, start, title, facebooklogin;
-@synthesize friendsLayer, itemLayer;
+@synthesize friendsLayer, itemLayer, storeView, optionMainView;
 
 +(CCScene*) scene
 {
@@ -72,7 +72,7 @@
         //storeNormal.anchorPoint = ccp(0.5, 0.5);
         CCSprite *storeSelected = [CCSprite spriteWithFile:@"start_store_btn_I.png"];
         //startSelected.anchorPoint = ccp(0.5, 0.5);
-        start_store_btn = [CCMenuItemSprite itemWithNormalSprite:storeNormal selectedSprite:storeSelected target:self selector:@selector(mainToItem)];
+        start_store_btn = [CCMenuItemSprite itemWithNormalSprite:storeNormal selectedSprite:storeSelected target:self selector:@selector(mainToStore)];
         CCMenu *storeMenu = [CCMenu menuWithItems:start_store_btn, nil];
         storeMenu.position = ccp(290, 550);
         [self addChild:storeMenu];
@@ -85,6 +85,12 @@
         start_gold_hi.position = ccp(223, 558);
         [self addChild:start_gold_hi];
         
+        start_money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].moneyManager.coins] fontSize:12];
+        start_money.position = ccp(250, 550);
+        [self addChild:start_money];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoney:) name:@"updateMoney" object:nil];
+
         start_lv = [CCSprite spriteWithFile:@"start_lv.png"];
         start_lv.position = ccp(20, 550);
         [self addChild:start_lv];
@@ -97,12 +103,7 @@
         start_lv_progress.position = ccp(100, 550);
         [self addChild:start_lv_progress];
         
-        
         /*
-        money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].moneyManager.coins] fontSize:20];
-        money.position = ccp(250, 450);
-        [self addChild:money];
-        
         level = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentLevel] fontSize:20];
         level.position = ccp(180, 450);
         [self addChild:level];
@@ -128,10 +129,17 @@
         start_start = [CCSprite spriteWithFile:@"start_start.png"];
         start_start.position = ccp(160, 120);
         [self addChild:start_start];
-        
         start_title = [CCSprite spriteWithFile:@"start_title1.png"];
         start_title.position = ccp(160, 465);
         [self addChild:start_title];
+        
+        CCMenuItemSprite *optionSprite = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_option_button_base.png"] selectedSprite:[CCSprite spriteWithFile:@"start_option_button_base_I.png"] target:self selector:@selector(showStartOption)];
+        start_option_btn = [CCMenu menuWithItems:optionSprite, nil];
+        start_option_btn.position = ccp(200, 100);
+        [self addChild:start_option_btn];
+        start_option_gear = [CCSprite spriteWithFile:@"start_option_gear.png"];
+        start_option_gear.position = ccp(200, 100);
+        [self addChild:start_option_gear];
         
         friendsLayer = [Match4FriendsLayer node];
         friendsLayer.position = ccp(0, 120);
@@ -154,6 +162,47 @@
     }
 }
 
+-(void) mainToStore
+{
+    if (storeView == nil) {
+        storeView = [StoreView node];
+        storeView.position = ccp(0, 120);
+        [self addChild:storeView];
+        storeView.delegate = self;
+    } else {
+        [storeView removeFromParent];
+        storeView = nil;
+    }
+}
+
+-(void) showStartOption
+{
+    if (optionMainView == nil) {
+        optionMainView = [OptionMainView node];
+        optionMainView.position = ccp(200, 100);
+        [self addChild:optionMainView];
+    } else {
+        [optionMainView removeFromParent];
+        optionMainView = nil;
+    }
+}
+
+-(void) updateMoney:(NSNotification *)aNotificaiton
+{
+    int money = [[aNotificaiton object] intValue];
+    start_money.string = [NSString stringWithFormat:@"%i", money];
+}
+
+#pragma mark StoreViewDelegate
+-(void) closeStoreView
+{
+    if (storeView!=nil) {
+        [storeView removeFromParent];
+        storeView = nil;
+    }
+}
+
+#pragma mark Match4ItemLayerDelegate
 -(void) closeItemLayer
 {
     if (itemLayer!=nil) {

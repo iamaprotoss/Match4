@@ -11,8 +11,11 @@
 
 @interface Match4GameOverLayer : CCLayer
 {
-    CCSprite *bg;
-    CCSprite *scoreTag;
+    CCSprite *win_banner;
+    CCSprite *win_bg;
+    CCSprite *win_facebook;
+    CCMenu *win_facebook_btn;
+    CCSprite *win_flare;
     CCSprite *moneyTag;
     CCSprite *facebookshare;
     CCMenuItemSprite *retry;

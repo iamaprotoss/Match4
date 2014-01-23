@@ -14,7 +14,7 @@
 @synthesize gameOverView, pauseLayer;
 @synthesize gameController;
 @synthesize gameEngine;
-@synthesize play_bg, play_points, play_multiplier, play_board, score, gameScore, timer;
+//@synthesize play_bg, play_points, play_multiplier, play_board, score, gameScore, timer;
 @synthesize isGameOver, isPlaying;
 
 +(CCScene*) scene
@@ -38,56 +38,64 @@
         play_bg.position = ccp(0, 0);
         [self addChild:play_bg];
         
-        play_board = [CCSprite spriteWithFile:@"play_board_1.png"];
+        play_board = [CCSprite spriteWithFile:@"play_board2.png"];
         play_board.position = ccp(160, 260);
-        play_board.opacity = 220;
-        play_board.scale = 640.0/965;
+        //play_board.opacity = 220;
+        play_board.scale = 640.0/643;
         [self addChild:play_board];
         
-        play_points = [CCSprite spriteWithFile:@"play_points.png"];
-        play_points.position = ccp(200, 450);
-        [self addChild:play_points];
+        play_points_bg = [CCSprite spriteWithFile:@"play_points_bg.png"];
+        play_points_bg.position = ccp(200, 450);
+        [self addChild:play_points_bg];
         gameScore = 0;
-        score = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameScore] fontSize:20];
-        [play_points addChild:score];
-        score.position = ccp(50, 12);
-        score.color = ccc3(255, 255, 0);
-        score.opacity = 200;
+        play_points_label = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameScore] fontSize:15];
+        play_points_label.position = ccp(50, 12);
+        [play_points_bg addChild:play_points_label];
+        //score.color = ccc3(255, 255, 0);
+        //score.opacity = 200;
         //[score enableStrokeWithColor:ccc3(255, 0, 0) size:1 updateImage:YES];
         //[score enableShadowWithOffset:CGSizeMake(3,4) opacity:255 blur:0.5 updateImage:YES];
+        play_star = [CCSprite spriteWithFile:@"play_star.png"];
+        play_star.position = ccp(0, 12);
+        [play_points_bg addChild:play_star];
+        play_star_hi = [CCSprite spriteWithFile:@"play_star_hi.png"];
+        play_star_hi.position = ccp(20, 20);
+        [play_star addChild:play_star_hi];
         
+        play_multimark = [CCSprite spriteWithFile:@"play_multimark.png"];
+        play_multimark.position = ccp(270, 450);
+        [self addChild:play_multimark];
         
-        play_multiplier = [CCSprite spriteWithFile:@"play_multimark.png"];
-        play_multiplier.position = ccp(270, 450);
-        [self addChild:play_multiplier];
+        play_time_bg = [CCSprite spriteWithFile:@"play_time_bg.png"];
+        play_time_bg.position = ccp(160, 77);
+        [self addChild:play_time_bg];
         
-        play_timeBg = [CCSprite spriteWithFile:@"play_time_bg.png"];
-        play_timeBg.position = ccp(160, 77);
-        [self addChild:play_timeBg];
-        
-        play_timeBar = [CCSprite spriteWithFile:@"play_time_bar.png"];
-        play_timeBar.anchorPoint = ccp(0, 0);
-        play_timeBar.position = ccp(66, 70);
-        play_timeBar.scaleX = 1.32;
-        [self addChild:play_timeBar];
+        play_time_bar = [CCSprite spriteWithFile:@"play_time_progress.png"];
+        play_time_bar.anchorPoint = ccp(0, 0);
+        play_time_bar.position = ccp(66, 70);
+        //play_timeBar.scaleX = 1.32;
+        [self addChild:play_time_bar];
         
         CCSprite *play_pauseNormal = [CCSprite spriteWithFile:@"play_pause_button.png"];
-        play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button.png"];
-        play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
+        //play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
+        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_I.png"];
+        //play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
-        CCMenu *menu = [CCMenu menuWithItems:play_pause, nil];
-        menu.position = ccp(280, 40);
-        [self addChild:menu];
+        play_pause_btn= [CCMenu menuWithItems:play_pause, nil];
+        play_pause_btn.position = ccp(40, 77);
+        [self addChild:play_pause_btn];
         
         CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
-        play_hintNormal.anchorPoint = ccp(0.5, 0.5);
+        //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
         CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
-        play_hintSelected.anchorPoint = ccp(0.5, 0.5);
+        //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
-        CCMenu *hint = [CCMenu menuWithItems:play_hint, nil];
-        hint.position = ccp(280, 77);
-        [self addChild:hint];
+        play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
+        play_hint_btn.position = ccp(280, 77);
+        [self addChild:play_hint_btn];
+        play_hint_title = [CCSprite spriteWithFile:@"play_hint.png"];
+        play_hint_title.position = ccp(280, 77);
+        [self addChild:play_hint_title];
         
         /*
         if ([GameController sharedController].localStore.currentGame) {
@@ -106,8 +114,8 @@
         }
         isPlaying = YES;
         isGameOver = NO;
-        //gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
-        gameEngine = [[Match4EngineGame alloc] initWithTutorial];
+        gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
+        //gameEngine = [[Match4EngineGame alloc] initWithTutorial];
         gameEngine.position = ccp(0, 100);
         [self addChild:gameEngine];
 
@@ -127,16 +135,16 @@
         //[play_timeBar removeFromParent];
         //play_timeBar = [CCSprite spriteWithFile:@"play_time_bar.png"]; //rect:CGRectMake(0, 0, 100, 5*self.timer)];
         //play_timeBar.rotation = 90;
-        play_timeBar.scaleX = self.timer/gameTime*1.32;
+        play_time_bar.scaleX = self.timer/gameTime;//*1.32;
         //play_timeBar.anchorPoint = ccp(0, 0);
-        play_timeBar.position = ccp(66, 70);
+        play_time_bar.position = ccp(66, 70);
         //[self addChild:play_timeBar];
-        /*if (self.timer <= 0 && gameEngine.canTouch == YES) {
+        if (self.timer <= 0 && gameEngine.canTouch == YES) {
             gameEngine.canTouch = NO;
             [self unschedule:@selector(countDown)];
             isGameOver = YES;
             [self gameOver];
-        }*/
+        }
     }
 }
 
@@ -148,7 +156,7 @@
 
 -(void) updateScore
 {
-    [score setString:[NSString stringWithFormat:@"%i",gameScore]];
+    [play_points_label setString:[NSString stringWithFormat:@"%i",gameScore]];
 }
 
 -(void) gameOver
@@ -214,7 +222,7 @@
     gameScore = 0;
     [self updateScore];
     self.timer = 60;
-    play_timeBar.scaleX = 1.32;
+    //play_time_bar.scaleX = 1.32;
     [gameEngine resetGame];
     [self schedule:@selector(countDown) interval:1];
 }
