@@ -62,12 +62,12 @@
         [self addChild:hintAnim];
         hintAnimationFrames = [[CCAnimation alloc] init];
         for (int i = 0; i < 10; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t1_0%i.png", i]];
         }
-        for (int i = 10; i < 48; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
+        for (int i = 10; i < 20; i ++) {
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t1_%i.png", i]];
         }
-        hintAnimationFrames.delayPerUnit = 0.05;
+        hintAnimationFrames.delayPerUnit = 0.1;
         
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;
@@ -666,8 +666,8 @@
     [hintAnim stopAllActions];
     [hintAnim removeFromParent];
     [hintAnim runAction:
-     [CCRepeat actionWithAction:
-      [CCAnimate actionWithAnimation:hintAnimationFrames] times:3]];
+     [CCRepeatForever actionWithAction:
+      [CCAnimate actionWithAnimation:hintAnimationFrames]]];
     hintAnim.position = [self positionFromIndex:hintIndex];
     [self addChild:hintAnim];
 }

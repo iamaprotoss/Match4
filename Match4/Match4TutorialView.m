@@ -19,7 +19,7 @@
 {
     CCScene *scene = [CCScene node];
     
-    Match4TimeView *layer = [[Match4TimeView alloc] initWithDictionary:[GameController sharedController].gameItems];
+    Match4TutorialView *layer = [[Match4TutorialView alloc] initWithDictionary:[GameController sharedController].gameItems];
     
     [scene addChild:layer];
     
@@ -29,7 +29,7 @@
 -(id) initWithDictionary:(NSMutableDictionary *)thisDict
 {
     if (self = [super init]) {
-        [GameController sharedController].timeView = self;
+        [GameController sharedController].tutorialView = self;
         
         play_bg = [CCSprite spriteWithFile:@"start_bg.png"];
         play_bg.anchorPoint = ccp(0, 0);
@@ -83,9 +83,9 @@
         play_pause_btn.position = ccp(40, 77);
         [self addChild:play_pause_btn];
         
-        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_hint_btn_bg.png"];
         //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_hint_btn_bg_I.png"];
         //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
         play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
@@ -112,7 +112,7 @@
         }
         isPlaying = YES;
         isGameOver = NO;
-        //gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
+        gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
         gameEngine = [[Match4EngineGame alloc] initWithTutorial];
         gameEngine.position = ccp(0, 100);
         [self addChild:gameEngine];

@@ -10,9 +10,10 @@
 #import "Match4MainView.h"
 #import "Match4TimeView.h"
 #import "Match4ItemLayer.h"
+#import "Match4TutorialView.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, storeObserver, timeView, mainView, itemView, gameItems, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, storeObserver, timeView, mainView, itemView, tutorialView, gameItems, isInGame;
 
 +(GameController *)sharedController
 {
@@ -59,6 +60,11 @@
 {
     [[CCDirector sharedDirector] replaceScene:[Match4TimeView scene]];
     [self resetItem];
+}
+
+- (void)showTutorialView
+{
+    [[CCDirector sharedDirector] replaceScene:[Match4TutorialView scene]];
 }
 
 - (void) addItem:(int)thisTag

@@ -135,11 +135,11 @@
         
         CCMenuItemSprite *optionSprite = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_option_button_base.png"] selectedSprite:[CCSprite spriteWithFile:@"start_option_button_base_I.png"] target:self selector:@selector(showStartOption)];
         start_option_btn = [CCMenu menuWithItems:optionSprite, nil];
-        start_option_btn.position = ccp(200, 100);
-        [self addChild:start_option_btn];
+        start_option_btn.position = ccp(270, 60);
+        [self addChild:start_option_btn z:100];
         start_option_gear = [CCSprite spriteWithFile:@"start_option_gear.png"];
-        start_option_gear.position = ccp(200, 100);
-        [self addChild:start_option_gear];
+        start_option_gear.position = ccp(270, 60);
+        [self addChild:start_option_gear z:101];
         
         friendsLayer = [Match4FriendsLayer node];
         friendsLayer.position = ccp(0, 120);
@@ -179,8 +179,8 @@
 {
     if (optionMainView == nil) {
         optionMainView = [OptionMainView node];
-        optionMainView.position = ccp(200, 100);
-        [self addChild:optionMainView];
+        optionMainView.position = ccp(0, 60);
+        [self addChild:optionMainView z:99];
     } else {
         [optionMainView removeFromParent];
         optionMainView = nil;

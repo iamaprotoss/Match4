@@ -19,6 +19,7 @@
 @class Match4MainView;
 @class Match4TimeView;
 @class Match4ItemLayer;
+@class Match4TutorialView;
 
 @interface GameController : NSObject
 {
@@ -35,6 +36,7 @@
     Match4MainView *mainView; // Match4MainView
     Match4TimeView *timeView; // Match4TimeView
     Match4ItemLayer *itemView; // Match4ItemLayer
+    Match4TutorialView *tutorialView; // Match4TutorialView
     
     NSMutableDictionary *gameItems;
     
@@ -54,6 +56,7 @@
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;
 @property (nonatomic, retain) Match4ItemLayer *itemView;
+@property (nonatomic, retain) Match4TutorialView *tutorialView;
 
 @property (nonatomic, retain) NSMutableDictionary *gameItems;
 
@@ -65,6 +68,7 @@
 //- (void)showPrimaryView;
 - (void)showGameView;
 - (void)showItemView;
+- (void)showTutorialView;
 
 - (void) addItem:(int)thisTag;
 - (void) deleteItem:(int)thisTag;

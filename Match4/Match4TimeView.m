@@ -85,9 +85,9 @@
         play_pause_btn.position = ccp(40, 77);
         [self addChild:play_pause_btn];
         
-        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_hint_btn_bg.png"];
         //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_hint_btn_bg_I.png"];
         //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
         play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
