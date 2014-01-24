@@ -784,6 +784,9 @@
         isCascading = NO;
         levelOfCascading = 0;
         canTouch = YES;
+        if (isTutorial) {
+            [self addMask];
+        }
     }
     //isDoubleMatch = NO;
 }
@@ -861,6 +864,9 @@
 
 - (void)swapElement:(Match4Element *)firstElement withElement:(Match4Element *)secondElement
 {
+    if (isTutorial) {
+        [self removeMask];
+    }
     canTouch = NO;
     
     NSMutableArray *firstElementRow = [gameGrid objectAtIndex:firstElement.isIndex.x];
@@ -923,15 +929,17 @@
 #pragma mark TOUCH ACTIONS
 -(BOOL) TouchBegan:(CGPoint)local
 {
-    [hintAnim stopAllActions];
-    [hintAnim removeFromParent];
-    //[hintAnim release];
-
-    if (canTouch) {
-        CGPoint index = [self indexFromPosition:local];
-        if (index.x >= 0 && index.x < 8 && index.y >= 0 && index.y < 8) {
-            Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
-            [self selectElement:thisElement];
+    if ((isTutorial && [self isValidMoveForTutorial:local]) || !isTutorial) {
+        [hintAnim stopAllActions];
+        [hintAnim removeFromParent];
+        //[hintAnim release];
+        
+        if (canTouch) {
+            CGPoint index = [self indexFromPosition:local];
+            if (index.x >= 0 && index.x < 8 && index.y >= 0 && index.y < 8) {
+                Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
+                [self selectElement:thisElement];
+            }
         }
     }
     return YES;
@@ -1058,16 +1066,19 @@
       [CCDelayTime actionWithDuration:delayTime],
       [CCCallBlock actionWithBlock:^{
          isExplosion = NO;
-         if (isTutorial) {
-             [self refillGameFieldForTutorial];
-         } else {
-             [self refillGameField];
-         }
+         [self refillGameField];
      }],
       nil]];
 }
 
 - (void)refillGameField {
+    if (isTutorial) {
+        [self refillGameFieldForTutorial];
+        return;
+    }
+    /*if (isTutorial) {
+        return;
+    }*/
     for (int i = 0; i < 8; i++) {
         int m = [[gameGrid objectAtIndex:i] count];
         if (m < 8) {
@@ -1258,6 +1269,8 @@
         canTouch = YES;
         
         [self setTouchEnabled:YES];
+        
+        [self addMask];
     }
     return self;
 }
@@ -1470,25 +1483,87 @@
         [[gameGrid objectAtIndex:7] addObject:newElement20];
         
         tutorialStep = 3;
+        
+    } else if (tutorialStep == 3) {
+        //isTutorial = NO;
+    }
+    
+    //if (isTutorial) {
+        [self repositionAllElements];
+        
+        [self resetLocalStore];
+
+    //}
+}
+
+- (void) addMask {
+    if (tutorialStep == 0) {
+        mask1 = [CCSprite spriteWithFile:@"hint_board_1.png"];
+        mask1.position = ccp(160, 160);
+        [self addChild:mask1 z:100];
+    } else if (tutorialStep == 1) {
+        mask2 = [CCSprite spriteWithFile:@"hint_board_2.png"];
+        mask2.position = ccp(160, 160);
+        [self addChild:mask2 z:100];
+    } else if (tutorialStep == 2) {
+        mask3 = [CCSprite spriteWithFile:@"hint_board_3.png"];
+        mask3.position = ccp(160, 160);
+        [self addChild:mask3 z:100];
+    } else if (tutorialStep == 3) {
+        mask4 = [CCSprite spriteWithFile:@"hint_board_4.png"];
+        mask4.position = ccp(160, 160);
+        [self addChild:mask4 z:100];
+    }
+}
+
+-(void) removeMask
+{
+    if (tutorialStep == 0) {
+        [mask1 removeFromParent];
+        mask1 = nil;
+    } else if (tutorialStep == 1) {
+        [mask2 removeFromParent];
+        mask2 = nil;
+    } else if (tutorialStep == 2) {
+        [mask3 removeFromParent];
+        mask3 = nil;
+    } else if (tutorialStep == 3) {
+        [mask4 removeFromParent];
+        mask4 = nil;
         isTutorial = NO;
     }
-    /*
-    for (int i = 0; i < 8; i++) {
-        int m = [[gameGrid objectAtIndex:i] count];
-        if (m < 8) {
-            for (int j = 0; j < 8 - m; j++) {
-                Match4Element *newElement = [elementManager randomElementWithMaxType:5];
-                
-                newElement.position = [self positionFromIndex:CGPointMake(i, j+8)];
-                newElement.isIndex = CGPointMake(i, j+8);
-                [self addChild:newElement];
-                [[gameGrid objectAtIndex:i] addObject:newElement];
-            }
-        }
-    }*/
-    [self repositionAllElements];
-    
-    [self resetLocalStore];
 }
+
+-(BOOL) isValidMoveForTutorial:(CGPoint)local
+{
+    CGPoint index = [self indexFromPosition:local];
+    if (tutorialStep == 0) {
+        if (index.x==4 && index.y<=3 && index.y>=2) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else if (tutorialStep == 1) {
+        if (index.x<=3 && index.x>=2 && index.y==4) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else if (tutorialStep == 2) {
+        if (index.x<=7 && index.x>=6 && index.y==6) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else if (tutorialStep == 3) {
+        if (index.x<=1 && index.x>=0 && index.y==1) {
+            return YES;
+        } else {
+            return NO;
+        }
+    }
+    return NO;
+}
+
 
 @end

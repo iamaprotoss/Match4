@@ -14,8 +14,6 @@
 
 @interface Match4EngineGame : CCLayer
 {
-    BOOL isTutorial;
-    int tutorialStep;
     BOOL isVisible;
     BOOL canTouch;
     //GameController *gameController;
@@ -63,6 +61,14 @@
     CCAnimation *hintAnimationFrames;
     
     CCSprite *hintAnim;
+    
+    // Tutorial part
+    BOOL isTutorial;
+    int tutorialStep;
+    CCSprite *mask1;
+    CCSprite *mask2;
+    CCSprite *mask3;
+    CCSprite *mask4;
 }
 
 @property (nonatomic, retain) NSMutableArray *gameGrid;
