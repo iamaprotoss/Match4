@@ -20,6 +20,8 @@
 	<integer>800</integer>
 	<key>kPointsSuperiorAllOther</key>
 	<integer>80</integer>
+	<key>kPointsBonusForCascading</key>
+	<integer>50</integer>
 	<key>kPointsNormal</key>
 	<integer>10</integer>
 </dict>

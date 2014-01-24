@@ -27,7 +27,7 @@
         for (int i = 10; i < 18; i++) {
             [explodingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX1_%i.png", i]];
         }
-        explodingElementFrames.delayPerUnit = 0.1;
+        explodingElementFrames.delayPerUnit = 0.04;
         
         LShapeFrames = [[CCAnimation alloc] init];
         for (int i = 0; i < 10; i ++) {
@@ -47,14 +47,14 @@
         }
         glowingElementFrames.delayPerUnit = 0.1;
         
-        hintAnimationFrames = [[CCAnimation alloc] init];
+        /*hintAnimationFrames = [[CCAnimation alloc] init];
         for (int i = 0; i < 10; i ++) {
             [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
         }
         for (int i = 10; i < 48; i ++) {
             [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
         }
-        hintAnimationFrames.delayPerUnit = 0.1;
+        hintAnimationFrames.delayPerUnit = 0.1;*/
     }
     return self;
 }
@@ -78,6 +78,8 @@
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = i;
     newElement.isVisible = YES;
+    newElement.pointsToAdd = 0;
+    newElement.animDelay = 0;
     newElement.scale = 0.9;
     return newElement;
 }
@@ -89,6 +91,8 @@
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = thisType;
     newElement.isVisible = YES;
+    newElement.pointsToAdd = 0;
+    newElement.animDelay = 0;
     newElement.scale = 0.9;
     return newElement;
 }
@@ -163,7 +167,9 @@
 {
     if (thisElement.ElementAnimation) {
         [thisElement.ElementAnimation stopAllActions];
+        //[thisElement.ElementAnimation release];
     }
+    thisElement.zOrder = 100;
     thisElement.ElementAnimation = [[CCSprite alloc] init];
     [thisElement addChild:thisElement.ElementAnimation];
     [thisElement.ElementAnimation runAction:
@@ -226,7 +232,7 @@
 
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay
 {
-    id action = [CCSequence actions:[CCFadeIn actionWithDuration:0.01], [CCBlink actionWithDuration:0.1], nil];
+    /*id action = [CCSequence actions:[CCFadeIn actionWithDuration:0.01], [CCBlink actionWithDuration:0.1], nil];
     [thisElement runAction:
      [CCSequence actions:
       [CCDelayTime actionWithDuration:thisDelay],
@@ -235,6 +241,15 @@
          if (thisElement.isVisible) {
              [thisElement removeFromParent];
              //[thisElement release];
+         }
+     }],
+      nil]];*/
+    [thisElement runAction:
+     [CCSequence actions:
+      [CCScaleTo actionWithDuration:0.2 scale:0.5],
+      [CCCallBlock actionWithBlock:^{
+         if (thisElement.isVisible) {
+             [thisElement removeFromParent];
          }
      }],
       nil]];

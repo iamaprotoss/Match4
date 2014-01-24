@@ -24,6 +24,7 @@
     int kPointsSuperiorTripleOther;
     int kPointsSuperiorAll;
     int kPointsSuperiorAllOther;
+    int kPointsBonusForCascading;
     int kPointsNormal;
 }
 
@@ -36,6 +37,7 @@
 @property (nonatomic) int kPointsSuperiorTripleOther;
 @property (nonatomic) int kPointsSuperiorAll;
 @property (nonatomic) int kPointsSuperiorAllOther;
+@property (nonatomic) int kPointsBonusForCascading;
 @property (nonatomic) int kPointsNormal;
 
 - (void) firstInitValues;

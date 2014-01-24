@@ -18,11 +18,11 @@
         friendsbg.position = ccp(160, 206);
         [self addChild:friendsbg];
         
-        friendsbanner = [CCSprite spriteWithFile:@"friends_-banner.png"];
+        friendsbanner = [CCSprite spriteWithFile:@"friends_banner.png"];
         friendsbanner.position = ccp(160, 280);
         [self addChild:friendsbanner];
         
-        facebooklogin = [CCSprite spriteWithFile:@"start_facebook_login.png"];
+        facebooklogin = [CCSprite spriteWithFile:@"start_facebook_bg.png"];
         facebooklogin.position = ccp(160, 90);
         [self addChild:facebooklogin];
         

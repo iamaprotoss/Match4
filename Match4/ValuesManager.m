@@ -9,17 +9,17 @@
 #import "ValuesManager.h"
 
 @implementation ValuesManager
-@synthesize kPointsStandardEliminate, kPointsSuperiorSingle, kPointsSuperiorSingleOther, kPointsSuperiorDouble, kPointsSuperiorDoubleOther, kPointsSuperiorTriple, kPointsSuperiorTripleOther, kPointsSuperiorAll, kPointsSuperiorAllOther, kPointsNormal;
+@synthesize kPointsStandardEliminate, kPointsSuperiorSingle, kPointsSuperiorSingleOther, kPointsSuperiorDouble, kPointsSuperiorDoubleOther, kPointsSuperiorTriple, kPointsSuperiorTripleOther, kPointsSuperiorAll, kPointsSuperiorAllOther, kPointsBonusForCascading, kPointsNormal;
 
 - (id)init {
     if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
         isNotFirstTime = [[userDefaults valueForKey:@"isNotFirstTime"] boolValue];
-        if (isNotFirstTime) {
+        //if (isNotFirstTime) {
             [self initValues];
-        } else {
+        //} else {
             [self firstInitValues];
-        }
+        //}
     }
     return self;
 }
@@ -51,6 +51,8 @@
         kPointsSuperiorTripleOther = [[thisDictionary valueForKey:@"kPointsSuperiorTripleOther"] intValue];
         kPointsSuperiorAll = [[thisDictionary valueForKey:@"kPointsSuperiorAll"] intValue];
         kPointsSuperiorAllOther = [[thisDictionary valueForKey:@"kPointsSuperiorAllOther"] intValue];
+        kPointsBonusForCascading = [[thisDictionary valueForKey:@"kPointsBonusForCascading"] intValue];
+        NSLog(@"%i", kPointsBonusForCascading);
     }
 }
 

@@ -11,7 +11,7 @@
 @implementation Match4Element
 
 @synthesize isOfType, isVisible, isSelected, isExplosive, isToExplode, isLShapeCorner, isIndex, dropSize, isInGroup;
-@synthesize isOfSuperSingle, isOfSuperDouble, isOfSuperTriple;
+@synthesize isOfSuperSingle, isOfSuperDouble, isOfSuperTriple, pointsToAdd, animDelay;
 @synthesize ElementImage, ElementImageGlow, ElementHint, ElementAnimation, ElementCoin, ElementMultiplier, ElementSelectionBox;
 
 

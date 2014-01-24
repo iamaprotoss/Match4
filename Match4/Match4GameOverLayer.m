@@ -26,12 +26,12 @@
         [self addChild:facebookshare];
         
         CCSprite *retryNormal = [CCSprite spriteWithFile:@"win_replay.png"];
-        CCSprite *retrySelected = [CCSprite spriteWithFile:@"win_replay.png"];
+        CCSprite *retrySelected = [CCSprite spriteWithFile:@"win_replay_I.png"];
         retry = [CCMenuItemSprite itemWithNormalSprite:retryNormal selectedSprite:retrySelected target:self selector:@selector(buttonPressed:)];
         retry.tag = 0;
         
         CCSprite *menuNormal = [CCSprite spriteWithFile:@"win_menu.png"];
-        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu.png"];
+        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_I.png"];
         gameover_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
         gameover_menu.position = ccp(175, 100);
         gameover_menu.tag = 1;
@@ -51,7 +51,7 @@
         money.opacity = 200;
         [self addChild:money];
         
-        scoreTag = [CCSprite spriteWithFile:@"win_score--.png"];
+        scoreTag = [CCSprite spriteWithFile:@"win_score.png"];
         scoreTag.position = ccp(140, 240);
         [self addChild:scoreTag];
         

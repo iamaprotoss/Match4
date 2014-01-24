@@ -53,7 +53,9 @@
     int noOfNormal;
     int levelOfCascading;
     
-    int pointsToAdd;
+    //int levelOfChain;
+    
+    int totalPointsToAdd;
     // Special effects
     NSMutableDictionary *special;
     
@@ -82,9 +84,9 @@
 - (void)swapElement:(Match4Element *)firstElement withElement:(Match4Element *)secondElement;
 - (void)swapBackElement:(Match4Element *)firstElement withElement:(Match4Element *)secondElement;
 
-- (void)eliminateNeighboursOfElementAtIndex:(CGPoint)thisIndex;
-- (void)eliminateAllElementsOfType:(int)thisType;
-- (void)eliminateAllElementsInLineWithElementAtIndex:(CGPoint)thisIndex;
+- (int)eliminateNeighboursOfElementAtIndex:(CGPoint)thisIndex levelOfChain:(int)levelOfChain;
+- (int)eliminateAllElementsOfType:(int)thisType;
+- (int)eliminateAllElementsInLineWithElementAtIndex:(CGPoint)thisIndex;
 
 - (void)searchPatterns;
 //- (void)searchPatternForElement:(Match4Element *)thisElement;

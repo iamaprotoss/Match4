@@ -24,6 +24,9 @@
     BOOL isOfSuperDouble;
     BOOL isOfSuperTriple;
     
+    int pointsToAdd;
+    float animDelay;
+    
     CCSprite *ElementImage;
     CCSprite *ElementImageGlow;
     CCSprite *ElementHint;
@@ -45,6 +48,8 @@
 @property (nonatomic) BOOL isOfSuperSingle;
 @property (nonatomic) BOOL isOfSuperDouble;
 @property (nonatomic) BOOL isOfSuperTriple;
+@property (nonatomic) int pointsToAdd;
+@property (nonatomic) float animDelay;
 @property (nonatomic, retain) CCSprite *ElementImage;
 @property (nonatomic, retain) CCSprite *ElementImageGlow;
 @property (nonatomic, retain) CCSprite *ElementHint;
