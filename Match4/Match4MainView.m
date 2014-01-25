@@ -165,10 +165,15 @@
 -(void) mainToStore
 {
     if (storeView == nil) {
-        storeView = [StoreView node];
-        storeView.position = ccp(0, 120);
-        [self addChild:storeView];
-        storeView.delegate = self;
+        [[GameController sharedController].storeObserver requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+            if (success) {
+                [GameController sharedController].moneyManager.allIAP = products;
+                storeView = [StoreView node];
+                storeView.position = ccp(0, 120);
+                [self addChild:storeView];
+                storeView.delegate = self;
+            }
+        }];
     } else {
         [storeView removeFromParent];
         storeView = nil;

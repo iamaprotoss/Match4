@@ -112,16 +112,6 @@
     }
 }
 
--(void)store
-{
-    [[GameController sharedController].storeObserver requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-        if (success) {
-            [GameController sharedController].moneyManager.allIAP = products;
-            CCLayer *storeView = [StoreView node];
-            [self addChild:storeView];
-        }
-    }];
-}
 
 -(void)close
 {

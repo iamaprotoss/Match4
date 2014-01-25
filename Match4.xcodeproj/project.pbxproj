@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040CFE2E1893EBCB003E253E /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040CFE2D1893EBCB003E253E /* GameCenterManager.m */; };
 		04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1B5AC1879998600AC1BFD /* ValuesManager.m */; };
 		04D9C34E188EB1F100EB08F4 /* Match4TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D9C34D188EB1F100EB08F4 /* Match4TutorialView.m */; };
 		04E528901892A73F00EFED3D /* t1_000.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E5287C1892A73F00EFED3D /* t1_000.png */; };
@@ -1095,6 +1096,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040CFE2C1893EBCB003E253E /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
+		040CFE2D1893EBCB003E253E /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
 		04B1B5AB1879998600AC1BFD /* ValuesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuesManager.h; sourceTree = "<group>"; };
 		04B1B5AC1879998600AC1BFD /* ValuesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuesManager.m; sourceTree = "<group>"; };
 		04D9C34C188EB1F100EB08F4 /* Match4TutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4TutorialView.h; sourceTree = "<group>"; };
@@ -4359,6 +4362,8 @@
 				1803113B188524C900CE0DD7 /* MoneyManager.m */,
 				1803113D18853C4400CE0DD7 /* StoreObserver.h */,
 				1803113E18853C4400CE0DD7 /* StoreObserver.m */,
+				040CFE2C1893EBCB003E253E /* GameCenterManager.h */,
+				040CFE2D1893EBCB003E253E /* GameCenterManager.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -5516,6 +5521,7 @@
 				188AC0881876688A00F95AD8 /* Match4FriendsLayer.m in Sources */,
 				1892B1EB1868243A00F48431 /* CCAnimationCache.m in Sources */,
 				1892B20D1868243B00F48431 /* CCGLProgram.m in Sources */,
+				040CFE2E1893EBCB003E253E /* GameCenterManager.m in Sources */,
 				1892B2FD1868243C00F48431 /* SimpleAudioEngine.m in Sources */,
 				1892B2AF1868243B00F48431 /* CCTouchDispatcher.m in Sources */,
 				1892B2321868243B00F48431 /* CCNode.m in Sources */,
