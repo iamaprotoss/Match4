@@ -36,7 +36,30 @@
 -(void) authenticateLocalUser
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    localPlayer.authenticateHandler = ^
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error) {
+        [self setLastError:error];
+        if ([CCDirector sharedDirector].isPaused) {
+            [[CCDirector sharedDirector] resume];
+        } else if (viewController) {
+            [[CCDirector sharedDirector] pause];
+            [self presentViewController:viewController];
+        } else {
+            NSLog(@"local player not authenticated");
+        }
+    };
+}
+
+-(void) setLastError:(NSError *)error
+{
+    if (error) {
+        NSLog(@"GameCenterManager ERROR: %@", [[error userInfo] description]);
+    }
+}
+
+-(void)presentViewController:(UIViewController*)vc
+{
+    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootVC presentViewController:vc animated:YES completion:nil];
 }
 
 @end
