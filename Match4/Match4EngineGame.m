@@ -30,6 +30,7 @@
         isVisible = NO;
         isNuclearBomb = NO;
         isExplosion = NO;
+        isColorElimination = NO;
         levelOfCascading = 0;
         //levelOfChain = 0;
         gameGrid = [[NSMutableArray alloc] init];
@@ -710,7 +711,7 @@
     }
     int neighborCount = [self eliminateNeighboursOfElementAtIndex:thisElement.isIndex levelOfChain:levelOfChain];
     thisElement.pointsToAdd = [GameController sharedController].valuesManager.kPointsSuperiorSingle * (levelOfChain+1) + neighborCount * [GameController sharedController].valuesManager.kPointsSuperiorSingleOther;
-    thisElement.animDelay = levelOfChain * 0.2f;
+    thisElement.animDelay = 0.2f * levelOfChain;
     NSLog(@"level of chain: %i", levelOfChain);
 }
 
@@ -763,13 +764,13 @@
         }
         if (element.isExplosive == YES) {
             element.isOfSuperTriple = YES;
-            int otherCount = [self eliminateAllElementsInLineWithElementAtIndex:element.isIndex];
-            element.pointsToAdd = [GameController sharedController].valuesManager.kPointsSuperiorTriple + otherCount * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther;
+            element.isLShapeCorner = YES;
         }
     }
     for (Match4Element *element in thisComponent) {
         if (element.isOfSuperTriple) {
-            element.pointsToAdd += count * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther / 3;
+            int otherCount = [self eliminateAllElementsInLineWithElementAtIndex:element.isIndex];
+            element.pointsToAdd = [GameController sharedController].valuesManager.kPointsSuperiorTriple + otherCount * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther + count * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther / 3;
         }
     }
 }
@@ -795,9 +796,11 @@
                 [self eliminateAll:component];
             } else if (numOfSuperior == 3) {
                 noOfSuperiorTriple += [component count];
+                isLShapeElimination = YES;
                 [self eliminateSuperTriple:component];
             } else if (numOfSuperior == 2) {
                 noOfSuperiorDouble += [component count];
+                isColorElimination = YES;
                 [self eliminateSuperDouble:component];
             } else if (numOfSuperior == 1) {
                 noOfSuperiorSingle += [component count];
@@ -848,15 +851,14 @@
             n = thisIndex.y + j;
             if ((m > -1) & (m < 8) & (n > -1) & (n < 8)) {
                 Match4Element *elementToAdd = [[gameGrid objectAtIndex:m] objectAtIndex:n];
-                //if (elementToAdd.isOfType > 6) [elementsToSkip addObject:elementToAdd];
                 if (![elementsToRemove containsObject:elementToAdd]) {
                     if (elementToAdd.isExplosive) {
                         [self chainEliminateSuperior:elementToAdd levelOfChain:levelOfChain+1];
                     } else {
                         [elementsToRemove addObject:elementToAdd];
+                        elementToAdd.animDelay = 0.2*levelOfChain;
                         count ++;
                     }
-                    //elementToAdd.isToExplode = YES;
                 }
             }
         }
@@ -875,6 +877,8 @@
                     [self chainEliminateSuperior:elementToCheck levelOfChain:1];
                 } else {
                     //elementToCheck.isSuperEliminated = YES;
+                    elementToCheck.isToColorEliminate = YES;
+                    elementToCheck.animDelay = 0.3;
                     [elementsToRemove addObject:elementToCheck];
                     //noOfSuperiorDoubleOther ++;
                     count ++;
@@ -1082,10 +1086,10 @@
     canTouch = NO;
     if (isCascading) levelOfCascading++;
     
-    if (isShockwave) {
+    /*if (isShockwave) {
         [self shockWaveFromCenter:shockwaveCentre];
         shockwaveCentre = CGPointMake(-1, -1);
-    }
+    }*/
     
     //didSuperEliminate = NO;
     totalPointsToAdd = 0;
@@ -1095,16 +1099,15 @@
             noOfNormal ++;
             //if (thisElement.isShifter) noOfShifterMatches++;
             //if (thisElement.isOfType == 9) noOfCorruptedCleared++;
-            if (thisElement.isToExplode) {
+            if (thisElement.isLShapeCorner) {
+                [elementManager animLShapeOnElement:thisElement];
+            } else if (thisElement.isToColorEliminate) {
+                [elementManager animColorEliminateElement:thisElement withDelay:thisElement.animDelay];
+             //didSuperEliminate = YES;
+            } else if (thisElement.isToExplode) {
                 [elementManager animExplodeElement:thisElement withDelay:thisElement.animDelay];
-            }
-            //else if (thisElement.isLShapeCorner )[elementManager animLShapeOnElement:thisElement];
-            /*else if (thisElement.isSuperEliminated) {
-             [ElementManager animSuperEliminateElement:thisElement];
-             didSuperEliminate = YES;
-             }*/
-            else {
-                [elementManager animHideElement:thisElement withDelay:0];
+            } else {
+                [elementManager animHideElement:thisElement withDelay:thisElement.animDelay];
             }
             if (thisElement.pointsToAdd != 0) {
                 thisElement.pointsToAdd += pow(levelOfCascading, 2) * [GameController sharedController].valuesManager.kPointsBonusForCascading;
@@ -1137,7 +1140,11 @@
     isCascading = YES;
     
     float delayTime;
-    if (isExplosion) {
+    if (isLShapeElimination) {
+        delayTime = 0.8;
+    } else if (isColorElimination) {
+        delayTime = 0.5;
+    } else if (isExplosion) {
         delayTime = 0.3;
     } else {
         delayTime = 0;
@@ -1146,6 +1153,8 @@
      [CCSequence actions:
       [CCDelayTime actionWithDuration:delayTime],
       [CCCallBlock actionWithBlock:^{
+         isLShapeElimination = NO;
+         isColorElimination = NO;
          isExplosion = NO;
          [self refillGameField];
      }],
@@ -1157,9 +1166,6 @@
         [self refillGameFieldForTutorial];
         return;
     }
-    /*if (isTutorial) {
-        return;
-    }*/
     for (int i = 0; i < 8; i++) {
         int m = [[gameGrid objectAtIndex:i] count];
         if (m < 8) {
@@ -1232,7 +1238,7 @@
 }
 
 - (void)shockWaveFromCenter:(CGPoint)thisCenter {
-    isShockwave = NO;
+    isShockWave = NO;
     
     Match4Element *elementToGlitch;
     float delay;

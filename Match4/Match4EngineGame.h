@@ -33,12 +33,13 @@
     NSInteger group[8][8];
     NSInteger hintGroup[8][8];
     
-    BOOL isNuclearBomb;
-    
     BOOL isExplosion;
+    BOOL isColorElimination;
+    BOOL isLShapeElimination;
+    BOOL isNuclearBomb;
     BOOL isCascading;
     
-    BOOL isShockwave;
+    BOOL isShockWave;
     CGPoint shockwaveCentre;
     
     int noOfStandardEliminate;
