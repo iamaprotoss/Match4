@@ -13,6 +13,7 @@
     BOOL isSelected;
     BOOL isExplosive;
     BOOL isToExplode;
+    BOOL isToColorEliminate;
     BOOL isLShapeCorner;
     //BOOL isSuperEliminated;
     CGPoint isIndex;
@@ -41,6 +42,7 @@
 @property (nonatomic) BOOL isSelected;
 @property (nonatomic) BOOL isExplosive;
 @property (nonatomic) BOOL isToExplode;
+@property (nonatomic) BOOL isToColorEliminate;
 @property (nonatomic) BOOL isLShapeCorner;
 @property (nonatomic) CGPoint isIndex;
 @property (nonatomic) int dropSize;

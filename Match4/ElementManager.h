@@ -15,20 +15,19 @@
     CGRect engageFrame;
     CGRect explosionFrame;
     CCAnimation *explodingElementFrames;
+    CCAnimation *colorEliminateFrames;
     CCAnimation *LShapeFrames;
     CCAnimation *glowingElementFrames;
-    CCAnimation *hintAnimationFrames;
 }
 
 @property (nonatomic, retain) Match4Element *thenewElement;
 @property (nonatomic, retain) CCAnimation *explodingElementFrames;
+@property (nonatomic, retain) CCAnimation *colorEliminateFrames;
 @property (nonatomic, retain) CCAnimation *LShapeFrames;
 @property (nonatomic, retain) CCAnimation *glowingElementFrames;
-@property (nonatomic, retain) CCAnimation *hintAnimationFrames;
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes;
 - (Match4Element *)ElementWithType:(int)thisType;
-- (Match4Element *)ElementWithIsOfType:(int)isOfType;
 - (void)selectElement:(Match4Element *)thisElement;
 - (void)deselectElement:(Match4Element *)thisElement;
 - (void)turnToExplosiveElement:(Match4Element *)thisElement;
@@ -37,7 +36,7 @@
 - (void)animShiftToSuperElement:(Match4Element *)thisElement;
 - (void)animExplodeElement:(Match4Element *)thisElement withDelay:(float)thisDelay;
 - (void)animSuperElement:(Match4Element *)thisElement;
-- (void)animSuperEliminateElement:(Match4Element *)thisElement;
+- (void)animColorEliminateElement:(Match4Element *)thisElement withDelay:(float)thisDelay;
 - (void)animFlashElement:(Match4Element *)thisElement;
 - (void)animLShapeOnElement:(Match4Element *)thisElement;
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay;

@@ -10,7 +10,7 @@
 #import "Match4Label.h"
 
 @implementation ElementManager
-@synthesize explodingElementFrames, LShapeFrames, glowingElementFrames;
+@synthesize explodingElementFrames, colorEliminateFrames, LShapeFrames, glowingElementFrames;
 
 
 - (id) init
@@ -21,7 +21,7 @@
         explosionFrame = CGRectMake(-20, -20, 80, 80);
         
         explodingElementFrames = [[CCAnimation alloc] init];
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 1; i < 10; i ++) {
             [explodingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX1_0%i.png", i]];
         }
         for (int i = 10; i < 18; i++) {
@@ -29,14 +29,23 @@
         }
         explodingElementFrames.delayPerUnit = 0.04;
         
+        colorEliminateFrames = [[CCAnimation alloc] init];
+        for (int i = 1; i < 10; i++) {
+            [colorEliminateFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX2_0%i.png", i]];
+        }
+        for (int i = 10; i < 21; i++) {
+            [colorEliminateFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX2_%i.png", i]];
+        }
+        colorEliminateFrames.delayPerUnit = 0.04;
+        
         LShapeFrames = [[CCAnimation alloc] init];
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 1; i < 10; i ++) {
             [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_0%i.png", i]];
         }
         for (int i = 10; i < 21; i++) {
             [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_%i.png", i]];
         }
-        LShapeFrames.delayPerUnit = 2;
+        LShapeFrames.delayPerUnit = 0.05;
         
         glowingElementFrames = [[CCAnimation alloc] init];
         for (int i = 1; i < 10; i ++) {
@@ -46,15 +55,6 @@
             [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_%i.png", i]];
         }
         glowingElementFrames.delayPerUnit = 0.1;
-        
-        /*hintAnimationFrames = [[CCAnimation alloc] init];
-        for (int i = 0; i < 10; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
-        }
-        for (int i = 10; i < 48; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
-        }
-        hintAnimationFrames.delayPerUnit = 0.1;*/
     }
     return self;
 }
@@ -194,9 +194,25 @@
     
 }
 
-- (void)animSuperEliminateElement:(Match4Element *)thisElement
+- (void)animColorEliminateElement:(Match4Element *)thisElement withDelay:(float)thisDelay
 {
-    
+    if (thisElement.ElementAnimation) {
+        [thisElement.ElementAnimation stopAllActions];
+    }
+    thisElement.zOrder = 100;
+    thisElement.ElementAnimation = [[CCSprite alloc] init];
+    [thisElement addChild:thisElement.ElementAnimation];
+    [thisElement.ElementAnimation runAction:
+     [CCSequence actions:
+      //[CCDelayTime actionWithDuration:thisDelay],
+      [CCAnimate actionWithAnimation:colorEliminateFrames],
+      [CCCallBlock actionWithBlock:^{
+         [thisElement.ElementAnimation release];
+         thisElement.ElementAnimation = nil;
+         [thisElement removeFromParent];
+     }],
+      nil]];
+    //[self animHideElement:thisElement withDelay:thisDelay];
 }
 
 - (void)animFlashElement:(Match4Element *)thisElement
@@ -208,25 +224,43 @@
 {
     //CGRect beamFrame = CGRectMake(0, 0, MAX((320 + 2 * abs(thisElement.center.x - 165)), (320 + 2 * abs(thisElement.center.y - 165))), 40);
     CCAnimation *rotatedLShapeFrames = [[CCAnimation alloc] init];
-    for (int i = 0; i < 10; i ++) {
-        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:@"beam0%i.png" rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
+    for (int i = 1; i < 10; i ++) {
+        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX3_0%i.png", i] rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
         frame.rotated = YES;
-        [LShapeFrames addSpriteFrame:frame];
+        [rotatedLShapeFrames addSpriteFrame:frame];
     }
-    for (int i = 10; i < 16; i++) {
-        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:@"beam0%i.png" rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
+    for (int i = 10; i < 21; i++) {
+        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX3_%i.png", i] rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
         frame.rotated = YES;
-        [LShapeFrames addSpriteFrame:frame];
+        [rotatedLShapeFrames addSpriteFrame:frame];
     }
-    rotatedLShapeFrames.delayPerUnit = 2;
+    rotatedLShapeFrames.delayPerUnit = 0.05;
     thisElement.ElementAnimation = [[CCSprite alloc] init];
     [thisElement addChild:thisElement.ElementAnimation];
     [thisElement.ElementAnimation runAction:
      [CCSequence actions:
-      [CCSpawn actionOne:[CCAnimate actionWithAnimation:LShapeFrames] two:[CCAnimate actionWithAnimation:rotatedLShapeFrames]],
+      [CCSpawn actionOne:
+       [CCAnimate actionWithAnimation:LShapeFrames]
+       two:
+       [CCAnimate actionWithAnimation:rotatedLShapeFrames]],
+      [CCCallBlock actionWithBlock:^{
+         [thisElement.ElementAnimation release];
+         thisElement.ElementAnimation = nil;
+         [thisElement removeFromParent];
+     }],
       nil]];
-    
-    [self animHideElement:thisElement withDelay:0];
+    /*
+    CCSprite *helpSprite = [[CCSprite alloc] init];
+    helpSprite.position = thisElement.position;
+    [thisElement.parent addChild:helpSprite];
+    [helpSprite runAction:
+     [CCSequence actions:
+      [CCAnimate actionWithAnimation:rotatedLShapeFrames],
+      [CCCallBlock actionWithBlock:^{
+         [helpSprite release];
+     }], nil]];
+    */
+    //[self animHideElement:thisElement withDelay:0];
     
 }
 
@@ -246,7 +280,8 @@
       nil]];*/
     [thisElement runAction:
      [CCSequence actions:
-      [CCScaleTo actionWithDuration:0.2 scale:0.5],
+      [CCDelayTime actionWithDuration:thisDelay],
+      [CCScaleTo actionWithDuration:0.3 scale:0.5],
       [CCCallBlock actionWithBlock:^{
          if (thisElement.isVisible) {
              [thisElement removeFromParent];
