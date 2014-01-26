@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Match4Element.h"
+@class GameController;
 
 @interface ElementManager : NSObject
 {
@@ -17,6 +18,7 @@
     CCAnimation *explodingElementFrames;
     CCAnimation *colorEliminateFrames;
     CCAnimation *LShapeFrames;
+    CCAnimation *rotatedLShapeFrames;
     CCAnimation *glowingElementFrames;
 }
 
@@ -24,6 +26,7 @@
 @property (nonatomic, retain) CCAnimation *explodingElementFrames;
 @property (nonatomic, retain) CCAnimation *colorEliminateFrames;
 @property (nonatomic, retain) CCAnimation *LShapeFrames;
+@property (nonatomic, retain) CCAnimation *rotatedLShapeFrames;
 @property (nonatomic, retain) CCAnimation *glowingElementFrames;
 
 - (Match4Element *)randomElementWithMaxType:(int)maxTypes;

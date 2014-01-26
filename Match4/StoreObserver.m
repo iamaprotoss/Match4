@@ -116,14 +116,19 @@
     
     if ([transaction.payment.productIdentifier isEqualToString:IAP_100_COINS]) {
         [[GameController sharedController].moneyManager addCoins:100];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
     } else if ([transaction.payment.productIdentifier isEqualToString:IAP_500_COINS]) {
         [[GameController sharedController].moneyManager addCoins:500];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
     } else if ([transaction.payment.productIdentifier isEqualToString:IAP_1000_COINS]) {
         [[GameController sharedController].moneyManager addCoins:1000];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
     } else if ([transaction.payment.productIdentifier isEqualToString:IAP_5000_COINS]) {
         [[GameController sharedController].moneyManager addCoins:5000];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
     } else if ([transaction.payment.productIdentifier isEqualToString:IAP_10000_COINS]) {
         [[GameController sharedController].moneyManager addCoins:10000];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
     }
     
     [self recordTransaction:transaction];

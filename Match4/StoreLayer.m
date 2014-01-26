@@ -78,6 +78,7 @@
 -(void) buyCoin:(id)target
 {
     int tag = ((CCNode*)target).tag;
+    //[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     [[GameController sharedController].storeObserver requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
         if (success) {
             [GameController sharedController].moneyManager.allIAP = products;

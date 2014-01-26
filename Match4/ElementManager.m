@@ -8,9 +8,11 @@
 
 #import "ElementManager.h"
 #import "Match4Label.h"
+#import "GameController.h"
+#import "Match4TimeView.h"
 
 @implementation ElementManager
-@synthesize explodingElementFrames, colorEliminateFrames, LShapeFrames, glowingElementFrames;
+@synthesize explodingElementFrames, colorEliminateFrames, LShapeFrames, rotatedLShapeFrames, glowingElementFrames;
 
 
 - (id) init
@@ -39,13 +41,23 @@
         colorEliminateFrames.delayPerUnit = 0.04;
         
         LShapeFrames = [[CCAnimation alloc] init];
+        for (int i = 0; i < 10; i ++) {
+            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_0%i.png", i]];
+        }
+        for (int i = 10; i < 24; i++) {
+            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_%i.png", i]];
+        }
+        LShapeFrames.delayPerUnit = 0.04;
+        
+        rotatedLShapeFrames = [[CCAnimation alloc] init];
         for (int i = 1; i < 10; i ++) {
-            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_0%i.png", i]];
+            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_0%ir.png", i]];
         }
-        for (int i = 10; i < 21; i++) {
-            [LShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"SFX3_%i.png", i]];
+        for (int i = 10; i < 24; i++) {
+            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_%ir.png", i]];
         }
-        LShapeFrames.delayPerUnit = 0.05;
+        rotatedLShapeFrames.delayPerUnit = 0.04;
+
         
         glowingElementFrames = [[CCAnimation alloc] init];
         for (int i = 1; i < 10; i ++) {
@@ -222,21 +234,34 @@
 
 - (void)animLShapeOnElement:(Match4Element *)thisElement
 {
-    //CGRect beamFrame = CGRectMake(0, 0, MAX((320 + 2 * abs(thisElement.center.x - 165)), (320 + 2 * abs(thisElement.center.y - 165))), 40);
-    CCAnimation *rotatedLShapeFrames = [[CCAnimation alloc] init];
-    for (int i = 1; i < 10; i ++) {
-        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX3_0%i.png", i] rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
-        frame.rotated = YES;
-        [rotatedLShapeFrames addSpriteFrame:frame];
-    }
-    for (int i = 10; i < 21; i++) {
-        CCSpriteFrame *frame = [CCSpriteFrame frameWithTextureFilename:[NSString stringWithFormat:@"SFX3_%i.png", i] rect:CGRectMake(0, 0, MAX(320 + 2 * abs(thisElement.position.x - 165), (320 + 2 * abs(thisElement.position.y - 165))), 40)];
-        frame.rotated = YES;
-        [rotatedLShapeFrames addSpriteFrame:frame];
-    }
-    rotatedLShapeFrames.delayPerUnit = 0.05;
-    thisElement.ElementAnimation = [[CCSprite alloc] init];
-    [thisElement addChild:thisElement.ElementAnimation];
+    //thisElement.ElementAnimation = [[CCSprite alloc] init];
+    //[thisElement addChild:thisElement.ElementAnimation];
+    CCSprite *LShapeHorizontal = [[CCSprite alloc] init];
+    LShapeHorizontal.position = ccp(160, 20+thisElement.isIndex.y*40);
+    [[thisElement parent] addChild:LShapeHorizontal];
+    [LShapeHorizontal runAction:
+     [CCSequence actions:
+      [CCAnimate actionWithAnimation:LShapeFrames],
+      [CCCallBlock actionWithBlock:^{
+         [LShapeHorizontal removeFromParent];
+         [LShapeHorizontal release];
+         [thisElement removeFromParent];
+     }],
+      nil]];
+    
+    CCSprite *LShapeVertical = [[CCSprite alloc] init];
+    LShapeVertical.position = ccp(20+thisElement.isIndex.x*40, 160);
+    [[thisElement parent] addChild:LShapeVertical];
+    [LShapeVertical runAction:
+     [CCSequence actions:
+      [CCAnimate actionWithAnimation:rotatedLShapeFrames],
+      [CCCallBlock actionWithBlock:^{
+         [LShapeVertical removeFromParent];
+         [LShapeVertical release];
+     }],
+      nil]];
+    
+    /*
     [thisElement.ElementAnimation runAction:
      [CCSequence actions:
       [CCSpawn actionOne:
@@ -248,20 +273,7 @@
          thisElement.ElementAnimation = nil;
          [thisElement removeFromParent];
      }],
-      nil]];
-    /*
-    CCSprite *helpSprite = [[CCSprite alloc] init];
-    helpSprite.position = thisElement.position;
-    [thisElement.parent addChild:helpSprite];
-    [helpSprite runAction:
-     [CCSequence actions:
-      [CCAnimate actionWithAnimation:rotatedLShapeFrames],
-      [CCCallBlock actionWithBlock:^{
-         [helpSprite release];
-     }], nil]];
-    */
-    //[self animHideElement:thisElement withDelay:0];
-    
+      nil]];*/
 }
 
 - (void)animHideElement:(Match4Element *)thisElement withDelay:(float)thisDelay

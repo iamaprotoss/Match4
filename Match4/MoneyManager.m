@@ -39,6 +39,7 @@
 {
     coins -= noOfCoins;
     [userDefaults setInteger:coins forKey:@"coins"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@(coins) userInfo:nil];
 }
 
 -(void)buyIAP:(int)thisIAP
@@ -65,7 +66,7 @@
 }
 
 #pragma mark StoreObserverProtocol
--(void)transactionDidFinish:(NSString *)transactionIdentifier
+/*-(void)transactionDidFinish:(NSString *)transactionIdentifier
 {
     if ([transactionIdentifier isEqualToString:IAP_100_COINS]) {
         [self addCoins:100];
@@ -78,7 +79,7 @@
     } else if ([transactionIdentifier isEqualToString:IAP_10000_COINS]) {
         [self addCoins:10000];
     }
-}
+}*/
 
 -(void)transactionDidError:(NSError *)error
 {

@@ -1134,14 +1134,20 @@
     
     /*totalPointsToAdd =
     noOfStandardEliminate * [GameController sharedController].valuesManager.kPointsStandardEliminate +noOfSuperiorSingle * [GameController sharedController].valuesManager.kPointsSuperiorSingle + noOfSuperiorDouble * [GameController sharedController].valuesManager.kPointsSuperiorDouble + noOfSuperiorTriple * [GameController sharedController].valuesManager.kPointsSuperiorTriple + noOfSuperiorAll * [GameController sharedController].valuesManager.kPointsSuperiorAll + noOfNormal * [GameController sharedController].valuesManager.kPointsNormal + pow(levelOfCascading, 2) * 100;*/
-    [[GameController sharedController].timeView addPoints:totalPointsToAdd];
+    
+    if (isTutorial) {
+        [[GameController sharedController].tutorialView addPoints:totalPointsToAdd];
+    } else {
+        [[GameController sharedController].timeView addPoints:totalPointsToAdd];
+    }
+    
     [self clearPoints];
     
     isCascading = YES;
     
     float delayTime;
     if (isLShapeElimination) {
-        delayTime = 0.8;
+        delayTime = 0.6;
     } else if (isColorElimination) {
         delayTime = 0.5;
     } else if (isExplosion) {
