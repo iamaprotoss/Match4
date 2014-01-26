@@ -11,22 +11,26 @@
 @implementation ValuesManager
 @synthesize kPointsStandardEliminate, kPointsSuperiorSingle, kPointsSuperiorSingleOther, kPointsSuperiorDouble, kPointsSuperiorDoubleOther, kPointsSuperiorTriple, kPointsSuperiorTripleOther, kPointsSuperiorAll, kPointsSuperiorAllOther, kPointsBonusForCascading, kPointsNormal;
 
+// experience is quadradic 1000*L^2
+
 - (id)init {
     if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
-        isNotFirstTime = [[userDefaults valueForKey:@"isNotFirstTime"] boolValue];
-        //if (isNotFirstTime) {
-            [self initValues];
-        //} else {
-            [self firstInitValues];
-        //}
+        [self initValues];
+    }
+    return self;
+}
+
+- (id)initForTheFirstTime
+{
+    if (self = [super init]) {
+        userDefaults = [[NSUserDefaults standardUserDefaults] retain];
+        [self firstInitValues];
     }
     return self;
 }
 
 - (void)firstInitValues {
-    isNotFirstTime = YES;
-    [userDefaults setBool:isNotFirstTime forKey:@"isNotFirstTime"];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Match4Values" ofType:@"plist"];
     NSDictionary *match4Values = [[NSDictionary alloc] initWithContentsOfFile:path];
     [self setValuesForKeysWithDictionary:match4Values];

@@ -31,12 +31,20 @@
 - (id) init
 {
     if (self = [super init]) {
-        statsManager = [[StatsManager alloc] init];
+        isNotFirstTime = [[[NSUserDefaults standardUserDefaults] valueForKey:@"isNotFirstTime"] boolValue];
+        if (!isNotFirstTime) {
+            statsManager = [[StatsManager alloc] initForTheFirstTime];
+            valuesManager = [[ValuesManager alloc] initForTheFirstTime];
+            isNotFirstTime = YES;
+            [[NSUserDefaults standardUserDefaults] setBool:isNotFirstTime forKey:@"isNotFirstTime"];
+        } else {
+            statsManager = [[StatsManager alloc] init];
+            valuesManager = [[ValuesManager alloc] init];
+        }
         soundController = [[SoundController alloc] init];
         musicController = [[MusicController alloc] init];
         elementManager = [[ElementManager alloc] init];
         labelManager = [[LabelManager alloc] init];
-        valuesManager = [[ValuesManager alloc] init];
         moneyManager = [[MoneyManager alloc] init];
         storeObserver = [[StoreObserver alloc] init];
         storeObserver.delegate = moneyManager;

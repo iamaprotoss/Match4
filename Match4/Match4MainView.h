@@ -23,6 +23,7 @@
     CCSprite *start_gold_coin;
     CCSprite *start_gold_hi;
     CCSprite *start_lv;
+    Match4Label *start_lv_label;
     CCSprite *start_lv_bg;
     CCSprite *start_lv_progress;
     CCMenuItemSprite *start_start_btn;
@@ -32,6 +33,9 @@
     Match4Label *start_money;
     CCMenu *start_option_btn;
     CCSprite *start_option_gear;
+    
+    int level;
+    int experience;
     
     BOOL canTouch;
     

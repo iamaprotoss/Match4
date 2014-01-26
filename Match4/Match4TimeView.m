@@ -110,7 +110,7 @@
         if ([[special objectForKey:@"Time Bonus"] boolValue]) {
             gameTime = 65;
         } else {
-            gameTime = 10;
+            gameTime = 60;
         }
         isPlaying = YES;
         isGameOver = NO;
@@ -171,9 +171,9 @@
     }
     [GameController sharedController].statsManager.currentExperience += totalScore;
     [self computeLevel];
-    int moneyObtained = (int)pow(gameScore/100, 1/2)*100;
-    [[GameController sharedController].moneyManager addCoins:moneyObtained];
-    gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:moneyObtained];
+    [self computeMoney];
+    [[GameController sharedController].statsManager setStats];
+    gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:(int)pow(gameScore/10, 1)];
     gameOverView.position = ccp(0, 120);
     [self addChild:gameOverView];
 }
@@ -193,7 +193,7 @@
 -(void) computeMoney
 {
     int money = [GameController sharedController].statsManager.currentMoney;
-    money += (int)pow(gameScore, 1/2);
+    money += (int)pow(gameScore/10, 1);
     [GameController sharedController].statsManager.currentMoney = money;
 }
 
@@ -232,7 +232,7 @@
     isGameOver = NO;
     gameScore = 0;
     [self updateScore];
-    self.timer = 10;
+    self.timer = 60;
     play_time_bar.scaleX = 1;
     [gameEngine resetGame];
     [self schedule:@selector(countDown) interval:1];

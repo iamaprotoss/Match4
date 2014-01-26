@@ -43,6 +43,7 @@
     NSMutableDictionary *gameItems;
     
     BOOL isInGame;
+    BOOL isNotFirstTime;
 }
 
 @property (nonatomic, retain) LocalStorageManager *localStore;

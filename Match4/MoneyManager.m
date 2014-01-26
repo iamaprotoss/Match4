@@ -22,8 +22,6 @@
 {
     if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
-        //coins = [userDefaults integerForKey:@"coins"];
-        coins = 2000;
         selectedIAP = -1;
     }
     return self;
@@ -31,15 +29,14 @@
 
 -(void)addCoins:(int)noOfCoins
 {
-    coins += noOfCoins;
-    [userDefaults setInteger:coins forKey:@"coins"];
+    [GameController sharedController].statsManager.currentMoney += noOfCoins;
+    [userDefaults setInteger:[GameController sharedController].statsManager.currentMoney forKey:@"money"];
 }
 
 -(void)spendCoins:(int)noOfCoins
 {
-    coins -= noOfCoins;
-    [userDefaults setInteger:coins forKey:@"coins"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@(coins) userInfo:nil];
+    [GameController sharedController].statsManager.currentMoney -= noOfCoins;
+    [userDefaults setInteger:[GameController sharedController].statsManager.currentMoney forKey:@"money"];
 }
 
 -(void)buyIAP:(int)thisIAP

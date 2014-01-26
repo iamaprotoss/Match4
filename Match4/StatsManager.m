@@ -26,10 +26,24 @@
 //@synthesize scoreMultiplier;
 
 - (id)init {
-	if ((self = [super init])) {
+	if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
+        [self getStats];
     }
 	return self;
+}
+
+- (id)initForTheFirstTime
+{
+    if (self = [super init]) {
+        userDefaults = [[NSUserDefaults standardUserDefaults] retain];
+        currentMoney = 1000;
+        currentLife = 5;
+        currentExperience = 0;
+        currentLevel = 1;
+        [self setStats];
+    }
+    return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -56,7 +70,7 @@
     [userDefaults setInteger:currentLife forKey:@"life"];
     [userDefaults setInteger:currentLevel forKey:@"level"];
     [userDefaults setInteger:currentMoney forKey:@"money"];
-    [userDefaults setInteger:currentExperience forKey:@"currentExperience"];
+    [userDefaults setInteger:currentExperience forKey:@"experience"];
     //[userDefaults setInteger:score forKey:score];
     //[userDefaults setInteger:scoreMultiplier forKey:scoreMultiplier];
 }
@@ -65,7 +79,7 @@
     currentLife = [userDefaults integerForKey:@"life"];
     currentLevel = [userDefaults integerForKey:@"level"];
     currentMoney = [userDefaults integerForKey:@"money"];
-    currentExperience = [userDefaults integerForKey:@"currentExperience"];
+    currentExperience = [userDefaults integerForKey:@"experience"];
     //score = [userDefaults integerForKey:@"score"];
     //scoreMultiplier = [userDefaults integerForKey:@"scoreMultiplier"];
 }

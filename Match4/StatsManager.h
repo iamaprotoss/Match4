@@ -25,9 +25,9 @@
 //@property int score;
 //@property int scoreMultiplier;
 
-
+- (id)initForTheFirstTime;
 - (void)clearGameStats;
-- (BOOL)didSeePopUpForSpecialType:(int)thisType;
+//- (BOOL)didSeePopUpForSpecialType:(int)thisType;
 - (void)setStats;
 - (void)getStats;
 - (void)setHighScore;

@@ -83,22 +83,31 @@
         start_gold_hi.position = ccp(20, 20);
         [start_gold_coin addChild:start_gold_hi];
         
-        start_money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].moneyManager.coins] fontSize:12];
+        start_money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.currentMoney] fontSize:12];
         start_money.position = ccp(250, 550);
         [start_bg addChild:start_money];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoney:) name:@"updateMoney" object:nil];
 
+        level = [GameController sharedController].statsManager.currentLevel;
+        experience = [GameController sharedController].statsManager.currentExperience;
         start_lv = [CCSprite spriteWithFile:@"start_lv.png"];
         start_lv.position = ccp(20, 550);
         [start_bg addChild:start_lv];
+        
+        start_lv_label = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", level] fontSize:20];
+        start_lv_label.position = ccp(40, 550);
+        start_lv_label.color = ccc3(40, 40, 230);
+        [start_bg addChild:start_lv_label];
         
         start_lv_bg = [CCSprite spriteWithFile:@"start_lv_bg.png"];
         start_lv_bg.position = ccp(100, 550);
         [start_bg addChild:start_lv_bg];
         
         start_lv_progress = [CCSprite spriteWithFile:@"start_lv_progress.png"];
-        start_lv_progress.position = ccp(100, 550);
+        start_lv_progress.anchorPoint = ccp(0, 0);
+        start_lv_progress.position = ccp(61, 543);
+        start_lv_progress.scaleX = 1.0 * experience / pow(level, 2) / 1000;
         [start_bg addChild:start_lv_progress];
         
         CCSprite *startNormal = [CCSprite spriteWithFile:@"start_start_bg.png"];

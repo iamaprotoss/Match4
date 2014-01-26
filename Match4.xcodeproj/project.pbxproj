@@ -152,13 +152,9 @@
 		18891587188FC941007F09A6 /* start_setting_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889151F188FC941007F09A6 /* start_setting_bg.png */; };
 		18891588188FC941007F09A6 /* start_setting_bg_I.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891520188FC941007F09A6 /* start_setting_bg_I.png */; };
 		18891589188FC941007F09A6 /* start_setting_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891521188FC941007F09A6 /* start_setting_facebook.png */; };
-		1889158A188FC941007F09A6 /* start_setting_facebook_I.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891522188FC941007F09A6 /* start_setting_facebook_I.png */; };
 		1889158B188FC941007F09A6 /* start_setting_help.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891523188FC941007F09A6 /* start_setting_help.png */; };
-		1889158C188FC941007F09A6 /* start_setting_help_I.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891524188FC941007F09A6 /* start_setting_help_I.png */; };
 		1889158D188FC941007F09A6 /* start_setting_music.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891525188FC941007F09A6 /* start_setting_music.png */; };
-		1889158E188FC941007F09A6 /* start_setting_music_I.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891526188FC941007F09A6 /* start_setting_music_I.png */; };
 		1889158F188FC941007F09A6 /* start_setting_sound.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891527188FC941007F09A6 /* start_setting_sound.png */; };
-		18891590188FC941007F09A6 /* start_setting_sound_I.png in Resources */ = {isa = PBXBuildFile; fileRef = 18891528188FC941007F09A6 /* start_setting_sound_I.png */; };
 		18891591188FC941007F09A6 /* store_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889152A188FC941007F09A6 /* store_banner.png */; };
 		18891592188FC941007F09A6 /* store_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889152B188FC941007F09A6 /* store_bg.png */; };
 		18891593188FC941007F09A6 /* store_buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 1889152C188FC941007F09A6 /* store_buy.png */; };
@@ -1296,13 +1292,9 @@
 		1889151F188FC941007F09A6 /* start_setting_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_bg.png; sourceTree = "<group>"; };
 		18891520188FC941007F09A6 /* start_setting_bg_I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_bg_I.png; sourceTree = "<group>"; };
 		18891521188FC941007F09A6 /* start_setting_facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_facebook.png; sourceTree = "<group>"; };
-		18891522188FC941007F09A6 /* start_setting_facebook_I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_facebook_I.png; sourceTree = "<group>"; };
 		18891523188FC941007F09A6 /* start_setting_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_help.png; sourceTree = "<group>"; };
-		18891524188FC941007F09A6 /* start_setting_help_I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_help_I.png; sourceTree = "<group>"; };
 		18891525188FC941007F09A6 /* start_setting_music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_music.png; sourceTree = "<group>"; };
-		18891526188FC941007F09A6 /* start_setting_music_I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_music_I.png; sourceTree = "<group>"; };
 		18891527188FC941007F09A6 /* start_setting_sound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_sound.png; sourceTree = "<group>"; };
-		18891528188FC941007F09A6 /* start_setting_sound_I.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_setting_sound_I.png; sourceTree = "<group>"; };
 		1889152A188FC941007F09A6 /* store_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_banner.png; sourceTree = "<group>"; };
 		1889152B188FC941007F09A6 /* store_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_bg.png; sourceTree = "<group>"; };
 		1889152C188FC941007F09A6 /* store_buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_buy.png; sourceTree = "<group>"; };
@@ -2682,13 +2674,9 @@
 				1889151F188FC941007F09A6 /* start_setting_bg.png */,
 				18891520188FC941007F09A6 /* start_setting_bg_I.png */,
 				18891521188FC941007F09A6 /* start_setting_facebook.png */,
-				18891522188FC941007F09A6 /* start_setting_facebook_I.png */,
 				18891523188FC941007F09A6 /* start_setting_help.png */,
-				18891524188FC941007F09A6 /* start_setting_help_I.png */,
 				18891525188FC941007F09A6 /* start_setting_music.png */,
-				18891526188FC941007F09A6 /* start_setting_music_I.png */,
 				18891527188FC941007F09A6 /* start_setting_sound.png */,
-				18891528188FC941007F09A6 /* start_setting_sound_I.png */,
 			);
 			path = startoption;
 			sourceTree = "<group>";
@@ -4836,7 +4824,6 @@
 				188D35D01869384300D92C98 /* choosebackgroundblank.jpg in Resources */,
 				188D356F1869384300D92C98 /* symbol9b-ipad@2x.png in Resources */,
 				188D35C71869384300D92C98 /* superSymbolMorph20.png in Resources */,
-				1889158E188FC941007F09A6 /* start_setting_music_I.png in Resources */,
 				188D36291869384400D92C98 /* symbol9.png in Resources */,
 				188DC847187E3183002E8BB2 /* SFX-SymbolSelect_B.caf in Resources */,
 				188D36E81869384400D92C98 /* symbol1@2x.png in Resources */,
@@ -4905,7 +4892,6 @@
 				188D35631869384300D92C98 /* symbol6-ipad@2x.png in Resources */,
 				1889157F188FC941007F09A6 /* start_store_btn.png in Resources */,
 				188D36AA1869384400D92C98 /* iphone5_newstore.jpg in Resources */,
-				18891590188FC941007F09A6 /* start_setting_sound_I.png in Resources */,
 				188DC83C187E3183002E8BB2 /* SFX-LMatch.caf in Resources */,
 				188914CE188F5915007F09A6 /* T_40.png in Resources */,
 				18891574188FC941007F09A6 /* start_facebook_bg.png in Resources */,
@@ -5140,7 +5126,6 @@
 				1892B1AF1868243A00F48431 /* Icon-72.png in Resources */,
 				188C2C171871AFEF0093C020 /* SFX4_04.png in Resources */,
 				188E01471894FFD4008D2CBA /* lightening_18.png in Resources */,
-				1889158C188FC941007F09A6 /* start_setting_help_I.png in Resources */,
 				188D34FC1869384300D92C98 /* superSymbolMorph03-ipad@2x.png in Resources */,
 				188C2BE61871AFEF0093C020 /* SFX1_12.png in Resources */,
 				188E010D1894CD73008D2CBA /* t2_04.png in Resources */,
@@ -5399,7 +5384,6 @@
 				188D35A51869384300D92C98 /* rectifySymbolMorph18.png in Resources */,
 				188E01671895099E008D2CBA /* lightening_02r.png in Resources */,
 				188914A9188F5915007F09A6 /* T_03.png in Resources */,
-				1889158A188FC941007F09A6 /* start_setting_facebook_I.png in Resources */,
 				188D368E1869384400D92C98 /* getBytesSquare@2x.png in Resources */,
 				188D355B1869384300D92C98 /* symbol10-3-ipad@2x.png in Resources */,
 				188914AA188F5915007F09A6 /* T_04.png in Resources */,

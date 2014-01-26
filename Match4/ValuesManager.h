@@ -11,7 +11,6 @@
 @interface ValuesManager : NSObject <NSURLConnectionDataDelegate>
 {
     NSUserDefaults *userDefaults;
-    BOOL isNotFirstTime;
     NSURLConnection *plistConnection;
     NSMutableData *plistResponse;
     
@@ -40,6 +39,7 @@
 @property (nonatomic) int kPointsBonusForCascading;
 @property (nonatomic) int kPointsNormal;
 
+- (id) initForTheFirstTime;
 - (void) firstInitValues;
 - (void) initValues;
 - (void) setValuesFromDictionary:(NSDictionary *)thisDictionary;

@@ -63,7 +63,7 @@
         win_money_icon.position = ccp(120, 160);
         [self addChild:win_money_icon];
         
-        win_money = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", thisMoney] fontSize:20];
+        win_money = [Match4Label labelWithString:[NSString stringWithFormat:@"+%i", thisMoney] fontSize:20];
         win_money.position = ccp(160, 160);
         win_money.color = ccc3(240, 0, 0);
         win_money.opacity = 200;
