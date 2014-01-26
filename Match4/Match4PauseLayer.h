@@ -10,17 +10,20 @@
 
 @interface Match4PauseLayer : CCLayer
 {
-    CCSprite *bg;
-    CCMenuItemSprite *resume;
-    CCMenuItemSprite *music;
-    CCMenuItemSprite *sound;
-    CCMenuItemSprite *pause_menu;
+    CCSprite *paused_bg;
+    CCSprite *paused_banner;
+    CCSprite *paused_title;
+    CCMenuItemSprite *paused_resume;
+    CCMenuItemSprite *paused_music;
+    CCMenuItemSprite *paused_sound;
+    CCMenuItemSprite *paused_menu;
+    CCMenuItemSprite *paused_restart;
 }
-
+/*
 @property (nonatomic, retain) CCSprite *bg;
 @property (nonatomic, retain) CCMenuItemSprite *resume;
 @property (nonatomic, retain) CCMenuItemSprite *music;
 @property (nonatomic, retain) CCMenuItemSprite *sound;
 @property (nonatomic, retain) CCMenuItemSprite *pause_menu;
-
+*/
 @end

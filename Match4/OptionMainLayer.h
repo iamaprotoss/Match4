@@ -8,7 +8,7 @@
 
 #import "CCLayer.h"
 
-@interface OptionMainView : CCLayer
+@interface OptionMainLayer : CCLayer
 {
     //CCSprite *start_option_gear;
     //CCMenu *start_option_btn;

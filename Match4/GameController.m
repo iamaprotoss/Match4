@@ -13,7 +13,7 @@
 #import "Match4TutorialView.h"
 
 @implementation GameController
-@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, storeObserver, timeView, mainView, itemView, tutorialView, gameItems, isInGame;
+@synthesize localStore, statsManager, soundController, musicController, elementManager, labelManager, valuesManager, moneyManager, storeObserver, gameCenterManager, timeView, mainView, itemView, tutorialView, gameItems, isInGame;
 
 +(GameController *)sharedController
 {
@@ -40,6 +40,7 @@
         moneyManager = [[MoneyManager alloc] init];
         storeObserver = [[StoreObserver alloc] init];
         storeObserver.delegate = moneyManager;
+        gameCenterManager = [[GameCenterManager alloc] init];
         gameItems = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          [NSNumber numberWithBool:NO], @"Time Bonus",
          [NSNumber numberWithBool:NO], @"Score Bonus",

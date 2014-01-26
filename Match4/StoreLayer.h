@@ -9,13 +9,13 @@
 #import "CCLayer.h"
 @class Match4Label;
 
-@protocol StoreViewDelegate <NSObject>
+@protocol StoreLayerDelegate <NSObject>
 
--(void)closeStoreView;
+-(void)closeStoreLayer;
 
 @end
 
-@interface StoreView : CCLayer
+@interface StoreLayer : CCLayer
 {
     CCSprite *store_bg;
     CCSprite *store_banner;
@@ -29,6 +29,6 @@
     CCMenuItemSprite *close;
 }
 
-@property (nonatomic, retain) id<StoreViewDelegate> delegate;
+@property (nonatomic, retain) id<StoreLayerDelegate> delegate;
 
 @end

@@ -11,6 +11,7 @@
 @implementation GameCenterManager
 
 @synthesize isUserAuthenticated;
+
 -(id) init
 {
     if (self = [super init]) {
@@ -61,5 +62,50 @@
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     [rootVC presentViewController:vc animated:YES completion:nil];
 }
+
+- (void)authenticationChanged {
+    if ([GKLocalPlayer localPlayer].isAuthenticated && !isUserAuthenticated) {
+        isUserAuthenticated = TRUE;
+        //[self checkInvites];
+    }
+    else if (![GKLocalPlayer localPlayer].isAuthenticated && isUserAuthenticated) {
+        isUserAuthenticated = FALSE;
+    }
+}
+
+- (void)submitHighScore:(NSInteger)score
+{
+    GKScore *scoreReporter = [[GKScore alloc] initWithCategory:HIGH_SCORE_LEADERBOARD];
+    scoreReporter.value = score;
+    scoreReporter.context = 0;
+    [scoreReporter reportScoreWithCompletionHandler:^(NSError *error){
+    }];
+}
+
+- (void)showLeaderboards:(UIViewController *)view {
+    
+    GKGameCenterViewController *gameCenterController = [[[GKGameCenterViewController alloc] init] autorelease];
+    
+    if (gameCenterController != nil)
+        
+    {
+        
+        //Sun
+        gameCenterController.gameCenterDelegate = self;//view;//view;
+        
+        gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        
+        //gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeToday;//sun GKLeaderboardTimeScopeToday;
+        
+        
+        // gameCenterController.leaderboardCategory = nil; Sun
+        
+        //[view presentViewController: gameCenterController animated: YES completion:nil];
+        [view presentViewController:gameCenterController animated: YES completion:nil];
+        
+    }
+    
+}
+
 
 @end

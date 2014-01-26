@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
-#import "GameController.h"
 
 //#define APP_HANDLED_URL @"APP_HANDLED_URL"
 #define HIGH_SCORE_LEADERBOARD @"com.sincerupt.match4.HighScore"
@@ -49,8 +48,7 @@
 //- (void)checkRestart;
 //- (void)lookupPlayers;
 //- (void)sendPacket:(NSData *)thisPacket;
-- (void)submitLevelsScore:(NSInteger)score;
-- (void)submitTimedScore:(NSInteger)score;
+- (void)submitHighScore:(NSInteger)score;
 - (void)showLeaderboards:(UIViewController *)view;
 - (void)submitScoreToFB:(NSInteger)score;
 

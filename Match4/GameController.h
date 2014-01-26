@@ -16,6 +16,7 @@
 #import "ValuesManager.h"
 #import "MoneyManager.h"
 #import "StoreObserver.h"
+#import "GameCenterManager.h"
 @class Match4MainView;
 @class Match4TimeView;
 @class Match4ItemLayer;
@@ -32,6 +33,7 @@
     ValuesManager *valuesManager;
     MoneyManager *moneyManager;
     StoreObserver *storeObserver;
+    GameCenterManager *gameCenterManager;
     
     Match4MainView *mainView; // Match4MainView
     Match4TimeView *timeView; // Match4TimeView
@@ -52,6 +54,7 @@
 @property (nonatomic, retain) ValuesManager *valuesManager;
 @property (nonatomic, retain) MoneyManager *moneyManager;
 @property (nonatomic, retain) StoreObserver *storeObserver;
+@property (nonatomic, retain) GameCenterManager *gameCenterManager;
 
 @property (nonatomic, retain) Match4MainView *mainView;
 @property (nonatomic, retain) Match4TimeView *timeView;

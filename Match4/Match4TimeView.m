@@ -38,7 +38,7 @@
         play_bg.position = ccp(0, 0);
         [self addChild:play_bg];
         
-        play_board = [CCSprite spriteWithFile:@"play_board2.png"];
+        play_board = [CCSprite spriteWithFile:@"play_board.png"];
         play_board.position = ccp(160, 260);
         //play_board.opacity = 220;
         play_board.scale = 640.0/643;
@@ -49,7 +49,7 @@
         [self addChild:play_points_bg];
         gameScore = 0;
         play_points_label = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameScore] fontSize:15];
-        play_points_label.position = ccp(50, 12);
+        play_points_label.position = ccp(55, 10);
         [play_points_bg addChild:play_points_label];
         //score.color = ccc3(255, 255, 0);
         //score.opacity = 200;
@@ -110,7 +110,7 @@
         if ([[special objectForKey:@"Time Bonus"] boolValue]) {
             gameTime = 65;
         } else {
-            gameTime = 60;
+            gameTime = 10;
         }
         isPlaying = YES;
         isGameOver = NO;
@@ -162,6 +162,7 @@
 -(void) gameOver
 {
     isPlaying = NO;
+    gameEngine.canTouch = NO;
     int totalScore;
     if ([[special objectForKey:@"Score bonus"] boolValue]) {
         totalScore = gameScore * 1.1 * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
@@ -198,11 +199,19 @@
 
 -(void) pause
 {
-    pauseLayer = [Match4PauseLayer node];
-    pauseLayer.position = ccp(0, 200);
-    [self addChild:pauseLayer];
-    isPlaying = NO;
-    [self unschedule:@selector(countDown)];
+    if (isPlaying) {
+        gameEngine.canTouch = NO;
+        pauseLayer = [Match4PauseLayer node];
+        pauseLayer.position = ccp(0, 200);
+        [self addChild:pauseLayer];
+        isPlaying = NO;
+        gameEngine.canTouch = NO;
+        [self unschedule:@selector(countDown)];
+    } else {
+        if (pauseLayer != nil) {
+            [self resume];
+        }
+    }
 }
 
 -(void)resume
@@ -210,30 +219,35 @@
     [self removeChild:pauseLayer];
     pauseLayer = nil;
     isPlaying = YES;
+    gameEngine.canTouch = YES;
     [self schedule:@selector(countDown) interval:1];
 }
 
 -(void)restart
 {
     [self removeChild:gameOverView];
+    [self removeChild:pauseLayer];
     gameOverView = nil;
     isPlaying = YES;
     isGameOver = NO;
     gameScore = 0;
     [self updateScore];
-    self.timer = 60;
-    //play_time_bar.scaleX = 1.32;
+    self.timer = 10;
+    play_time_bar.scaleX = 1;
     [gameEngine resetGame];
     [self schedule:@selector(countDown) interval:1];
 }
 
 -(void)hint
 {
-    CGPoint hintPos = [gameEngine getHint];
-    if (hintPos.x == -1) {
-        [self proposeReshuffle];
-    } else {
-        [gameEngine showHint:hintPos];
+    if (isPlaying) {
+        CGPoint hintPos = [gameEngine getHint];
+        if (hintPos.x == -1) {
+            [self proposeReshuffle];
+        } else {
+            [gameEngine showHint:hintPos];
+        }
+
     }
 }
 

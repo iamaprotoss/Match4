@@ -8,7 +8,7 @@
 
 #import "Match4ItemLayer.h"
 #import "GameController.h"
-#import "StoreView.h"
+#import "StoreLayer.h"
 #import "Match4Label.h"
 
 @implementation Match4ItemLayer
@@ -33,30 +33,30 @@
         item_title.position = ccp(160, 330);
         [self addChild:item_title];
         
-        item_description = [CCSprite spriteWithFile:@"item_description.png"];
-        item_description.position = ccp(160, 100);
-        [self addChild:item_description];
-        
-        /*
+                /*
         buygold = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_gold.png"] selectedSprite:[CCSprite spriteWithFile:@"start_gold.png"] target:self selector:@selector(store)];
         CCMenu *menu = [CCMenu menuWithItems:buygold, nil];
         menu.position = ccp(160, 275);
         [self addChild:menu];
         */
-        [self placeItem:0 atPosition:ccp(90, 270) withPrice:100];
-        [self placeItem:1 atPosition:ccp(160, 270) withPrice:200];
-        [self placeItem:2 atPosition:ccp(230, 270) withPrice:300];
+        [self placeItem:0 atPosition:ccp(90, 275) withPrice:100];
+        [self placeItem:1 atPosition:ccp(160, 275) withPrice:200];
+        [self placeItem:2 atPosition:ccp(230, 275) withPrice:300];
         [self placeItem:3 atPosition:ccp(120, 200) withPrice:400];
         [self placeItem:4 atPosition:ccp(200, 200) withPrice:500];
         
         //self.position = ccp(160, 320);
         for (int i = 0; i < 3; i++) {
             item_itembg[i] = [CCSprite spriteWithFile:@"item_itembg.png"];
-            item_itembg[i].position = ccp(i*70+90, 130);
+            item_itembg[i].position = ccp(i*70+90, 80);
             [self addChild:item_itembg[i]];
         }
         
         selectionSlot[0] = selectionSlot[1] = selectionSlot[2] = NO;
+        
+        item_description = [CCSprite spriteWithFile:@"item_description.png"];
+        item_description.position = ccp(160, 130);
+        [self addChild:item_description];
         
         
         close = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"play_multimark.png"] selectedSprite:[CCSprite spriteWithFile:@"play_multimark.png"] target:self selector:@selector(close)];
@@ -77,13 +77,13 @@
             [uData setObject:[NSNumber numberWithBool:YES] forKey:@"is selected"];
             //item_item[tag-1].userData = uData;
             if (selectionSlot[0] == NO) {
-                item_item[tag-1].position = ccp(90, 130);
+                item_item[tag-1].position = ccp(90, 80);
                 selectionSlot[0] = YES;
             } else if (selectionSlot[1] == NO) {
-                item_item[tag-1].position = ccp(160, 130);
+                item_item[tag-1].position = ccp(160, 80);
                 selectionSlot[1] = YES;
             } else if (selectionSlot[2] == NO) {
-                item_item[tag-1].position = ccp(230, 130);
+                item_item[tag-1].position = ccp(230, 80);
                 selectionSlot[2] = YES;
             }
             
@@ -133,10 +133,10 @@
                              nil];
     [self addChild:item_item[Id]];
     CCSprite *item_price = [CCSprite spriteWithFile:@"item_price.png"];
-    item_price.position = ccp(item_item[Id].position.x, item_item[Id].position.y-40);
+    item_price.position = ccp(item_item[Id].position.x, item_item[Id].position.y-37);
     [self addChild:item_price];
     item_price_label[Id] = [Match4Label labelWithString:[NSString stringWithFormat:@"%i",price] fontSize:12];
-    item_price_label[Id].position = ccp(35, 10);
+    item_price_label[Id].position = ccp(33, 11);
     [item_price addChild:item_price_label[Id]];
 }
 

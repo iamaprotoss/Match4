@@ -9,12 +9,12 @@
 #import "CCLayer.h"
 #import "Match4FriendsLayer.h"
 #import "Match4ItemLayer.h"
-#import "StoreView.h"
+#import "StoreLayer.h"
 #import "Match4Label.h"
-#import "OptionMainView.h"
+#import "OptionMainLayer.h"
 @class Match4TimeView;
 
-@interface Match4MainView : CCLayer<Match4ItemLayerDelegate, StoreViewDelegate>
+@interface Match4MainView : CCLayer<Match4ItemLayerDelegate, StoreLayerDelegate>
 {
     CCSprite *start_bg;
     CCSprite *start_facebook;
@@ -33,6 +33,8 @@
     CCMenu *start_option_btn;
     CCSprite *start_option_gear;
     
+    BOOL canTouch;
+    
     /*
     CCSprite *friendsbg;
     CCSprite *moneybg;
@@ -48,8 +50,8 @@
      */
     Match4FriendsLayer *friendsLayer;
     Match4ItemLayer *itemLayer;
-    StoreView *storeView;
-    OptionMainView *optionMainView;
+    StoreLayer *storeLayer;
+    OptionMainLayer *optionMainLayer;
 }
 
 /*
@@ -68,8 +70,9 @@
 
 @property (retain, nonatomic) CCLayer *friendsLayer;
 @property (retain, nonatomic) CCLayer *itemLayer;
-@property (retain, nonatomic) CCLayer *storeView;
-@property (retain, nonatomic) CCLayer *optionMainView;
+@property (retain, nonatomic) CCLayer *storeLayer;
+@property (retain, nonatomic) CCLayer *optionMainLayer;
+@property (nonatomic) BOOL canTouch;
 
 +(CCScene *) scene;
 -(void)mainToItem;

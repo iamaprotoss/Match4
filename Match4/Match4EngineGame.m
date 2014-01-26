@@ -65,10 +65,10 @@
         [self addChild:hintAnim];
         hintAnimationFrames = [[CCAnimation alloc] init];
         for (int i = 0; i < 10; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t1_00%i.png", i]];
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t2_0%i.png", i]];
         }
         for (int i = 10; i < 20; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t1_0%i.png", i]];
+            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"t2_%i.png", i]];
         }
         hintAnimationFrames.delayPerUnit = 0.1;
         

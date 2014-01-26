@@ -11,38 +11,51 @@
 #import "Match4TimeView.h"
 
 @implementation Match4PauseLayer
-@synthesize bg, resume, music, sound, pause_menu;
+//@synthesize bg, resume, music, sound, pause_menu;
 
 -(id)init
 {
     if ([super init]) {
-        bg = [CCSprite spriteWithFile:@"paused_bg.png"];
-        bg.position = ccp(160, 50);
-        [self addChild:bg];
+        paused_bg = [CCSprite spriteWithFile:@"paused_bg.png"];
+        paused_bg.position = ccp(160, 50);
+        [self addChild:paused_bg];
+        
+        paused_banner = [CCSprite spriteWithFile:@"paused_banner.png"];
+        paused_banner.position = ccp(160, 80);
+        [self addChild:paused_banner];
+        
+        paused_title = [CCSprite spriteWithFile:@"paused_paused.png"];
+        paused_title.position = ccp(160, 84);
+        [self addChild:paused_title];
         
         CCSprite *resumeNormal = [CCSprite spriteWithFile:@"paused_resume.png"];
-        CCSprite *resumeSelected = [CCSprite spriteWithFile:@"paused_resume.png"];
-        resume = [CCMenuItemSprite itemWithNormalSprite:resumeNormal selectedSprite:resumeSelected target:self selector:@selector(buttonPressed:)];
-        resume.tag = 0;
+        CCSprite *resumeSelected = [CCSprite spriteWithFile:@"paused_resume_I.png"];
+        paused_resume = [CCMenuItemSprite itemWithNormalSprite:resumeNormal selectedSprite:resumeSelected target:self selector:@selector(buttonPressed:)];
+        paused_resume.tag = 0;
+        
+        CCSprite *restartNormal = [CCSprite spriteWithFile:@"paused_restart.png"];
+        CCSprite *restartSelected = [CCSprite spriteWithFile:@"paused_restart_I.png"];
+        paused_restart = [CCMenuItemSprite itemWithNormalSprite:restartNormal selectedSprite:restartSelected target:self selector:@selector(buttonPressed:)];
+        paused_restart.tag = 1;
         
         CCSprite *musicNormal = [CCSprite spriteWithFile:@"paused_music.png"];
-        CCSprite *musicSelected = [CCSprite spriteWithFile:@"paused_music.png"];
-        music = [CCMenuItemSprite itemWithNormalSprite:musicNormal selectedSprite:musicSelected target:self selector:@selector(buttonPressed:)];
-        music.tag = 1;
+        CCSprite *musicSelected = [CCSprite spriteWithFile:@"paused_music_I.png"];
+        paused_music = [CCMenuItemSprite itemWithNormalSprite:musicNormal selectedSprite:musicSelected target:self selector:@selector(buttonPressed:)];
+        paused_music.tag = 2;
         
         CCSprite *soundNormal = [CCSprite spriteWithFile:@"paused_sound.png"];
-        CCSprite *soundSelected = [CCSprite spriteWithFile:@"paused_sound.png"];
-        sound = [CCMenuItemSprite itemWithNormalSprite:soundNormal selectedSprite:soundSelected target:self selector:@selector(buttonPressed:)];
-        sound.tag = 2;
+        CCSprite *soundSelected = [CCSprite spriteWithFile:@"paused_sound_I.png"];
+        paused_sound = [CCMenuItemSprite itemWithNormalSprite:soundNormal selectedSprite:soundSelected target:self selector:@selector(buttonPressed:)];
+        paused_sound.tag = 3;
 
         CCSprite *menuNormal = [CCSprite spriteWithFile:@"win_menu.png"];
-        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu.png"];
-        pause_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
-        pause_menu.tag = 3;
+        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_I.png"];
+        paused_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
+        paused_menu.tag = 4;
 
-        CCMenu *menu = [CCMenu menuWithItems:resume, music, sound, pause_menu, nil];
-        [menu alignItemsHorizontallyWithPadding:20];
-        menu.position = ccp(160, 40);
+        CCMenu *menu = [CCMenu menuWithItems:paused_resume, paused_restart, paused_music, paused_sound, paused_menu, nil];
+        [menu alignItemsHorizontallyWithPadding:10];
+        menu.position = ccp(160, 45);
         [self addChild:menu];
     }
     return self;
@@ -53,10 +66,10 @@
     if (((CCNode *)target).tag == 0) {
         [[GameController sharedController].timeView resume];
     } else if (((CCNode *)target).tag == 1) {
-        
+        [[GameController sharedController].timeView restart];
     } else if (((CCNode *)target).tag == 2) {
-        
     } else if (((CCNode *)target).tag == 3) {
+    } else if (((CCNode *)target).tag == 4) {
         [[GameController sharedController] showMainView];
     }
 }
