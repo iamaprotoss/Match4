@@ -49,6 +49,7 @@
         storeObserver = [[StoreObserver alloc] init];
         storeObserver.delegate = moneyManager;
         gameCenterManager = [[GameCenterManager alloc] init];
+        [gameCenterManager authenticateLocalUser];
         gameItems = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          [NSNumber numberWithBool:NO], @"Time Bonus",
          [NSNumber numberWithBool:NO], @"Score Bonus",

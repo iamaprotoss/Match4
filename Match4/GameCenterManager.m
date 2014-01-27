@@ -19,7 +19,6 @@
         isGameCenterAvailable = [self isGameCenterAPIAvailable];
         if (isGameCenterAvailable) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
-            [self authenticateLocalUser];
         }
     }
     return self;
@@ -41,13 +40,23 @@
         [self setLastError:error];
         if ([CCDirector sharedDirector].isPaused) {
             [[CCDirector sharedDirector] resume];
-        } else if (viewController) {
+        } else if (viewController != nil) {
             [[CCDirector sharedDirector] pause];
             [self presentViewController:viewController];
+        } else if (localPlayer.isAuthenticated) {
+            
         } else {
             NSLog(@"local player not authenticated");
         }
     };
+    /*
+    if (!isGameCenterAvailable) return;
+    NSLog(@"Authenticating local user...");
+    if ([GKLocalPlayer localPlayer].authenticated == NO) {
+        [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
+    } else {
+        NSLog(@"Already authenticated!");
+    }*/
 }
 
 -(void) setLastError:(NSError *)error
@@ -57,10 +66,10 @@
     }
 }
 
+
 -(void)presentViewController:(UIViewController*)vc
 {
-    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rootVC presentViewController:vc animated:YES completion:nil];
+    [[CCDirector sharedDirector] presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)authenticationChanged {
@@ -82,7 +91,8 @@
     }];
 }
 
-- (void)showLeaderboards:(UIViewController *)view {
+- (void)showLeaderboards
+{
     
     GKGameCenterViewController *gameCenterController = [[[GKGameCenterViewController alloc] init] autorelease];
     
@@ -101,7 +111,7 @@
         // gameCenterController.leaderboardCategory = nil; Sun
         
         //[view presentViewController: gameCenterController animated: YES completion:nil];
-        [view presentViewController:gameCenterController animated: YES completion:nil];
+        [self presentViewController:gameCenterController];
         
     }
     
