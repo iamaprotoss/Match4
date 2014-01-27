@@ -49,7 +49,7 @@
 //- (void)lookupPlayers;
 //- (void)sendPacket:(NSData *)thisPacket;
 - (void)submitHighScore:(NSInteger)score;
-- (void)showLeaderboards:(UIViewController *)view;
+- (void)showLeaderboards;//(UIViewController *)view;
 - (void)submitScoreToFB:(NSInteger)score;
 
 @end

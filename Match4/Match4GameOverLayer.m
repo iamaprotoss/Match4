@@ -47,10 +47,12 @@
         CCSprite *menuNormal = [CCSprite spriteWithFile:@"win_menu.png"];
         CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_I.png"];
         win_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
-        win_menu.position = ccp(175, 100);
         win_menu.tag = 1;
         
-        CCMenu *menu = [CCMenu menuWithItems:win_restart, win_menu, nil];
+        win_leaderboard = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"win_leaderboard.png"] selectedSprite:[CCSprite spriteWithFile:@"win_leaderboard.png"] target:self selector:@selector(buttonPressed:)];
+        win_leaderboard.tag = 2;
+        
+        CCMenu *menu = [CCMenu menuWithItems:win_restart, win_menu, win_leaderboard, nil];
         [menu alignItemsHorizontallyWithPadding:20];
         menu.position = ccp(160, 100);
         [self addChild:menu];
@@ -88,10 +90,13 @@
 
 -(void) buttonPressed:(id)target;
 {
-    if (((CCNode *)target).tag == 0) {
+    int tag = ((CCNode *)target).tag;
+    if (tag == 0) {
         [[GameController sharedController].timeView restart];
-    } else if (((CCNode *)target).tag == 1) {
+    } else if (tag == 1) {
         [[GameController sharedController] showMainView];
+    } else if (tag == 2) {
+        [[GameController sharedController].gameCenterManager showLeaderboards];
     }
 }
 

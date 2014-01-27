@@ -23,6 +23,7 @@
     CCSprite *win_score_icon;
     CCSprite *win_facebookshare;
     CCMenuItemSprite *win_restart;
+    CCMenuItemSprite *win_leaderboard;
     CCMenuItemSprite *win_menu;
     Match4Label *win_score;
     Match4Label *win_money;
