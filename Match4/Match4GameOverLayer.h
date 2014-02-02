@@ -38,5 +38,7 @@
 */
 -(id) initWithScore:(int)thisScore money:(int)thisMoney;
 
+-(void)showLeaderboard;
+
 @end
 

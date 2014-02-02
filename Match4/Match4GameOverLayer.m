@@ -65,6 +65,7 @@
         win_money_icon.position = ccp(120, 160);
         [self addChild:win_money_icon];
         
+        
         win_money = [Match4Label labelWithString:[NSString stringWithFormat:@"+%i", thisMoney] fontSize:20];
         win_money.position = ccp(160, 160);
         win_money.color = ccc3(240, 0, 0);
@@ -78,6 +79,10 @@
         win_score_icon = [CCSprite spriteWithFile:@"win_score_icon.png"];
         win_score_icon.position = ccp(200, 240);
         [self addChild:win_score_icon];
+        
+        Match4Label *bonus = [Match4Label labelWithString:[NSString stringWithFormat:@"level bonus %0.2f%%", [GameController sharedController].statsManager.currentLevel*1.0/10] fontSize:10];
+        bonus.position = ccp(10, 10);
+        [win_score_icon addChild:bonus];
         
         win_score = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", thisScore] fontSize:30];
         [self addChild:win_score];
@@ -96,8 +101,9 @@
     } else if (tag == 1) {
         [[GameController sharedController] showMainView];
     } else if (tag == 2) {
-        [[GameController sharedController].gameCenterManager showLeaderboards];
+        [[GameController sharedController].gameCenterManager showLeaderboard];
     }
 }
+
 
 @end

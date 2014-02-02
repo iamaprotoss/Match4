@@ -10,11 +10,11 @@
 #import <GameKit/GameKit.h>
 
 //#define APP_HANDLED_URL @"APP_HANDLED_URL"
-#define HIGH_SCORE_LEADERBOARD @"com.sincerupt.match4.HighScore"
+#define HIGH_SCORE_LEADERBOARD @"com.sincerupt.match4.HighScores"
 #define DEEP_LINK @"https://m.facebook.com/apps/vivastampede/?deeplink=news"
 #define FB_ICON @"http://brightnewt.com/wp-content/uploads/2013/08/iTunesArtwork@2x.png"
 
-@interface GameCenterManager : NSObject <GKGameCenterControllerDelegate>//GKMatchmakerViewControllerDelegate, GKMatchDelegate, > {
+@interface GameCenterManager : NSObject <GKLeaderboardViewControllerDelegate, GKGameCenterControllerDelegate>//GKMatchmakerViewControllerDelegate, GKMatchDelegate, > {
 {
     BOOL isGameCenterAvailable;
     BOOL isUserAuthenticated;
@@ -50,6 +50,7 @@
 //- (void)sendPacket:(NSData *)thisPacket;
 - (void)submitHighScore:(NSInteger)score;
 - (void)showLeaderboards;//(UIViewController *)view;
+- (void)showLeaderboard;
 - (void)submitScoreToFB:(NSInteger)score;
 
 

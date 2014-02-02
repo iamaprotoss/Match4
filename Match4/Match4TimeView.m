@@ -164,15 +164,20 @@
     isPlaying = NO;
     gameEngine.canTouch = NO;
     int totalScore;
-    if ([[special objectForKey:@"Score bonus"] boolValue]) {
+    if ([[special objectForKey:@"Score Bonus"] boolValue]) {
         totalScore = gameScore * 1.1 * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
     } else {
         totalScore = gameScore * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
+    }
+    if (totalScore > [GameController sharedController].statsManager.highScore) {
+        [GameController sharedController].statsManager.highScore = totalScore;
+        [[GameController sharedController].gameCenterManager submitHighScore:totalScore];
     }
     [GameController sharedController].statsManager.currentExperience += totalScore;
     [self computeLevel];
     [self computeMoney];
     [[GameController sharedController].statsManager setStats];
+    
     gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:(int)pow(gameScore/10, 1)];
     gameOverView.position = ccp(0, 120);
     [self addChild:gameOverView];

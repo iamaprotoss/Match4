@@ -14,6 +14,7 @@
     int currentLevel;
     int currentExperience;
     int currentLife;
+    int highScore;
     //int score;
     //int scoreMultiplier;
 }
@@ -22,6 +23,7 @@
 @property (nonatomic) int currentLevel;
 @property (nonatomic) int currentExperience;
 @property (nonatomic) int currentLife;
+@property (nonatomic) int highScore;
 //@property int score;
 //@property int scoreMultiplier;
 

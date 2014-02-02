@@ -22,6 +22,7 @@
 @synthesize currentLevel;
 @synthesize currentExperience;
 @synthesize currentLife;
+@synthesize highScore;
 //@synthesize score;
 //@synthesize scoreMultiplier;
 
@@ -41,6 +42,7 @@
         currentLife = 5;
         currentExperience = 0;
         currentLevel = 1;
+        highScore = 0;
         [self setStats];
     }
     return self;
@@ -53,6 +55,7 @@
     stats.currentMoney = self.currentMoney;
     stats.currentLife = self.currentLife;
     stats.currentExperience = self.currentExperience;
+    stats.highScore = self.highScore;
     //stats.score = self.score;
     //stats.scoreMultiplier = self.scoreMultiplier;
     
@@ -64,6 +67,7 @@
     currentLife = 5;
     currentLife = 1;
     currentExperience = 0;
+    highScore = 0;
 }
 
 - (void)setStats {
@@ -71,6 +75,7 @@
     [userDefaults setInteger:currentLevel forKey:@"level"];
     [userDefaults setInteger:currentMoney forKey:@"money"];
     [userDefaults setInteger:currentExperience forKey:@"experience"];
+    [userDefaults setInteger:highScore forKey:@"high score"];
     //[userDefaults setInteger:score forKey:score];
     //[userDefaults setInteger:scoreMultiplier forKey:scoreMultiplier];
 }
@@ -80,6 +85,7 @@
     currentLevel = [userDefaults integerForKey:@"level"];
     currentMoney = [userDefaults integerForKey:@"money"];
     currentExperience = [userDefaults integerForKey:@"experience"];
+    highScore = [userDefaults integerForKey:@"high score"];
     //score = [userDefaults integerForKey:@"score"];
     //scoreMultiplier = [userDefaults integerForKey:@"scoreMultiplier"];
 }

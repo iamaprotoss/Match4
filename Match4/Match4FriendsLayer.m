@@ -7,6 +7,8 @@
 //
 
 #import "Match4FriendsLayer.h"
+#import "GameController.h"
+#import "Match4Label.h"
 
 @implementation Match4FriendsLayer
 @synthesize facebooklogin, friendsbanner, friendsbg, friendsrow;
@@ -25,6 +27,14 @@
         facebooklogin = [CCSprite spriteWithFile:@"start_facebook_bg.png"];
         facebooklogin.position = ccp(160, 90);
         [self addChild:facebooklogin];
+        
+        friendsrow = [CCSprite spriteWithFile:@"friends_tag.png"];
+        friendsrow.position = ccp(160, 220);
+        [self addChild:friendsrow];
+        
+        highScoreLabel = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.highScore] fontSize:20];
+        highScoreLabel.position = ccp(50, 20);
+        [friendsrow addChild:highScoreLabel];
         
         //self.position = ccp(160, 320);
     }

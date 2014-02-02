@@ -88,6 +88,7 @@
     scoreReporter.value = score;
     scoreReporter.context = 0;
     [scoreReporter reportScoreWithCompletionHandler:^(NSError *error){
+        NSLog(@"%@",error);
     }];
 }
 
@@ -116,6 +117,39 @@
     }
     
 }
+
+- (void) reloadHighScores
+{
+	GKLeaderboard* leaderBoard= [[[GKLeaderboard alloc] init] autorelease];
+	leaderBoard.category= HIGH_SCORE_LEADERBOARD;
+	leaderBoard.timeScope= GKLeaderboardTimeScopeAllTime;
+	leaderBoard.range= NSMakeRange(1, 1);
+	
+	/*[leaderBoard loadScoresWithCompletionHandler:  ^(NSArray *scores, NSError *error)
+     {
+         [self callDelegateOnMainThread: @selector(reloadScoresComplete:error:) withArg: leaderBoard error: error];
+     }];*/
+}
+
+#pragma mark GAME CENTER
+- (void) showLeaderboard
+{
+	GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+	if (leaderboardController != NULL)
+	{
+		leaderboardController.category = @"com.sincerupt.match4.HighScores";
+		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
+		leaderboardController.leaderboardDelegate = self;
+		[[CCDirector sharedDirector] presentViewController:leaderboardController animated:YES completion:nil];
+	}
+}
+
+-(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+{
+    [[CCDirector sharedDirector] dismissViewControllerAnimated:YES completion:nil];
+    [viewController release];
+}
+
 
 
 @end
