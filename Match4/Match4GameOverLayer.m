@@ -101,7 +101,7 @@
     if (tag == 0) {
         [[GameController sharedController].timeView restart];
     } else if (tag == 1) {
-        [[GameController sharedController] showMainView];
+        [[GameController sharedController] showMainView:NO];
     } else if (tag == 2) {
         [[GameController sharedController].gameCenterManager showLeaderboard];
     }

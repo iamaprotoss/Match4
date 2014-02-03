@@ -169,6 +169,7 @@
 {
     thisElement.ElementAnimation = [[CCSprite alloc] init];
     [thisElement addChild:thisElement.ElementAnimation];
+    thisElement.ElementAnimation.zOrder = thisElement.ElementImage.zOrder-1;
     [thisElement.ElementAnimation runAction:
      [CCRepeatForever actionWithAction:
       [CCAnimate actionWithAnimation:glowingElementFrames]]];

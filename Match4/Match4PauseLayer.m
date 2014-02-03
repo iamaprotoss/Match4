@@ -70,7 +70,7 @@
     } else if (((CCNode *)target).tag == 2) {
     } else if (((CCNode *)target).tag == 3) {
     } else if (((CCNode *)target).tag == 4) {
-        [[GameController sharedController] showMainView];
+        [[GameController sharedController] showMainView:NO];
     }
 }
 

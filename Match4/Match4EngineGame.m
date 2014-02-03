@@ -757,6 +757,7 @@
 {
     //noOfSuperiorTriple ++;
     int count = 0;
+    int countTriple = 0;
     for (Match4Element *element in thisComponent) {
         if (![elementsToRemove containsObject:element]) {
             [elementsToRemove addObject:element];
@@ -765,12 +766,13 @@
         if (element.isExplosive == YES) {
             element.isOfSuperTriple = YES;
             element.isLShapeCorner = YES;
+            countTriple ++;
         }
     }
     for (Match4Element *element in thisComponent) {
         if (element.isOfSuperTriple) {
             int otherCount = [self eliminateAllElementsInLineWithElementAtIndex:element.isIndex];
-            element.pointsToAdd = [GameController sharedController].valuesManager.kPointsSuperiorTriple + otherCount * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther + count * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther / 3;
+            element.pointsToAdd = [GameController sharedController].valuesManager.kPointsSuperiorTriple + otherCount * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther + count * [GameController sharedController].valuesManager.kPointsSuperiorTripleOther / countTriple;
         }
     }
 }
@@ -791,10 +793,11 @@
                     numOfSuperior ++;
                 }
             }
-            if (numOfSuperior >= 4) {
+            /*if (numOfSuperior >= 4) {
                 noOfSuperiorAll += [component count];
                 [self eliminateAll:component];
-            } else if (numOfSuperior == 3) {
+            } else*/
+            if (numOfSuperior >= 3) {
                 noOfSuperiorTriple += [component count];
                 isLShapeElimination = YES;
                 [self eliminateSuperTriple:component];
