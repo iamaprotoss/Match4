@@ -21,6 +21,7 @@
     CCSprite *win_score_title;
     CCSprite *win_money_icon;
     CCSprite *win_score_icon;
+    CCSprite *win_lv_bonus;
     CCSprite *win_facebookshare;
     CCMenuItemSprite *win_restart;
     CCMenuItemSprite *win_leaderboard;

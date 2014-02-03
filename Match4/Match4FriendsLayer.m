@@ -11,30 +11,34 @@
 #import "Match4Label.h"
 
 @implementation Match4FriendsLayer
-@synthesize facebooklogin, friendsbanner, friendsbg, friendsrow;
 
 - (id) init
 {
     if ([super init]) {
-        friendsbg = [CCSprite spriteWithFile:@"friends_bg.png"];
+        NSMutableArray *str = [NSMutableArray arrayWithObjects:@"1st", @"2nd", @"3rd", nil];
+        friendsbg = [CCSprite spriteWithFile:@"friends_bg_1.png"];
         friendsbg.position = ccp(160, 206);
         [self addChild:friendsbg];
         
-        friendsbanner = [CCSprite spriteWithFile:@"friends_banner.png"];
+        start_title = [CCSprite spriteWithFile:@"start_title1.png"];
+        start_title.position = ccp(160, 275);
+        [friendsbg addChild:start_title];
+        
+        /*friendsbanner = [CCSprite spriteWithFile:@"friends_banner.png"];
         friendsbanner.position = ccp(160, 280);
-        [self addChild:friendsbanner];
+        [self addChild:friendsbanner];*/
         
-        facebooklogin = [CCSprite spriteWithFile:@"start_facebook_bg.png"];
-        facebooklogin.position = ccp(160, 90);
-        [self addChild:facebooklogin];
-        
-        friendsrow = [CCSprite spriteWithFile:@"friends_tag.png"];
-        friendsrow.position = ccp(160, 220);
-        [self addChild:friendsrow];
-        
-        highScoreLabel = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", [GameController sharedController].statsManager.highScore] fontSize:20];
-        highScoreLabel.position = ccp(50, 20);
-        [friendsrow addChild:highScoreLabel];
+        for (int i = 0; i < 3; i++) {
+            friendsrow[i] = [CCSprite spriteWithFile:@"friends_tag.png"];
+            friendsrow[i].position = ccp(160, 270-60*i);
+            [self addChild:friendsrow[i]];
+            Match4Label *rank = [Match4Label labelWithString:[str objectAtIndex:i] fontSize:20];
+            rank.position = ccp(50, 20);
+            [friendsrow[i] addChild:rank];
+            highScoreLabel = [Match4Label labelWithString:[NSString stringWithFormat:@"%i",[[GameController sharedController].statsManager getHighScore:i]] fontSize:20];
+            highScoreLabel.position = ccp(200, 20);
+            [friendsrow[i] addChild:highScoreLabel];
+        }
         
         //self.position = ccp(160, 320);
     }

@@ -14,7 +14,7 @@
     int currentLevel;
     int currentExperience;
     int currentLife;
-    int highScore;
+    int highScore[3];
     //int score;
     //int scoreMultiplier;
 }
@@ -23,7 +23,7 @@
 @property (nonatomic) int currentLevel;
 @property (nonatomic) int currentExperience;
 @property (nonatomic) int currentLife;
-@property (nonatomic) int highScore;
+
 //@property int score;
 //@property int scoreMultiplier;
 
@@ -32,7 +32,9 @@
 //- (BOOL)didSeePopUpForSpecialType:(int)thisType;
 - (void)setStats;
 - (void)getStats;
-- (void)setHighScore;
-- (int)getHighScore;
+- (int)getHighScore:(int)rank;
+- (void)setHighScore:(int)score atRank:(int)rank;
+// this function will insert score into the right position
+- (BOOL)insertHighScore:(int)score;
 
 @end

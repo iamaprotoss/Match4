@@ -61,9 +61,9 @@
     return self;
 }
 
-- (void)showMainView
+- (void)showMainView:(BOOL)isItem
 {
-    [[CCDirector sharedDirector] replaceScene:[Match4MainView scene]];
+    [[CCDirector sharedDirector] replaceScene:[Match4MainView scene:isItem]];
 }
 
 - (void)showGameView

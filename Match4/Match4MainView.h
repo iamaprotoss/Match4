@@ -17,8 +17,6 @@
 @interface Match4MainView : CCLayer<Match4ItemLayerDelegate, StoreLayerDelegate>
 {
     CCSprite *start_bg;
-    CCSprite *start_facebook;
-    CCSprite *start_facebook_bg;
     CCSprite *start_gold_bg;
     CCSprite *start_gold_coin;
     CCSprite *start_gold_hi;
@@ -29,15 +27,20 @@
     CCMenuItemSprite *start_start_btn;
     CCMenuItemSprite *start_store_btn;
     CCSprite *start_start;
-    CCSprite *start_title;
+    //CCSprite *start_title;
     Match4Label *start_money;
     CCMenu *start_option_btn;
     CCSprite *start_option_gear;
+    CCMenu *back;
     
     int level;
     int experience;
     
     BOOL canTouch;
+    
+    // state 1: highScore 2: item 3: store
+    int oldState;
+    int state;
     
     /*
     CCSprite *friendsbg;
@@ -78,7 +81,8 @@
 @property (retain, nonatomic) CCLayer *optionMainLayer;
 @property (nonatomic) BOOL canTouch;
 
-+(CCScene *) scene;
++(CCScene *) scene:(BOOL)isItem;
+-(id)initWithItem:(BOOL)isItem;
 -(void)mainToItem;
--(void)mainToStore;
+-(void)goToStore;
 @end

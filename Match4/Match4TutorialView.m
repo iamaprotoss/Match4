@@ -36,7 +36,7 @@
         play_bg.position = ccp(0, 0);
         [self addChild:play_bg];
         
-        play_board = [CCSprite spriteWithFile:@"play_board2.png"];
+        play_board = [CCSprite spriteWithFile:@"play_board.png"];
         play_board.position = ccp(160, 260);
         //play_board.opacity = 220;
         play_board.scale = 640.0/643;
@@ -76,22 +76,22 @@
         
         CCSprite *play_pauseNormal = [CCSprite spriteWithFile:@"play_pause_button.png"];
         //play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_I.png"];
+        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_l.png"];
         //play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
         play_pause_btn= [CCMenu menuWithItems:play_pause, nil];
         play_pause_btn.position = ccp(40, 77);
         [self addChild:play_pause_btn];
         
-        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_hint_btn_bg.png"];
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
         //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_hint_btn_bg_I.png"];
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg_l.png"];
         //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
         play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
         play_hint_btn.position = ccp(280, 77);
         [self addChild:play_hint_btn];
-        play_hint_title = [CCSprite spriteWithFile:@"play_hint.png"];
+        play_hint_title = [CCSprite spriteWithFile:@"play_t.png"];
         play_hint_title.position = ccp(280, 77);
         [self addChild:play_hint_title];
         

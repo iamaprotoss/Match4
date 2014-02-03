@@ -27,11 +27,12 @@
     //CCSprite *selectbg;
     //CCMenuItemSprite *buygold;
     CCMenu *item_item[5];
-        
+    
+    CCSprite *item_itemobg[5];
     CCSprite *item_itembg[3];
     Match4Label *item_price_label[5];
     
-    CCMenuItemSprite *close;
+    CCMenuItemSprite *back;
     
     //CCSprite *price;
     

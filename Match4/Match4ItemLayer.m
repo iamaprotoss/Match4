@@ -59,10 +59,10 @@
         [self addChild:item_description];
         
         
-        close = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"play_multimark.png"] selectedSprite:[CCSprite spriteWithFile:@"play_multimark.png"] target:self selector:@selector(close)];
-        CCMenu *closeM = [CCMenu menuWithItems:close, nil];
-        closeM.position = ccp(260, 305);
-        [self addChild:closeM];
+        /*back = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_back_button.png"] selectedSprite:[CCSprite spriteWithFile:@"store_back_button_l.png"] target:self selector:@selector(back)];
+        CCMenu *closeM = [CCMenu menuWithItems:back, nil];
+        closeM.position = ccp(50, -10);
+        [self addChild:closeM];*/
     }
     return self;
 }
@@ -113,7 +113,7 @@
 }
 
 
--(void)close
+-(void)back
 {
     [[GameController sharedController] resetItem];
     [self.delegate closeItemLayer];
@@ -121,7 +121,10 @@
 
 -(void) placeItem:(int)Id atPosition:(CGPoint)thisPos withPrice:(int)price
 {
-    CCMenuItemSprite *itemSprite = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:[NSString stringWithFormat:@"item_item%i.png", Id+1]]selectedSprite:[CCSprite spriteWithFile:[NSString stringWithFormat:@"item_item%i_I.png", Id+1]] target:self selector:@selector(itemSelect:)];
+    item_itemobg[Id] = [CCSprite spriteWithFile:[NSString stringWithFormat:@"item_item%i_l.png", Id+1]];
+    item_itemobg[Id].position = ccp(thisPos.x, thisPos.y);
+    [self addChild:item_itemobg[Id]];
+    CCMenuItemSprite *itemSprite = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:[NSString stringWithFormat:@"item_item%i.png", Id+1]]selectedSprite:[CCSprite spriteWithFile:[NSString stringWithFormat:@"item_item%i_l.png", Id+1]] target:self selector:@selector(itemSelect:)];
     itemSprite.tag = Id+1;
     item_item[Id] = [CCMenu menuWithItems:itemSprite, nil];
     item_item[Id].position = ccp(thisPos.x, thisPos.y);

@@ -21,35 +21,35 @@
         [self addChild:paused_bg];
         
         paused_banner = [CCSprite spriteWithFile:@"paused_banner.png"];
-        paused_banner.position = ccp(160, 80);
+        paused_banner.position = ccp(160, 95);
         [self addChild:paused_banner];
         
         paused_title = [CCSprite spriteWithFile:@"paused_paused.png"];
-        paused_title.position = ccp(160, 84);
+        paused_title.position = ccp(160, 100);
         [self addChild:paused_title];
         
         CCSprite *resumeNormal = [CCSprite spriteWithFile:@"paused_resume.png"];
-        CCSprite *resumeSelected = [CCSprite spriteWithFile:@"paused_resume_I.png"];
+        CCSprite *resumeSelected = [CCSprite spriteWithFile:@"paused_resume_l.png"];
         paused_resume = [CCMenuItemSprite itemWithNormalSprite:resumeNormal selectedSprite:resumeSelected target:self selector:@selector(buttonPressed:)];
         paused_resume.tag = 0;
         
         CCSprite *restartNormal = [CCSprite spriteWithFile:@"paused_restart.png"];
-        CCSprite *restartSelected = [CCSprite spriteWithFile:@"paused_restart_I.png"];
+        CCSprite *restartSelected = [CCSprite spriteWithFile:@"paused_restart_l.png"];
         paused_restart = [CCMenuItemSprite itemWithNormalSprite:restartNormal selectedSprite:restartSelected target:self selector:@selector(buttonPressed:)];
         paused_restart.tag = 1;
         
         CCSprite *musicNormal = [CCSprite spriteWithFile:@"paused_music.png"];
-        CCSprite *musicSelected = [CCSprite spriteWithFile:@"paused_music_I.png"];
+        CCSprite *musicSelected = [CCSprite spriteWithFile:@"paused_music_l.png"];
         paused_music = [CCMenuItemSprite itemWithNormalSprite:musicNormal selectedSprite:musicSelected target:self selector:@selector(buttonPressed:)];
         paused_music.tag = 2;
         
         CCSprite *soundNormal = [CCSprite spriteWithFile:@"paused_sound.png"];
-        CCSprite *soundSelected = [CCSprite spriteWithFile:@"paused_sound_I.png"];
+        CCSprite *soundSelected = [CCSprite spriteWithFile:@"paused_sound_l.png"];
         paused_sound = [CCMenuItemSprite itemWithNormalSprite:soundNormal selectedSprite:soundSelected target:self selector:@selector(buttonPressed:)];
         paused_sound.tag = 3;
 
-        CCSprite *menuNormal = [CCSprite spriteWithFile:@"win_menu.png"];
-        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_I.png"];
+        CCSprite *menuNormal = [CCSprite spriteWithFile:@"paused_menu.png"];
+        CCSprite *menuSelected = [CCSprite spriteWithFile:@"paused_menu_l.png"];
         paused_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
         paused_menu.tag = 4;
 

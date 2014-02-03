@@ -26,7 +26,7 @@
     Match4Label *store_coin_label[5];
     Match4Label *store_price_label[5];
     
-    CCMenuItemSprite *close;
+    CCMenuItemSprite *back;
 }
 
 @property (nonatomic, retain) id<StoreLayerDelegate> delegate;

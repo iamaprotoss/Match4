@@ -51,20 +51,20 @@
         
         rotatedLShapeFrames = [[CCAnimation alloc] init];
         for (int i = 1; i < 10; i ++) {
-            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_0%ir.png", i]];
+            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lighteningv_0%i.png", i]];
         }
         for (int i = 10; i < 24; i++) {
-            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lightening_%ir.png", i]];
+            [rotatedLShapeFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"lighteningv_%i.png", i]];
         }
         rotatedLShapeFrames.delayPerUnit = 0.04;
 
         
         glowingElementFrames = [[CCAnimation alloc] init];
-        for (int i = 1; i < 10; i ++) {
-            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_0%i.png", i]];
+        for (int i = 80; i < 100; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2nd00%i.png", i]];
         }
-        for (int i = 10; i < 36; i ++) {
-            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2ndAE3070_%i.png", i]];
+        for (int i = 100; i < 121; i ++) {
+            [glowingElementFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"2nd0%i.png", i]];
         }
         glowingElementFrames.delayPerUnit = 0.1;
     }
@@ -85,7 +85,7 @@
     Match4Element *newElement = [[[Match4Element alloc] init] autorelease];
     
     int i = arc4random()%maxTypes;
-    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", i]];
+    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", i]];
     
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = i;
@@ -99,7 +99,7 @@
 - (Match4Element *)ElementWithType:(int)thisType
 {
     Match4Element *newElement = [[[Match4Element alloc] init] autorelease];
-    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];
+    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", thisType]];
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = thisType;
     newElement.isVisible = YES;
@@ -117,7 +117,7 @@
     //thisElement.opacity = 1;
     [thisElement removeAllChildren];
     //[thisElement.ElementImage release];
-    thisElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisType]];;
+    thisElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", thisType]];;
     thisElement.scale = 0.9;
     [thisElement addChild:thisElement.ElementImage];
 }
@@ -127,7 +127,7 @@
     if (!thisElement.isExplosive) {
         thisElement.isExplosive = YES;
         [thisElement removeAllChildren];
-        thisElement.ElementImageGlow = [[CCSprite spriteWithFile:[NSString stringWithFormat:@"element%d.png", thisElement.isOfType]] autorelease];
+        thisElement.ElementImageGlow = [[CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", thisElement.isOfType]] autorelease];
         [thisElement addChild:thisElement.ElementImageGlow];
         [self animGlowElement:thisElement];
     }

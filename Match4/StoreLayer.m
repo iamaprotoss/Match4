@@ -35,7 +35,7 @@
             store_coin[i] = [CCSprite spriteWithFile:[NSString stringWithFormat:@"store_coin%i.png", i+1]];
             store_coin[i].position = ccp(21,23);
             [store_coinbg[i] addChild:store_coin[i]];
-            CCMenuItemSprite *buy = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_buy.png"] selectedSprite:[CCSprite spriteWithFile:@"store_buy_I.png"] target:self selector:@selector(buyCoin:)];
+            CCMenuItemSprite *buy = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_buy.png"] selectedSprite:[CCSprite spriteWithFile:@"store_buy_l.png"] target:self selector:@selector(buyCoin:)];
             buy.tag = i;
             store_buy[i] = [CCMenu menuWithItems:buy, nil];
             store_buy[i].position = ccp(195, 23);
@@ -66,10 +66,10 @@
             [store_coinbg[i] addChild:store_price_label[i]];
         }
         
-        close = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"play_multimark.png"] selectedSprite:[CCSprite spriteWithFile:@"play_multimark.png"] target:self selector:@selector(close)];
-        CCMenu *closeM = [CCMenu menuWithItems:close, nil];
-        closeM.position = ccp(235, 307);
-        [store_bg addChild:closeM];
+        /*back = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_back_button.png"] selectedSprite:[CCSprite spriteWithFile:@"store_back_button_l.png"] target:self selector:@selector(back)];
+        CCMenu *closeM = [CCMenu menuWithItems:back, nil];
+        closeM.position = ccp(14, -28);
+        [store_bg addChild:closeM];*/
 
     }
     return self;
@@ -87,7 +87,7 @@
     }];
 }
 
--(void) close
+-(void) back
 {
     [self.delegate closeStoreLayer];
 }

@@ -59,7 +59,7 @@
         play_star.position = ccp(0, 12);
         [play_points_bg addChild:play_star];
         play_star_hi = [CCSprite spriteWithFile:@"play_star_hi.png"];
-        play_star_hi.position = ccp(20, 20);
+        play_star_hi.position = ccp(30, 30);
         [play_star addChild:play_star_hi];
         
         play_multimark = [CCSprite spriteWithFile:@"play_multimark.png"];
@@ -78,33 +78,24 @@
         
         CCSprite *play_pauseNormal = [CCSprite spriteWithFile:@"play_pause_button.png"];
         //play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_I.png"];
+        CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_l.png"];
         //play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
         play_pause_btn= [CCMenu menuWithItems:play_pause, nil];
         play_pause_btn.position = ccp(40, 77);
         [self addChild:play_pause_btn];
         
-        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_hint_btn_bg.png"];
+        CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
         //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
-        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_hint_btn_bg_I.png"];
+        CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg_l.png"];
         //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
         CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
         play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
         play_hint_btn.position = ccp(280, 77);
         [self addChild:play_hint_btn];
-        play_hint_title = [CCSprite spriteWithFile:@"play_hint.png"];
+        play_hint_title = [CCSprite spriteWithFile:@"play_t.png"];
         play_hint_title.position = ccp(280, 77);
         [self addChild:play_hint_title];
-        
-        /*
-        if ([GameController sharedController].localStore.currentGame) {
-            [GameController sharedController].localStore.currentGame = [GameItem new];
-        } else {
-            [GameController sharedController].statsManager.currentMoney = [GameController sharedController].localStore.currentGame.stats.currentMoney;
-            [GameController sharedController].statsManager.currentLevel = [GameController sharedController].localStore.currentGame.stats.currentLevel;
-            [GameController sharedController].statsManager.currentLife = [GameController sharedController].localStore.currentGame.stats.currentLife;
-        }*/
         
         special = [thisDict copy];
         if ([[special objectForKey:@"Time Bonus"] boolValue]) {
@@ -169,10 +160,10 @@
     } else {
         totalScore = gameScore * (int)pow([GameController sharedController].statsManager.currentLevel, 1/2);
     }
-    if (totalScore > [GameController sharedController].statsManager.highScore) {
-        [GameController sharedController].statsManager.highScore = totalScore;
+    if (totalScore > [[GameController sharedController].statsManager getHighScore:0]) {
         [[GameController sharedController].gameCenterManager submitHighScore:totalScore];
     }
+    [[GameController sharedController].statsManager insertHighScore:totalScore];
     [GameController sharedController].statsManager.currentExperience += totalScore;
     [self computeLevel];
     [self computeMoney];
@@ -228,6 +219,7 @@
     [self schedule:@selector(countDown) interval:1];
 }
 
+/*
 -(void)restart
 {
     [self removeChild:gameOverView];
@@ -241,6 +233,11 @@
     play_time_bar.scaleX = 1;
     [gameEngine resetGame];
     [self schedule:@selector(countDown) interval:1];
+}*/
+-(void)restart
+{
+    BOOL isItem = TRUE;
+    [[GameController sharedController] showMainView:isItem];
 }
 
 -(void)hint

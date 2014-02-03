@@ -39,13 +39,13 @@
         win_facebookshare.position = ccp(160, 130);
         [self addChild:win_facebookshare];
         
-        CCSprite *restartNormal = [CCSprite spriteWithFile:@"win_replay.png"];
-        CCSprite *restartSelected = [CCSprite spriteWithFile:@"win_replay_I.png"];
+        CCSprite *restartNormal = [CCSprite spriteWithFile:@"win_restart.png"];
+        CCSprite *restartSelected = [CCSprite spriteWithFile:@"win_restart_l.png"];
         win_restart = [CCMenuItemSprite itemWithNormalSprite:restartNormal selectedSprite:restartSelected target:self selector:@selector(buttonPressed:)];
         win_restart.tag = 0;
         
         CCSprite *menuNormal = [CCSprite spriteWithFile:@"win_menu.png"];
-        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_I.png"];
+        CCSprite *menuSelected = [CCSprite spriteWithFile:@"win_menu_l.png"];
         win_menu = [CCMenuItemSprite itemWithNormalSprite:menuNormal selectedSprite:menuSelected target:self selector:@selector(buttonPressed:)];
         win_menu.tag = 1;
         
@@ -76,11 +76,13 @@
         win_score_title.position = ccp(140, 240);
         [self addChild:win_score_title];
         
-        win_score_icon = [CCSprite spriteWithFile:@"win_score_icon.png"];
+        win_score_icon = [CCSprite spriteWithFile:@"win_star_icon.png"];
         win_score_icon.position = ccp(200, 240);
         [self addChild:win_score_icon];
-        
-        Match4Label *bonus = [Match4Label labelWithString:[NSString stringWithFormat:@"level bonus %0.2f%%", [GameController sharedController].statsManager.currentLevel*1.0/10] fontSize:10];
+        win_lv_bonus = [CCSprite spriteWithFile:@"win_lv_bonus.png"];
+        win_lv_bonus.position = ccp(10, 20);
+        [win_score_icon addChild:win_lv_bonus];
+        Match4Label *bonus = [Match4Label labelWithString:[NSString stringWithFormat:@"%0.2f%%", [GameController sharedController].statsManager.currentLevel*1.0/10] fontSize:10];
         bonus.position = ccp(10, 10);
         [win_score_icon addChild:bonus];
         

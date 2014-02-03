@@ -68,7 +68,7 @@
 
 + (GameController *)sharedController;
 //- (void)showIntroView;
-- (void)showMainView;
+- (void)showMainView:(BOOL)isItem;
 //- (void)showPrimaryView;
 - (void)showGameView;
 - (void)showItemView;

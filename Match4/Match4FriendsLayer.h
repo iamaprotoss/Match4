@@ -12,17 +12,11 @@
 @interface Match4FriendsLayer : CCLayer
 {
     CCSprite *friendsbg;
-    CCSprite *facebooklogin;
     CCSprite *friendsbanner;
-    CCSprite *friendsrow;
+    CCSprite *friendsrow[3];
     Match4Label *highScoreLabel;
+    CCSprite *start_title;
 }
-
-@property (retain, nonatomic) CCSprite *friendsbg;
-@property (retain, nonatomic) CCSprite *facebooklogin;
-@property (retain, nonatomic) CCSprite *friendsbanner;
-@property (retain, nonatomic) CCSprite *friendsrow;
-@property (retain, nonatomic) CCSprite *highScoreLabel;
 
 
 @end
