@@ -42,9 +42,9 @@
         currentLife = 5;
         currentExperience = 0;
         currentLevel = 1;
-        highScore[0] = 5;
-        highScore[1] = 4;
-        highScore[2] = 3;
+        highScore[0] = 0;
+        highScore[1] = 0;
+        highScore[2] = 0;
         [self setStats];
     }
     return self;

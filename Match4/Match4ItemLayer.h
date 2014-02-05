@@ -22,7 +22,9 @@
     CCSprite *item_bg;
     CCSprite *item_title;
     
-    CCSprite *item_description;
+    CCSprite *item_description_bg;
+    Match4Label *item_description;
+    NSMutableArray *str_description;
     
     //CCSprite *selectbg;
     //CCMenuItemSprite *buygold;

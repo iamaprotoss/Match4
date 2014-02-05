@@ -20,6 +20,7 @@
     
     Match4GameOverLayer *gameOverView;
     Match4PauseLayer *pauseLayer;
+    CCSprite *mask_bg;
     
     CCSprite *play_bg;
     CCSprite *play_points_bg;
@@ -27,6 +28,7 @@
     CCSprite *play_star;
     CCSprite *play_star_hi;
     CCSprite *play_multimark;
+    Match4Label *play_multi_label;
     CCSprite *play_board;
     CCSprite *play_time_bg;
     CCSprite *play_time_bar;
@@ -34,6 +36,8 @@
     CCMenu *play_hint_btn;
     CCSprite *play_hint_title;
     int gameScore;
+    int gameMultiplier;
+    int totalScore;
     
     NSMutableDictionary *special;
     
@@ -67,6 +71,7 @@
 
 -(void) addPoints:(int)points;
 -(void) updateScore;
+-(void) increaseMultiplier;
 
 -(void) showComplete;
 -(void) gameOver;

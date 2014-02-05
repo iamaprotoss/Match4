@@ -35,10 +35,6 @@
         win_title.position = ccp(160, 295);
         [self addChild:win_title];
         
-        win_facebookshare = [CCSprite spriteWithFile:@"win_facebook.png"];
-        win_facebookshare.position = ccp(160, 130);
-        [self addChild:win_facebookshare];
-        
         CCSprite *restartNormal = [CCSprite spriteWithFile:@"win_restart.png"];
         CCSprite *restartSelected = [CCSprite spriteWithFile:@"win_restart_l.png"];
         win_restart = [CCMenuItemSprite itemWithNormalSprite:restartNormal selectedSprite:restartSelected target:self selector:@selector(buttonPressed:)];
@@ -65,7 +61,6 @@
         win_money_icon.position = ccp(120, 160);
         [self addChild:win_money_icon];
         
-        
         win_money = [Match4Label labelWithString:[NSString stringWithFormat:@"+%i", thisMoney] fontSize:20];
         win_money.position = ccp(160, 160);
         win_money.color = ccc3(240, 0, 0);
@@ -77,13 +72,14 @@
         [self addChild:win_score_title];
         
         win_score_icon = [CCSprite spriteWithFile:@"win_star_icon.png"];
-        win_score_icon.position = ccp(200, 240);
+        win_score_icon.position = ccp(225, 245);
         [self addChild:win_score_icon];
         win_lv_bonus = [CCSprite spriteWithFile:@"win_lv_bonus.png"];
-        win_lv_bonus.position = ccp(10, 20);
+        win_lv_bonus.position = ccp(15, 30);
         [win_score_icon addChild:win_lv_bonus];
-        Match4Label *bonus = [Match4Label labelWithString:[NSString stringWithFormat:@"%0.2f%%", [GameController sharedController].statsManager.currentLevel*1.0/10] fontSize:10];
-        bonus.position = ccp(10, 10);
+        Match4Label *bonus = [Match4Label labelWithString:[NSString stringWithFormat:@"+%i%%", [GameController sharedController].statsManager.currentLevel] fontSize:12];
+        bonus.position = ccp(16, 7);
+        bonus.color = ccc3(20, 120, 150);
         [win_score_icon addChild:bonus];
         
         win_score = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", thisScore] fontSize:30];
@@ -97,6 +93,7 @@
 
 -(void) buttonPressed:(id)target;
 {
+    [[GameController sharedController].soundController playSound:@"GeneralMenuButton"];
     int tag = ((CCNode *)target).tag;
     if (tag == 0) {
         [[GameController sharedController].timeView restart];

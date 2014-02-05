@@ -21,3 +21,11 @@
 #define IAP_1000_COINS @"com.sincerupt.match4.IAP_1000_COINS"
 #define IAP_5000_COINS @"com.sincerupt.match4.IAP_5001_COINS"
 #define IAP_10000_COINS @"com.sincerupt.match4.IAP_10000_COINS"
+
+// Screen types
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+#define IS_IPHONE ( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+#define IS_IPHONE_5 ( IS_IPHONE && IS_WIDESCREEN )
+
+#define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define IS_IPAD_RETINA ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2.0)

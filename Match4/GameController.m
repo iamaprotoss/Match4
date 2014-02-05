@@ -74,7 +74,7 @@
 
 - (void)showTutorialView
 {
-    [[CCDirector sharedDirector] replaceScene:[Match4TutorialView scene]];
+    [[CCDirector sharedDirector] replaceScene:[HelpView scene]];
 }
 
 - (void) addItem:(int)thisTag

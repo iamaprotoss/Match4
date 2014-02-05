@@ -12,6 +12,10 @@
 #import "Match4GameOverLayer.h"
 #import "Match4PauseLayer.h"
 
+@interface HelpView : CCLayer
+@end
+
+
 @interface Match4TutorialView : CCLayer
 {
     Match4EngineGame *gameEngine;
@@ -27,6 +31,7 @@
     CCSprite *play_star;
     CCSprite *play_star_hi;
     CCSprite *play_multimark;
+    Match4Label *play_multi_label;
     CCSprite *play_board;
     CCSprite *play_time_bg;
     CCSprite *play_time_bar;
@@ -34,6 +39,7 @@
     CCMenu *play_hint_btn;
     CCSprite *play_hint_title;
     int gameScore;
+    int gameMultiplier;
     
     NSMutableDictionary *special;
     
@@ -41,6 +47,8 @@
     BOOL isGameOver;
     float timer;
     float gameTime;
+    
+    BOOL canTouch;
     
     CCAnimation *hintAnimationFrames;
 }
@@ -77,7 +85,6 @@
 
 -(void) clues;
 -(void) proposeReshuffle;
-
-
+-(void) quit;
 
 @end

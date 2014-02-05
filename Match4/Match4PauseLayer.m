@@ -20,7 +20,7 @@
         paused_bg.position = ccp(160, 50);
         [self addChild:paused_bg];
         
-        paused_banner = [CCSprite spriteWithFile:@"paused_banner.png"];
+        paused_banner = [CCSprite spriteWithFile:@"item_banner.png"];
         paused_banner.position = ccp(160, 95);
         [self addChild:paused_banner];
         
@@ -54,7 +54,7 @@
         paused_menu.tag = 4;
 
         CCMenu *menu = [CCMenu menuWithItems:paused_resume, paused_restart, paused_music, paused_sound, paused_menu, nil];
-        [menu alignItemsHorizontallyWithPadding:10];
+        [menu alignItemsHorizontallyWithPadding:15];
         menu.position = ccp(160, 45);
         [self addChild:menu];
     }
@@ -63,6 +63,7 @@
 
 -(void)buttonPressed:(id)target
 {
+    [[GameController sharedController].soundController playSound:@"GeneralMenuButton"];
     if (((CCNode *)target).tag == 0) {
         [[GameController sharedController].timeView resume];
     } else if (((CCNode *)target).tag == 1) {

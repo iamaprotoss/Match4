@@ -18,6 +18,7 @@
 -(id) init
 {
     if (self = [super init]) {
+        str_description = [[NSMutableArray alloc] initWithObjects:@"add 5 seconds", @"add 10% to total score", @"add 3 blazing jades at game start", @"starting score multipler becomes 2", @"5% chance to drop blazing jade in game", nil];
         //[GameController sharedController].itemView = self;
         numOfItemSelected = 0;
         
@@ -33,12 +34,6 @@
         item_title.position = ccp(160, 330);
         [self addChild:item_title];
         
-                /*
-        buygold = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"start_gold.png"] selectedSprite:[CCSprite spriteWithFile:@"start_gold.png"] target:self selector:@selector(store)];
-        CCMenu *menu = [CCMenu menuWithItems:buygold, nil];
-        menu.position = ccp(160, 275);
-        [self addChild:menu];
-        */
         [self placeItem:0 atPosition:ccp(90, 275) withPrice:100];
         [self placeItem:1 atPosition:ccp(160, 275) withPrice:200];
         [self placeItem:2 atPosition:ccp(230, 275) withPrice:300];
@@ -54,43 +49,52 @@
         
         selectionSlot[0] = selectionSlot[1] = selectionSlot[2] = NO;
         
-        item_description = [CCSprite spriteWithFile:@"item_description.png"];
-        item_description.position = ccp(160, 130);
+        item_description_bg = [CCSprite spriteWithFile:@"item_description.png"];
+        item_description_bg.position = ccp(160, 130);
+        [self addChild:item_description_bg];
+        item_description = [Match4Label labelWithString:@"select up to 3 items" fontSize:10];
+        item_description.position = ccp(160, 132);
+        item_description.color = ccc3(5, 120, 150);
         [self addChild:item_description];
-        
-        
-        /*back = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_back_button.png"] selectedSprite:[CCSprite spriteWithFile:@"store_back_button_l.png"] target:self selector:@selector(back)];
-        CCMenu *closeM = [CCMenu menuWithItems:back, nil];
-        closeM.position = ccp(50, -10);
-        [self addChild:closeM];*/
     }
     return self;
+}
+
+-(void)dealloc
+{
+    [str_description release];
+    [super dealloc];
 }
 
 -(void)itemSelect:(id)target
 {
     int tag = ((CCSprite *)target).tag;
+    item_description.string = [str_description objectAtIndex:tag-1];
     NSMutableDictionary *uData = item_item[tag-1].userData;
     if (![[uData objectForKey:@"is selected"] boolValue]) {
         if (numOfItemSelected < 3) {
-            numOfItemSelected ++;
-            [uData setObject:[NSNumber numberWithBool:YES] forKey:@"is selected"];
-            //item_item[tag-1].userData = uData;
-            if (selectionSlot[0] == NO) {
-                item_item[tag-1].position = ccp(90, 80);
-                selectionSlot[0] = YES;
-            } else if (selectionSlot[1] == NO) {
-                item_item[tag-1].position = ccp(160, 80);
-                selectionSlot[1] = YES;
-            } else if (selectionSlot[2] == NO) {
-                item_item[tag-1].position = ccp(230, 80);
-                selectionSlot[2] = YES;
+            if ([GameController sharedController].statsManager.currentMoney >= [[uData objectForKey:@"price"] intValue]) {
+                [[GameController sharedController].moneyManager spendCoins:[[uData objectForKey:@"price"] intValue]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:nil userInfo:nil];
+                numOfItemSelected ++;
+                [uData setObject:[NSNumber numberWithBool:YES] forKey:@"is selected"];
+                //item_item[tag-1].userData = uData;
+                if (selectionSlot[0] == NO) {
+                    item_item[tag-1].position = ccp(90, 80);
+                    selectionSlot[0] = YES;
+                } else if (selectionSlot[1] == NO) {
+                    item_item[tag-1].position = ccp(160, 80);
+                    selectionSlot[1] = YES;
+                } else if (selectionSlot[2] == NO) {
+                    item_item[tag-1].position = ccp(230, 80);
+                    selectionSlot[2] = YES;
+                }
+                
+                item_item[tag-1].zOrder = 1000;
+                [[GameController sharedController] addItem:tag];
+            } else {
+                [[GameController sharedController].mainView goToStore];
             }
-            
-            item_item[tag-1].zOrder = 1000;
-            [[GameController sharedController] addItem:tag];
-            [[GameController sharedController].moneyManager spendCoins:[[uData objectForKey:@"price"] intValue]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
         }
     } else { // if the item is not selected
         if (numOfItemSelected > 0) {
@@ -107,7 +111,7 @@
             item_item[tag-1].position = ccp([[uData objectForKey:@"original x"] floatValue], [[uData objectForKey:@"original y"] floatValue]);
             [[GameController sharedController] deleteItem:tag];
             [[GameController sharedController].moneyManager addCoins:[[uData objectForKey:@"price"] intValue]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:@([GameController sharedController].moneyManager.coins) userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMoney" object:nil userInfo:nil];
         }
     }
 }

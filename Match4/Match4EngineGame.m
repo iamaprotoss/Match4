@@ -32,6 +32,7 @@
         isExplosion = NO;
         isColorElimination = NO;
         levelOfCascading = 0;
+        multiplier = 1;
         //levelOfChain = 0;
         gameGrid = [[NSMutableArray alloc] init];
         //hintGrid = [[NSMutableArray alloc] init];
@@ -810,6 +811,7 @@
                 isExplosion = YES;
                 [self eliminateSuperSingle:component];
             } else {
+                isNormalMatch = YES;
                 noOfStandardEliminate += [component count];
                 [self eliminateNormal:component];
             }
@@ -832,8 +834,17 @@
          [viewController.actionView checkForInfoPopUps];
          canTouch = YES;
          }*/
+        if (pointsForOneStroke >= 1000*multiplier) {
+            multiplier++;
+            if (isTutorial) {
+                [[GameController sharedController].tutorialView increaseMultiplier];
+            } else {
+                [[GameController sharedController].timeView increaseMultiplier];
+            }
+        }
         isCascading = NO;
         levelOfCascading = 0;
+        pointsForOneStroke = 0;
         canTouch = YES;
         if (isTutorial) {
             [self addMask];
@@ -1031,26 +1042,29 @@
 {
     if (canTouch) {
         CGPoint index = [self indexFromPosition:local];
-        Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
-        if (thisElement == firstTouchedElement) {
-            float dx = local.x - thisElement.position.x;
-            float dy = local.y - thisElement.position.y;
-            if ( abs(dx)>10 || abs(dy)>10 ) {
-                CGPoint direction;
-                if (abs(dx) > abs(dy)) {
-                    if (dx > 0) direction = CGPointMake(1, 0);
-                    else direction = CGPointMake(-1, 0);
-                }
-                else {
-                    if (dy > 0) direction = CGPointMake(0, 1);
-                    else direction = CGPointMake(0, -1);
-                }
-                CGPoint possibleIndex = CGPointMake(thisElement.isIndex.x + direction.x, thisElement.isIndex.y + direction.y);
-                if ( possibleIndex.x > -1 && possibleIndex.x < 8 && possibleIndex.y > -1 && possibleIndex.y < 8) {
-                    Match4Element *otherElement = [[gameGrid objectAtIndex:possibleIndex.x] objectAtIndex:possibleIndex.y];
-                    if ([self element:thisElement.isIndex isNeighbourToElement:otherElement.isIndex]) {
-                        [self swapElement:thisElement withElement:otherElement];
-                        [elementManager deselectElement:thisElement];
+        if (index.x >= 0 && index.x < 8 && index.y >= 0 && index.y < 8)
+        {
+            Match4Element *thisElement = [[gameGrid objectAtIndex:index.x] objectAtIndex:index.y];
+            if (thisElement == firstTouchedElement) {
+                float dx = local.x - thisElement.position.x;
+                float dy = local.y - thisElement.position.y;
+                if ( abs(dx)>10 || abs(dy)>10 ) {
+                    CGPoint direction;
+                    if (abs(dx) > abs(dy)) {
+                        if (dx > 0) direction = CGPointMake(1, 0);
+                        else direction = CGPointMake(-1, 0);
+                    }
+                    else {
+                        if (dy > 0) direction = CGPointMake(0, 1);
+                        else direction = CGPointMake(0, -1);
+                    }
+                    CGPoint possibleIndex = CGPointMake(thisElement.isIndex.x + direction.x, thisElement.isIndex.y + direction.y);
+                    if ( possibleIndex.x > -1 && possibleIndex.x < 8 && possibleIndex.y > -1 && possibleIndex.y < 8) {
+                        Match4Element *otherElement = [[gameGrid objectAtIndex:possibleIndex.x] objectAtIndex:possibleIndex.y];
+                        if ([self element:thisElement.isIndex isNeighbourToElement:otherElement.isIndex]) {
+                            [self swapElement:thisElement withElement:otherElement];
+                            [elementManager deselectElement:thisElement];
+                        }
                     }
                 }
             }
@@ -1106,9 +1120,12 @@
                 [elementManager animLShapeOnElement:thisElement];
             } else if (thisElement.isToColorEliminate) {
                 [elementManager animColorEliminateElement:thisElement withDelay:thisElement.animDelay];
-             //didSuperEliminate = YES;
             } else if (thisElement.isToExplode) {
+                if (thisElement.animDelay > explosionDelay) {
+                    explosionDelay = thisElement.animDelay;
+                }
                 [elementManager animExplodeElement:thisElement withDelay:thisElement.animDelay];
+                [self scheduleOnce:@selector(explosionSound) delay:thisElement.animDelay];
             } else {
                 [elementManager animHideElement:thisElement withDelay:thisElement.animDelay];
             }
@@ -1138,6 +1155,8 @@
     /*totalPointsToAdd =
     noOfStandardEliminate * [GameController sharedController].valuesManager.kPointsStandardEliminate +noOfSuperiorSingle * [GameController sharedController].valuesManager.kPointsSuperiorSingle + noOfSuperiorDouble * [GameController sharedController].valuesManager.kPointsSuperiorDouble + noOfSuperiorTriple * [GameController sharedController].valuesManager.kPointsSuperiorTriple + noOfSuperiorAll * [GameController sharedController].valuesManager.kPointsSuperiorAll + noOfNormal * [GameController sharedController].valuesManager.kPointsNormal + pow(levelOfCascading, 2) * 100;*/
     
+    totalPointsToAdd = totalPointsToAdd * 2;
+    pointsForOneStroke += totalPointsToAdd;
     if (isTutorial) {
         [[GameController sharedController].tutorialView addPoints:totalPointsToAdd];
     } else {
@@ -1151,13 +1170,17 @@
     float delayTime;
     if (isLShapeElimination) {
         delayTime = 0.6;
+        [[GameController sharedController].soundController playSound:@"LShapeMatch"];
     } else if (isColorElimination) {
         delayTime = 0.5;
+        [[GameController sharedController].soundController playSound:@"colorMatch"];
     } else if (isExplosion) {
-        delayTime = 0.3;
-    } else {
+        delayTime = explosionDelay - 0.2;
+    } else if (isNormalMatch) {
         delayTime = 0;
+        [[GameController sharedController].soundController playSound:@"Match"];
     }
+    
     [self runAction:
      [CCSequence actions:
       [CCDelayTime actionWithDuration:delayTime],
@@ -1165,13 +1188,20 @@
          isLShapeElimination = NO;
          isColorElimination = NO;
          isExplosion = NO;
+         isNormalMatch = NO;
+         explosionDelay = 0;
          [self refillGameField];
      }],
       nil]];
 }
 
+- (void)explosionSound
+{
+    [[GameController sharedController].soundController playSound:@"explosionMatch"];
+}
+
 - (void)refillGameField {
-    if (isTutorial) {
+    if (isTutorial && tutorialStep!=4) {
         [self refillGameFieldForTutorial];
         return;
     }
@@ -1296,6 +1326,7 @@
 - (id)initWithTutorial
 {
     if (self = [super init]) {
+        multiplier = 1;
         isTutorial = YES;
         isVisible = NO;
         isNuclearBomb = NO;
@@ -1317,17 +1348,6 @@
         elementManager = [GameController sharedController].elementManager;
         labelManager = [GameController sharedController].labelManager;
         firstTouchedElement = nil;
-        
-        hintAnim = [[CCSprite alloc] init];
-        [self addChild:hintAnim];
-        hintAnimationFrames = [[CCAnimation alloc] init];
-        for (int i = 0; i < 10; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_0%i.png", i]];
-        }
-        for (int i = 10; i < 48; i ++) {
-            [hintAnimationFrames addSpriteFrameWithFilename:[NSString stringWithFormat:@"T_%i.png", i]];
-        }
-        hintAnimationFrames.delayPerUnit = 0.05;
         
         int config[8][8] =
            {{2,0,0,2,0,3,3,1},
@@ -1395,6 +1415,8 @@
         [[gameGrid objectAtIndex:5] addObject:newElement3];
         
         tutorialStep = 1;
+        [self repositionAllElements];
+        [self resetLocalStore];
         
     } else if (tutorialStep == 1) {
         Match4Element *newElement1 = [elementManager ElementWithType:0];
@@ -1458,6 +1480,8 @@
         [[gameGrid objectAtIndex:3] addObject:newElement10];
         
         tutorialStep = 2;
+        [self repositionAllElements];
+        [self resetLocalStore];
     
     } else if(tutorialStep == 2) {
         Match4Element *newElement1 = [elementManager ElementWithType:0];
@@ -1581,17 +1605,13 @@
         [[gameGrid objectAtIndex:7] addObject:newElement20];
         
         tutorialStep = 3;
+        [self repositionAllElements];
+        [self resetLocalStore];
         
     } else if (tutorialStep == 3) {
-        //isTutorial = NO;
+        tutorialStep = 4;
+        [self refillGameField];
     }
-    
-    //if (isTutorial) {
-        [self repositionAllElements];
-        
-        [self resetLocalStore];
-
-    //}
 }
 
 - (void) addMask {
@@ -1611,6 +1631,9 @@
         mask4 = [CCSprite spriteWithFile:@"hint_board_4.png"];
         mask4.position = ccp(160, 160);
         [self addChild:mask4 z:100];
+    } else if (tutorialStep == 4) {
+        isTutorial = NO;
+        [[GameController sharedController].tutorialView quit];
     }
 }
 
@@ -1628,7 +1651,6 @@
     } else if (tutorialStep == 3) {
         [mask4 removeFromParent];
         mask4 = nil;
-        isTutorial = NO;
     }
 }
 

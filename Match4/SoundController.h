@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface SoundController : NSObject
+@interface SoundController : NSObject <AVAudioPlayerDelegate> {
+    NSUserDefaults *userDefaults;
+    BOOL isSFXOff;
+    NSMutableDictionary *SFX;
+}
+
+@property (nonatomic) BOOL isSFXOff;
+
+- (void)playSound:(NSString *)thisSound;
+- (void)turnSoundOn;
+- (void)turnSoundOff;
 
 @end

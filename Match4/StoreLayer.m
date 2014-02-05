@@ -20,7 +20,7 @@
         store_bg.position = ccp(160, 180);
         [self addChild:store_bg];
         
-        store_banner = [CCSprite spriteWithFile:@"store_banner.png"];
+        store_banner = [CCSprite spriteWithFile:@"item_banner.png"];
         store_banner.position = ccp(127, 330);
         [store_bg addChild:store_banner];
         
@@ -58,25 +58,28 @@
                 nCoin = 10000;
                 nPrice = 29.99;
             }
+            store_coin_icon[i] = [CCSprite spriteWithFile:@"store_coin.png"];
+            store_coin_icon[i].position = ccp(55, 23);
+            [store_coinbg[i] addChild:store_coin_icon[i]];
             store_coin_label[i] = [Match4Label labelWithString:[NSString stringWithFormat:@"%i",nCoin] fontSize:12];
-            store_coin_label[i].position = ccp(85, 23);
+            store_coin_label[i].anchorPoint = ccp(0, 0);
+            store_coin_label[i].position = ccp(62, 15);
             [store_coinbg[i] addChild:store_coin_label[i]];
+            store_price_icon[i] = [CCSprite spriteWithFile:@"store_dollar.png"];
+            store_price_icon[i].position = ccp(118, 23);
+            [store_coinbg[i] addChild:store_price_icon[i]];
             store_price_label[i] = [Match4Label labelWithString:[NSString stringWithFormat:@"%.2f",nPrice] fontSize:12];
-            store_price_label[i].position = ccp(140, 23);
+            store_price_label[i].anchorPoint = ccp(0, 0);
+            store_price_label[i].position = ccp(123, 15);
             [store_coinbg[i] addChild:store_price_label[i]];
         }
-        
-        /*back = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithFile:@"store_back_button.png"] selectedSprite:[CCSprite spriteWithFile:@"store_back_button_l.png"] target:self selector:@selector(back)];
-        CCMenu *closeM = [CCMenu menuWithItems:back, nil];
-        closeM.position = ccp(14, -28);
-        [store_bg addChild:closeM];*/
-
     }
     return self;
 }
 
 -(void) buyCoin:(id)target
 {
+    [[GameController sharedController].soundController playSound:@"GeneralMenuButton"];
     int tag = ((CCNode*)target).tag;
     //[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     [[GameController sharedController].storeObserver requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {

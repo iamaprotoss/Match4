@@ -33,11 +33,14 @@
     NSInteger group[8][8];
     NSInteger hintGroup[8][8];
     
+    BOOL isNormalMatch;
     BOOL isExplosion;
     BOOL isColorElimination;
     BOOL isLShapeElimination;
     BOOL isNuclearBomb;
     BOOL isCascading;
+    
+    float explosionDelay;
     
     BOOL isShockWave;
     CGPoint shockwaveCentre;
@@ -54,9 +57,12 @@
     int noOfNormal;
     int levelOfCascading;
     
+    int multiplier;
+    
     //int levelOfChain;
     
     int totalPointsToAdd;
+    int pointsForOneStroke;
     // Special effects
     NSMutableDictionary *special;
     

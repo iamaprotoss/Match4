@@ -23,6 +23,8 @@
     CCSprite *store_coinbg[5];
     CCMenu *store_buy[5];
     CCSprite *store_coin[5];
+    CCSprite *store_coin_icon[5];
+    CCSprite *store_price_icon[5];
     Match4Label *store_coin_label[5];
     Match4Label *store_price_label[5];
     
