@@ -565,6 +565,18 @@
 		041F7BC7189F29C200586BE7 /* win_star_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F7984189F29C100586BE7 /* win_star_icon@2x.png */; };
 		041F7BC8189F29C200586BE7 /* win_win@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F7985189F29C100586BE7 /* win_win@2x.png */; };
 		041F7BC9189F29C200586BE7 /* win_win_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041F7986189F29C200586BE7 /* win_win_ch@2x.png */; };
+		0473A6ED18A35ACB006C6A3D /* element_baiyang.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E118A35ACB006C6A3D /* element_baiyang.png */; };
+		0473A6EE18A35ACB006C6A3D /* element_chunv.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E218A35ACB006C6A3D /* element_chunv.png */; };
+		0473A6EF18A35ACB006C6A3D /* element_jinniu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E318A35ACB006C6A3D /* element_jinniu.png */; };
+		0473A6F018A35ACB006C6A3D /* element_juxie.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E418A35ACB006C6A3D /* element_juxie.png */; };
+		0473A6F118A35ACB006C6A3D /* element_mojie.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E518A35ACB006C6A3D /* element_mojie.png */; };
+		0473A6F218A35ACB006C6A3D /* element_sheshou.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E618A35ACB006C6A3D /* element_sheshou.png */; };
+		0473A6F318A35ACB006C6A3D /* element_shizi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E718A35ACB006C6A3D /* element_shizi.png */; };
+		0473A6F418A35ACB006C6A3D /* element_shuangyu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E818A35ACB006C6A3D /* element_shuangyu.png */; };
+		0473A6F518A35ACB006C6A3D /* element_shuangzi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6E918A35ACB006C6A3D /* element_shuangzi.png */; };
+		0473A6F618A35ACB006C6A3D /* element_shuiping.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6EA18A35ACB006C6A3D /* element_shuiping.png */; };
+		0473A6F718A35ACB006C6A3D /* element_tianping.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6EB18A35ACB006C6A3D /* element_tianping.png */; };
+		0473A6F818A35ACB006C6A3D /* element_tianxie.png in Resources */ = {isa = PBXBuildFile; fileRef = 0473A6EC18A35ACB006C6A3D /* element_tianxie.png */; };
 		04B1B5AD1879998600AC1BFD /* ValuesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1B5AC1879998600AC1BFD /* ValuesManager.m */; };
 		04D9C34E188EB1F100EB08F4 /* Match4TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D9C34D188EB1F100EB08F4 /* Match4TutorialView.m */; };
 		180311391885243F00CE0DD7 /* StoreLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 180311381885243F00CE0DD7 /* StoreLayer.m */; };
@@ -1917,6 +1929,18 @@
 		041F7984189F29C100586BE7 /* win_star_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "win_star_icon@2x.png"; sourceTree = "<group>"; };
 		041F7985189F29C100586BE7 /* win_win@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "win_win@2x.png"; sourceTree = "<group>"; };
 		041F7986189F29C200586BE7 /* win_win_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "win_win_ch@2x.png"; sourceTree = "<group>"; };
+		0473A6E118A35ACB006C6A3D /* element_baiyang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_baiyang.png; sourceTree = "<group>"; };
+		0473A6E218A35ACB006C6A3D /* element_chunv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_chunv.png; sourceTree = "<group>"; };
+		0473A6E318A35ACB006C6A3D /* element_jinniu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_jinniu.png; sourceTree = "<group>"; };
+		0473A6E418A35ACB006C6A3D /* element_juxie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_juxie.png; sourceTree = "<group>"; };
+		0473A6E518A35ACB006C6A3D /* element_mojie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_mojie.png; sourceTree = "<group>"; };
+		0473A6E618A35ACB006C6A3D /* element_sheshou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_sheshou.png; sourceTree = "<group>"; };
+		0473A6E718A35ACB006C6A3D /* element_shizi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_shizi.png; sourceTree = "<group>"; };
+		0473A6E818A35ACB006C6A3D /* element_shuangyu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_shuangyu.png; sourceTree = "<group>"; };
+		0473A6E918A35ACB006C6A3D /* element_shuangzi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_shuangzi.png; sourceTree = "<group>"; };
+		0473A6EA18A35ACB006C6A3D /* element_shuiping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_shuiping.png; sourceTree = "<group>"; };
+		0473A6EB18A35ACB006C6A3D /* element_tianping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_tianping.png; sourceTree = "<group>"; };
+		0473A6EC18A35ACB006C6A3D /* element_tianxie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = element_tianxie.png; sourceTree = "<group>"; };
 		04B1B5AB1879998600AC1BFD /* ValuesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValuesManager.h; sourceTree = "<group>"; };
 		04B1B5AC1879998600AC1BFD /* ValuesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValuesManager.m; sourceTree = "<group>"; };
 		04D9C34C188EB1F100EB08F4 /* Match4TutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match4TutorialView.h; sourceTree = "<group>"; };
@@ -3359,6 +3383,18 @@
 		041F783F189F29C100586BE7 /* Element */ = {
 			isa = PBXGroup;
 			children = (
+				0473A6E118A35ACB006C6A3D /* element_baiyang.png */,
+				0473A6E218A35ACB006C6A3D /* element_chunv.png */,
+				0473A6E318A35ACB006C6A3D /* element_jinniu.png */,
+				0473A6E418A35ACB006C6A3D /* element_juxie.png */,
+				0473A6E518A35ACB006C6A3D /* element_mojie.png */,
+				0473A6E618A35ACB006C6A3D /* element_sheshou.png */,
+				0473A6E718A35ACB006C6A3D /* element_shizi.png */,
+				0473A6E818A35ACB006C6A3D /* element_shuangyu.png */,
+				0473A6E918A35ACB006C6A3D /* element_shuangzi.png */,
+				0473A6EA18A35ACB006C6A3D /* element_shuiping.png */,
+				0473A6EB18A35ACB006C6A3D /* element_tianping.png */,
+				0473A6EC18A35ACB006C6A3D /* element_tianxie.png */,
 				041F7840189F29C100586BE7 /* element1p@2x.png */,
 				041F7841189F29C100586BE7 /* element2p@2x.png */,
 				041F7842189F29C100586BE7 /* element3p@2x.png */,
@@ -5635,6 +5671,7 @@
 				188D365E1869384400D92C98 /* rectifySymbolMorph14@2x.png in Resources */,
 				041F7ABE189F29C200586BE7 /* SFX2_16@2x.png in Resources */,
 				188DC846187E3183002E8BB2 /* SFX-SymbolSelect_A.caf in Resources */,
+				0473A6F218A35ACB006C6A3D /* element_sheshou.png in Resources */,
 				041F7BA6189F29C200586BE7 /* store_buy@2x.png in Resources */,
 				188D36B61869384400D92C98 /* iphone5introBackground@2x.png in Resources */,
 				188D36721869384400D92C98 /* superSymbolMorph02@2x.png in Resources */,
@@ -5787,6 +5824,7 @@
 				188D36161869384300D92C98 /* symbol10-3.png in Resources */,
 				041F79D5189F29C200586BE7 /* 2nd0113_ipad.png in Resources */,
 				041F79F0189F29C200586BE7 /* lightening_19_ipad@2x.png in Resources */,
+				0473A6EF18A35ACB006C6A3D /* element_jinniu.png in Resources */,
 				041F7B86189F29C200586BE7 /* start_live@2x.png in Resources */,
 				041F7ABF189F29C200586BE7 /* SFX2_17@2x.png in Resources */,
 				041F7B97189F29C200586BE7 /* start_setting_bg@2x.png in Resources */,
@@ -5843,6 +5881,7 @@
 				188D368F1869384400D92C98 /* howtoplaybutton@2x.png in Resources */,
 				041F7B88189F29C200586BE7 /* start_lv_bg@2x.png in Resources */,
 				188D35E41869384300D92C98 /* iphone_freeapp_press.png in Resources */,
+				0473A6F118A35ACB006C6A3D /* element_mojie.png in Resources */,
 				188D35981869384300D92C98 /* rectifySymbolMorph05.png in Resources */,
 				188DC83A187E3183002E8BB2 /* SFX-HiddenSymbolMorph.caf in Resources */,
 				041F7ABD189F29C200586BE7 /* SFX2_15@2x.png in Resources */,
@@ -5962,6 +6001,7 @@
 				041F7B3D189F29C200586BE7 /* hint_board_4@2x.png in Resources */,
 				041F7A08189F29C200586BE7 /* lighteningv_19_ipad@2x.png in Resources */,
 				188D35FC1869384300D92C98 /* mainmenu6.png in Resources */,
+				0473A6F318A35ACB006C6A3D /* element_shizi.png in Resources */,
 				188D35A61869384300D92C98 /* rectifySymbolMorph19.png in Resources */,
 				188D35451869384300D92C98 /* powButton-ipad@2x.png in Resources */,
 				041F7B05189F29C200586BE7 /* lighteningv_01@2x.png in Resources */,
@@ -6047,6 +6087,7 @@
 				188D36501869384400D92C98 /* rectifySymbolMorph00@2x.png in Resources */,
 				188DC838187E3183002E8BB2 /* SFX-5Match.caf in Resources */,
 				188DC830187E3183002E8BB2 /* MUSIC-02-InTheGame-Mono.m4a in Resources */,
+				0473A6F718A35ACB006C6A3D /* element_tianping.png in Resources */,
 				188D35931869384300D92C98 /* rectifySymbolMorph00.png in Resources */,
 				041F7AE9189F29C200586BE7 /* 2nd0118.png in Resources */,
 				041F7AFD189F29C200586BE7 /* lightening_17@2x.png in Resources */,
@@ -6066,6 +6107,7 @@
 				188D36961869384400D92C98 /* iapbgbutton1@2x.png in Resources */,
 				188D35C11869384300D92C98 /* superSymbolMorph14.png in Resources */,
 				1892B1AF1868243A00F48431 /* Icon-72.png in Resources */,
+				0473A6ED18A35ACB006C6A3D /* element_baiyang.png in Resources */,
 				041F7A59189F29C200586BE7 /* start_gold_bg_ipad@2x.png in Resources */,
 				188D34FC1869384300D92C98 /* superSymbolMorph03-ipad@2x.png in Resources */,
 				188D34D01869384300D92C98 /* beam06-ipad@2x.png in Resources */,
@@ -6078,6 +6120,7 @@
 				188D35C51869384300D92C98 /* superSymbolMorph18.png in Resources */,
 				188D35851869384300D92C98 /* beam02.png in Resources */,
 				041F7B2A189F29C200586BE7 /* t2_14@2x.png in Resources */,
+				0473A6F818A35ACB006C6A3D /* element_tianxie.png in Resources */,
 				188D35CD1869384300D92C98 /* byteSymbol.png in Resources */,
 				188D36551869384400D92C98 /* rectifySymbolMorph05@2x.png in Resources */,
 				188D36521869384400D92C98 /* rectifySymbolMorph02@2x.png in Resources */,
@@ -6199,6 +6242,7 @@
 				188D36C51869384400D92C98 /* logo@2x.png in Resources */,
 				1892B1BC1868243A00F48431 /* iTunesArtwork in Resources */,
 				041F79F8189F29C200586BE7 /* lighteningv_03_ipad@2x.png in Resources */,
+				0473A6F518A35ACB006C6A3D /* element_shuangzi.png in Resources */,
 				188D362E1869384400D92C98 /* zookeeper_logo.png in Resources */,
 				041F7A10189F29C200586BE7 /* t2_03_ipad@2x.png in Resources */,
 				188D36821869384400D92C98 /* superSymbolMorph18@2x.png in Resources */,
@@ -6277,6 +6321,7 @@
 				188D34AD1869384300D92C98 /* Icon-72.png in Resources */,
 				188D35FA1869384300D92C98 /* mainmenu4.png in Resources */,
 				041F7AFE189F29C200586BE7 /* lightening_18@2x.png in Resources */,
+				0473A6EE18A35ACB006C6A3D /* element_chunv.png in Resources */,
 				041F79E2189F29C200586BE7 /* lightening_05_ipad@2x.png in Resources */,
 				041F7B1B189F29C200586BE7 /* lighteningv_23@2x.png in Resources */,
 				041F7B04189F29C200586BE7 /* lighteningv_00@2x.png in Resources */,
@@ -6389,6 +6434,7 @@
 				041F79E1189F29C200586BE7 /* lightening_04_ipad@2x.png in Resources */,
 				188D36E51869384400D92C98 /* symbol10-3@2x.png in Resources */,
 				041F7AF8189F29C200586BE7 /* lightening_12@2x.png in Resources */,
+				0473A6F618A35ACB006C6A3D /* element_shuiping.png in Resources */,
 				041F7BC3189F29C200586BE7 /* win_restart_l@2x.png in Resources */,
 				041F79C4189F29C200586BE7 /* 2nd0096_ipad.png in Resources */,
 				041F7A14189F29C200586BE7 /* t2_07_ipad@2x.png in Resources */,
@@ -6465,6 +6511,7 @@
 				188D36D31869384400D92C98 /* progressBar@2x.png in Resources */,
 				188D36261869384400D92C98 /* symbol5-shift.png in Resources */,
 				041F7AE2189F29C200586BE7 /* 2nd0111.png in Resources */,
+				0473A6F418A35ACB006C6A3D /* element_shuangyu.png in Resources */,
 				188D36931869384400D92C98 /* iapbackground3@2x.jpg in Resources */,
 				188D360E1869384300D92C98 /* symbol1-glow.png in Resources */,
 				041F7AEB189F29C200586BE7 /* 2nd0120.png in Resources */,
@@ -6512,6 +6559,7 @@
 				041F7AFB189F29C200586BE7 /* lightening_15@2x.png in Resources */,
 				188D357A1869384300D92C98 /* explodingSymbol08.png in Resources */,
 				188D36AD1869384400D92C98 /* iphone5_pause_press.png in Resources */,
+				0473A6F018A35ACB006C6A3D /* element_juxie.png in Resources */,
 				041F7A58189F29C200586BE7 /* start_bg_ipad@2x.png in Resources */,
 				041F7A9D189F29C200586BE7 /* element0p@2x.png in Resources */,
 				188D36921869384400D92C98 /* iapbackground2@2x.jpg in Resources */,
