@@ -16,15 +16,15 @@
 {
     if ([super init]) {
         NSMutableArray *str = [NSMutableArray arrayWithObjects:@"1st", @"2nd", @"3rd", nil];
-        friendsbg = [CCSprite spriteWithFile:@"friends_bg_1@2x.png"];
+        friendsbg = [CCSprite spriteWithFile:@"friends_bg_1.png"];
         friendsbg.position = ccp(160, 206);
         [self addChild:friendsbg];
         
-        start_title = [CCSprite spriteWithFile:@"start_title1@2x.png"];
+        start_title = [CCSprite spriteWithFile:@"start_title1.png"];
         start_title.position = ccp(160, 280);
         [friendsbg addChild:start_title];
         
-        friendsbanner = [CCSprite spriteWithFile:@"item_banner@2x.png"];
+        friendsbanner = [CCSprite spriteWithFile:@"item_banner.png"];
         friendsbanner.position = ccp(160, 315);
         [self addChild:friendsbanner];
         

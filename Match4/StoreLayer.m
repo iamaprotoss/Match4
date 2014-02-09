@@ -47,10 +47,10 @@
                 nPrice = 0.99;
             } else if (i == 1) {
                 nCoin = 500;
-                nPrice = 3.99;
+                nPrice = 2.99;
             } else if (i == 2) {
                 nCoin = 1000;
-                nPrice = 5.99;
+                nPrice = 4.99;
             } else if (i == 3) {
                 nCoin = 5000;
                 nPrice = 19.99;

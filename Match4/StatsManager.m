@@ -38,7 +38,7 @@
 {
     if (self = [super init]) {
         userDefaults = [[NSUserDefaults standardUserDefaults] retain];
-        currentMoney = 1000;
+        currentMoney = 2000;
         currentLife = 5;
         currentExperience = 0;
         currentLevel = 1;

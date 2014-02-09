@@ -26,13 +26,19 @@
 - (id)initWithDictionary:(NSMutableDictionary *)thisDict
 {
     if (self = [super init]) {
+        special = [thisDict copy];
         isTutorial = NO;
         isVisible = NO;
         isNuclearBomb = NO;
         isExplosion = NO;
         isColorElimination = NO;
         levelOfCascading = 0;
-        multiplier = 1;
+        if ([[special objectForKey:@"Initial Double Score"] boolValue]) {
+            multiplier = 2;
+            [[GameController sharedController].timeView increaseMultiplier];
+        } else {
+            multiplier = 1;
+        }
         //levelOfChain = 0;
         gameGrid = [[NSMutableArray alloc] init];
         //hintGrid = [[NSMutableArray alloc] init];
@@ -49,7 +55,7 @@
         initialSuperiorIndex[0] = -1;
         initialSuperiorIndex[1] = -1;
         initialSuperiorIndex[2] = -1;
-        special = [thisDict copy];
+
         if ([[special objectForKey:@"Initial Superior Element"] boolValue]) {
             int p1 = arc4random()%64;
             int p2 = (p1+1+arc4random()%63)%64;

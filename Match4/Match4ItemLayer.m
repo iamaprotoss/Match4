@@ -35,9 +35,9 @@
         [self addChild:item_title];
         
         [self placeItem:0 atPosition:ccp(90, 275) withPrice:100];
-        [self placeItem:1 atPosition:ccp(160, 275) withPrice:200];
-        [self placeItem:2 atPosition:ccp(230, 275) withPrice:300];
-        [self placeItem:3 atPosition:ccp(120, 200) withPrice:400];
+        [self placeItem:1 atPosition:ccp(160, 275) withPrice:100];
+        [self placeItem:2 atPosition:ccp(230, 275) withPrice:100];
+        [self placeItem:3 atPosition:ccp(120, 200) withPrice:300];
         [self placeItem:4 atPosition:ccp(200, 200) withPrice:500];
         
         //self.position = ccp(160, 320);
@@ -136,7 +136,7 @@
                              [NSNumber numberWithFloat:item_item[Id].position.x], @"original x",
                              [NSNumber numberWithFloat:item_item[Id].position.y], @"original y",
                              [NSNumber numberWithBool:NO], @"is selected",
-                             [NSNumber numberWithInt:100*(Id+1)], @"price",
+                             [NSNumber numberWithInt:price], @"price",
                              nil];
     [self addChild:item_item[Id]];
     CCSprite *item_price = [CCSprite spriteWithFile:@"item_price.png"];

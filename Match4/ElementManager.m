@@ -85,8 +85,8 @@
     Match4Element *newElement = [[[Match4Element alloc] init] autorelease];
     
     int i = arc4random()%maxTypes;
-    //newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", i]];
-    NSString *elementName;
+    newElement.ElementImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"element%dp.png", i]];
+    /*NSString *elementName;
     switch (i) {
         case 0:
             elementName = @"element_baiyang.png";
@@ -127,7 +127,7 @@
         default:
             break;
     }
-    newElement.ElementImage = [CCSprite spriteWithFile:elementName];
+    newElement.ElementImage = [CCSprite spriteWithFile:elementName];*/
     
     [newElement addChild:newElement.ElementImage];
     newElement.isOfType = i;

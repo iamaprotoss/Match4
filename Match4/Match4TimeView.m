@@ -68,23 +68,12 @@
             play_multimark.position = ccp(280, 500);
             [self addChild:play_multimark];
             play_multi_label = [Match4Label labelWithString:@"1" fontSize:18];
+            play_multi_label.color = ccc3(20, 120, 150);
             play_multi_label.position = ccp(290, 500);
             [self addChild:play_multi_label];
             
-            play_time_bg = [CCSprite spriteWithFile:@"play_time_bg.png"];
-            play_time_bg.position = ccp(160, 67);
-            [self addChild:play_time_bg];
-            
-            play_time_bar = [CCSprite spriteWithFile:@"play_time_progress.png"];
-            play_time_bar.anchorPoint = ccp(0, 0);
-            play_time_bar.position = ccp(66, 60);
-            //play_timeBar.scaleX = 1.32;
-            [self addChild:play_time_bar];
-            
             CCSprite *play_pauseNormal = [CCSprite spriteWithFile:@"play_pause_button.png"];
-            //play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
             CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_l.png"];
-            //play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
             CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
             play_pause_btn= [CCMenu menuWithItems:play_pause, nil];
             play_pause_btn.position = ccp(35, 67);
@@ -108,6 +97,18 @@
             } else {
                 gameTime = 60;
             }
+            play_time_bg = [CCSprite spriteWithFile:@"play_time_bg.png"];
+            play_time_bg.position = ccp(160, 67);
+            [self addChild:play_time_bg];
+            play_time_bar = [CCSprite spriteWithFile:@"play_time_progress.png"];
+            play_time_bar.anchorPoint = ccp(0, 0);
+            play_time_bar.position = ccp(66, 60);
+            [self addChild:play_time_bar];
+            play_time_tick = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameTime] fontSize:15];
+            play_time_tick.position = ccp(160, 67);
+            play_time_tick.color = ccc3(0, 255, 0);
+            [self addChild:play_time_tick];
+
             isPlaying = YES;
             isGameOver = NO;
             gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
@@ -153,29 +154,15 @@
             play_multi_label.position = ccp(290, 450);
             [self addChild:play_multi_label];
             
-            play_time_bg = [CCSprite spriteWithFile:@"play_time_bg.png"];
-            play_time_bg.position = ccp(160, 67);
-            [self addChild:play_time_bg];
-            
-            play_time_bar = [CCSprite spriteWithFile:@"play_time_progress.png"];
-            play_time_bar.anchorPoint = ccp(0, 0);
-            play_time_bar.position = ccp(66, 60);
-            //play_timeBar.scaleX = 1.32;
-            [self addChild:play_time_bar];
-            
             CCSprite *play_pauseNormal = [CCSprite spriteWithFile:@"play_pause_button.png"];
-            //play_pauseNormal.anchorPoint = ccp(0.5, 0.5);
             CCSprite *play_pauseSelected = [CCSprite spriteWithFile:@"play_pause_button_l.png"];
-            //play_pauseSelected.anchorPoint = ccp(0.5, 0.5);
             CCMenuItemSprite *play_pause = [CCMenuItemSprite itemWithNormalSprite:play_pauseNormal selectedSprite:play_pauseSelected target:self selector:@selector(pause)];
             play_pause_btn= [CCMenu menuWithItems:play_pause, nil];
             play_pause_btn.position = ccp(35, 67);
             [self addChild:play_pause_btn];
             
             CCSprite *play_hintNormal = [CCSprite spriteWithFile:@"play_help_btn_bg.png"];
-            //play_hintNormal.anchorPoint = ccp(0.5, 0.5);
             CCSprite *play_hintSelected = [CCSprite spriteWithFile:@"play_help_btn_bg_l.png"];
-            //play_hintSelected.anchorPoint = ccp(0.5, 0.5);
             CCMenuItemSprite *play_hint = [CCMenuItemSprite itemWithNormalSprite:play_hintNormal selectedSprite:play_hintSelected target:self selector:@selector(hint)];
             play_hint_btn = [CCMenu menuWithItems:play_hint, nil];
             play_hint_btn.position = ccp(280, 67);
@@ -190,10 +177,21 @@
             } else {
                 gameTime = 60;
             }
+            play_time_bg = [CCSprite spriteWithFile:@"play_time_bg.png"];
+            play_time_bg.position = ccp(160, 67);
+            [self addChild:play_time_bg];
+            
+            play_time_bar = [CCSprite spriteWithFile:@"play_time_progress.png"];
+            play_time_bar.anchorPoint = ccp(0, 0);
+            play_time_bar.position = ccp(66, 60);
+            [self addChild:play_time_bar];
+            play_time_tick = [Match4Label labelWithString:[NSString stringWithFormat:@"%i", gameTime] fontSize:15];
+            play_time_tick.position = ccp(160, 67);
+            play_time_tick.color = ccc3(0, 255, 0);
+            [self addChild:play_time_tick];
             isPlaying = YES;
             isGameOver = NO;
             gameEngine = [[Match4EngineGame alloc] initWithDictionary:special];
-            //gameEngine = [[Match4EngineGame alloc] initWithTutorial];
             gameEngine.position = ccp(0, 100);
             [self addChild:gameEngine];
         }
@@ -216,13 +214,12 @@
         if (self.timer > 0) {
             self.timer --;
         }
-        //[play_timeBar removeFromParent];
-        //play_timeBar = [CCSprite spriteWithFile:@"play_time_bar.png"]; //rect:CGRectMake(0, 0, 100, 5*self.timer)];
-        //play_timeBar.rotation = 90;
-        play_time_bar.scaleX = self.timer/gameTime;//*1.32;
-        //play_timeBar.anchorPoint = ccp(0, 0);
+        play_time_bar.scaleX = 1.0*self.timer/gameTime;
         play_time_bar.position = ccp(66, 60);
-        //[self addChild:play_timeBar];
+        play_time_tick.string = [NSString stringWithFormat:@"%i", self.timer];
+        if (self.timer < 10) {
+            play_time_tick.color = ccc3(255, 0, 0);
+        }
         if (self.timer <= 0 && gameEngine.canTouch == YES) {
             gameEngine.canTouch = NO;
             [self unschedule:@selector(countDown)];
@@ -264,7 +261,7 @@
     }
     [[GameController sharedController].statsManager insertHighScore:totalScore];
     [self computeLevelAndExperience];
-    [self computeMoney];
+    moneyEarned = [self computeMoney];
     [[GameController sharedController].statsManager setStats];
     
     if (IS_IPHONE_5) {
@@ -272,14 +269,14 @@
         mask_bg.anchorPoint = ccp(0, 0);
         mask_bg.position = ccp(0, 0);
         [self addChild:mask_bg];
-        gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:(int)pow(gameScore/10, 1)];
+        gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:moneyEarned];
         gameOverView.position = ccp(0, 100);
     } else {
         mask_bg = [CCSprite spriteWithFile:@"help_bg_3.5.png"];
         mask_bg.anchorPoint = ccp(0, 0);
         mask_bg.position = ccp(0, 0);
         [self addChild:mask_bg];
-        gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:(int)pow(gameScore/10, 1)];
+        gameOverView = [[Match4GameOverLayer alloc] initWithScore:totalScore money:moneyEarned];
         gameOverView.position = ccp(0, 80);
     }
     
@@ -290,7 +287,6 @@
 {
     int experience = [GameController sharedController].statsManager.currentExperience;
     int level = [GameController sharedController].statsManager.currentLevel;
-    //int residual = experience - (level-1)*level*(2*level-1)/6*1000;
     int residual = experience + totalScore;
     NSLog(@"%f",pow(level, 2));
     while ((residual - pow(level, 2)*10000) >= 0) {
@@ -301,11 +297,11 @@
     [GameController sharedController].statsManager.currentLevel = level;
 }
 
--(void) computeMoney
+-(int) computeMoney
 {
-    int money = [GameController sharedController].statsManager.currentMoney;
-    money += (int)pow(gameScore/10, 1);
-    [GameController sharedController].statsManager.currentMoney = money;
+    int money = (int)(gameScore+200)/5000*100;
+    [GameController sharedController].statsManager.currentMoney += money;
+    return money;
 }
 
 -(void) pause

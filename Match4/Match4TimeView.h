@@ -32,19 +32,21 @@
     CCSprite *play_board;
     CCSprite *play_time_bg;
     CCSprite *play_time_bar;
+    Match4Label *play_time_tick;
     CCMenu *play_pause_btn;
     CCMenu *play_hint_btn;
     CCSprite *play_hint_title;
     int gameScore;
     int gameMultiplier;
     int totalScore;
+    int moneyEarned;
     
     NSMutableDictionary *special;
     
     BOOL isPlaying;
     BOOL isGameOver;
-    float timer;
-    float gameTime;
+    int timer;
+    int gameTime;
     
     CCAnimation *hintAnimationFrames;
 }
@@ -56,7 +58,7 @@
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isGameOver;
 @property (nonatomic, retain) Match4EngineGame *gameEngine;
-@property float timer;
+@property int timer;
 
 /*@property (nonatomic, retain) CCSprite *play_bg;
 @property (nonatomic, retain) CCSprite *play_points;

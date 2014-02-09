@@ -17,10 +17,10 @@
 
 // IAP macros
 #define IAP_100_COINS @"com.sincerupt.match4.IAP_100_COINS"
-#define IAP_500_COINS @"com.sincerupt.match4.IAP_500_COINS"
-#define IAP_1000_COINS @"com.sincerupt.match4.IAP_1000_COINS"
-#define IAP_5000_COINS @"com.sincerupt.match4.IAP_5001_COINS"
-#define IAP_10000_COINS @"com.sincerupt.match4.IAP_10000_COINS"
+#define IAP_500_COINS @"com.sincerupt.match4.IAP_501_COINS"
+#define IAP_1000_COINS @"com.sincerupt.match4.IAP_1001_COINS"
+#define IAP_5000_COINS @"com.sincerupt.match4.IAP_5002_COINS"
+#define IAP_10000_COINS @"com.sincerupt.match4.IAP_10001_COINS"
 
 // Screen types
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
